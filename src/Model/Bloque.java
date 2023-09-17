@@ -40,14 +40,14 @@ public final class Bloque extends Pane{
         this.y = y;
         this.ColorBloque = ColorBloque;
         
-        this.ColorBorde = Color.color(30/255.0, 30/255.0, 30/255.0);
+        this.ColorBorde = Color.color(0, 0, 0);
         this.TamBorde = 4;
         this.ancho = 100+ Math.random()*50;
         
         
         IniciarComponentes();
-        hacerMovible();
         Pintar();
+        hacerMovible();
     }
     
     
@@ -77,6 +77,8 @@ public final class Bloque extends Pane{
         //Se añaden los rectangulos
         getChildren().add(SidePart);
         getChildren().add(TopPart);
+        
+        
     }
     
     
@@ -113,7 +115,7 @@ public final class Bloque extends Pane{
     }
     
     public void Soltado(){
-        setColorBorde(Color.color(30/255.0, 30/255.0, 30/255.0));
+        setColorBorde(Color.color(0, 0, 0));
         setTamBorde(4);
     }
     
@@ -168,8 +170,6 @@ public final class Bloque extends Pane{
         
         //Colocar el tamaño de borde
         setTamBorde(this.TamBorde);
-        
-        setBackground(Background.fill(new Color(1,1,1,1)));
         
         
         //ancho de los rectangulos
