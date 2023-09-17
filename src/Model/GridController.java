@@ -36,7 +36,7 @@ public class GridController implements Initializable {
     public AnchorPane Grid;
     
     
-    public ArrayList<Pane> bloques = new ArrayList<Pane>();
+    public ArrayList<Bloque> bloques = new ArrayList<Bloque>();
     public Pane cirs = new Pane();
     
     public ArrayList<Double> posx = new ArrayList<Double>();
@@ -73,7 +73,7 @@ public class GridController implements Initializable {
     
     public void hacerNavegable() {
         cirs.setOnMousePressed((MouseEvent mouseEvent) -> {
-
+            guardarPosiciones();
             mouseAnchorX = mouseEvent.getX();
             mouseAnchorY = mouseEvent.getY();
         });;
@@ -94,7 +94,7 @@ public class GridController implements Initializable {
                 int u = i - cirs.getChildren().size();
                 double x = posx.get(i);
                 double y = posy.get(i);
-                if (u == 0) System.out.println(mouseEvent.getSceneX() - mouseAnchorX + x + " - " + x);
+                System.out.println(i+"   :   "+(mouseEvent.getSceneX() - mouseAnchorX + x));
                 bloques.get(u).setLayoutX(mouseEvent.getSceneX() - mouseAnchorX + x);
                 bloques.get(u).setLayoutY(mouseEvent.getSceneY() - mouseAnchorY + y);
             }
@@ -109,9 +109,9 @@ public class GridController implements Initializable {
             posx.add(c.getLayoutX());
             posy.add(c.getLayoutY());
         }
-        for (Pane c : bloques) {
-            posx.add(c.getLayoutX());
-            posy.add(c.getLayoutY());
+        for (Bloque c : bloques) {
+            posx.add(c.getX());
+            posy.add(c.getY());
         }
     }
     
@@ -133,7 +133,7 @@ public class GridController implements Initializable {
     
     
     public void crearBloque(Color c) {
-        Pane p = new Bloque(30, 30, c);
+        Bloque p = new Bloque(30, 30, c);
         Grid.getChildren().add(p);
         bloques.add(p);
     }
