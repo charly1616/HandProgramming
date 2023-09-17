@@ -92,9 +92,9 @@ public class GridController implements Initializable {
             }
             for (; i < posx.size(); i++) {
                 int u = i - cirs.getChildren().size();
-                double x = posx.get(u);
-                double y = posy.get(u);
-                System.out.println(bloques.get(u).getLayoutX() + " - " + x);
+                double x = posx.get(i);
+                double y = posy.get(i);
+                if (u == 0) System.out.println(mouseEvent.getSceneX() - mouseAnchorX + x + " - " + x);
                 bloques.get(u).setLayoutX(mouseEvent.getSceneX() - mouseAnchorX + x);
                 bloques.get(u).setLayoutY(mouseEvent.getSceneY() - mouseAnchorY + y);
             }

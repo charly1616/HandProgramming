@@ -128,7 +128,9 @@ public final class Bloque extends Pane{
     
     public void setPosicion(double x, double y){
         setLayoutX(x);
+        this.x = x;
         setLayoutY(y);
+        this.y = y;
     }
     
     public double getX(){
