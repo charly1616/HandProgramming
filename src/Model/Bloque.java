@@ -47,7 +47,6 @@ public final class Bloque extends Pane{
         
         IniciarComponentes();
         Pintar();
-        hacerMovible();
     }
     
     
@@ -82,30 +81,6 @@ public final class Bloque extends Pane{
     }
     
     
-    
-    public void hacerMovible(){
-        setOnMousePressed((MouseEvent mouseEvent) -> {
-            mouseAnchorX = mouseEvent.getX();
-            mouseAnchorY = mouseEvent.getY();
-        });
-        
-        
-        
-        setOnDragDetected((MouseEvent mouseEvent) -> {
-            Agarrado();
-        });
-        
-        setOnMouseDragged(mouseEvent -> {
-            setPosicion(mouseEvent.getSceneX() - mouseAnchorX,mouseEvent.getSceneY() - mouseAnchorY);
-            toFront();
-        });
-        
-        
-        setOnMouseReleased((MouseEvent mouseEvent) -> {
-            Soltado();
-        });
-        
-    }
     
     
     public void Agarrado(){

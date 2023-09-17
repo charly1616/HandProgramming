@@ -71,6 +71,34 @@ public class GridController implements Initializable {
     }
     
     
+    
+    
+    
+    public void hacerBloqueMovible(Bloque b){
+        b.setOnMousePressed((MouseEvent mouseEvent) -> {
+            b.mouseAnchorX = mouseEvent.getX();
+            b.mouseAnchorY = mouseEvent.getY();
+        });
+        
+        
+        
+        b.setOnDragDetected((MouseEvent mouseEvent) -> {
+            b.Agarrado();
+        });
+        
+        b.setOnMouseDragged(mouseEvent -> {
+            b.setPosicion(mouseEvent.getSceneX() -b. mouseAnchorX,mouseEvent.getSceneY() - b.mouseAnchorY);
+            b.toFront();
+        });
+        
+        
+        b.setOnMouseReleased((MouseEvent mouseEvent) -> {
+            b.Soltado();
+        });
+        
+    }
+    
+    
     public void hacerNavegable() {
         cirs.setOnMousePressed((MouseEvent mouseEvent) -> {
             guardarPosiciones();
@@ -102,6 +130,18 @@ public class GridController implements Initializable {
 
     }
     
+    
+    
+    
+    
+    public void detectarColision(Bloque b){
+        for (Bloque p : bloques) {
+            
+        }
+    }
+    
+    
+    
     public void guardarPosiciones(){
         posx.clear();
         posy.clear();
@@ -118,12 +158,12 @@ public class GridController implements Initializable {
     
     
     public void crearPuntos(){
-        for (int i = 0; i < 40; i++) {
-            for (int j = 0; j < 40; j++) {
+        for (int i = 0; i < 30; i++) {
+            for (int j = 0; j < 30; j++) {
                 Circle cir = new Circle();
                 cir.setRadius(1);
-                cir.setCenterX((i-20)*50);
-                cir.setCenterY((j-20)*50);
+                cir.setCenterX((i-15)*50);
+                cir.setCenterY((j-15)*50);
                 cir.setStrokeWidth(0);
                 cir.setFill(Color.GREY.darker().darker());
                 cirs.getChildren().add(cir);
@@ -134,6 +174,7 @@ public class GridController implements Initializable {
     
     public void crearBloque(Color c) {
         Bloque p = new Bloque(30, 30, c);
+        hacerBloqueMovible(p);
         Grid.getChildren().add(p);
         bloques.add(p);
     }
