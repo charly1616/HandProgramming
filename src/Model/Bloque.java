@@ -102,7 +102,7 @@ public final class Bloque extends Pane{
     
     
     public double[] getRecBounds(){
-        double [] c = {8+getX(), 7+getY(),ancho+8+getX(),this.getHeight()+getY()};
+        double [] c = {8+getX(), 7+getY(),ancho+8+getX(),this.getHeight()+getY()-18};
         return c;
     }
             
