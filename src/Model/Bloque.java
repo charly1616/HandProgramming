@@ -12,12 +12,15 @@ import javafx.scene.shape.Rectangle;
 public final class Bloque extends Pane{
     
     
+    public Conector conectado = null;
+    public Conector chorizontal;
+    
     //Componentes
     public Rectangle SidePart;
     public Rectangle TopPart;
     
     //Constantes
-    public static final int ALTO = 0;
+    public static final int ALTO = 84;
     
     
     //Propiedades
@@ -55,6 +58,9 @@ public final class Bloque extends Pane{
     
     
     public void IniciarComponentes(){
+        chorizontal = new Conector(getX()+15+ancho,getY());
+        chorizontal.setPosicion(x, y);
+        
         SidePart = new Rectangle();
         TopPart = new Rectangle();
         
@@ -82,6 +88,8 @@ public final class Bloque extends Pane{
         getChildren().add(TopPart);
         
         setHeight(77);
+        
+        
     }
     
     
@@ -114,9 +122,10 @@ public final class Bloque extends Pane{
     
     public void setPosicion(double x, double y){
         setLayoutX(x);
-        this.x = x;
         setLayoutY(y);
+        this.x = x;
         this.y = y;
+        if (chorizontal != null) chorizontal.setPosicion(x,y);
     }
     
     public double getX(){
@@ -165,15 +174,15 @@ public final class Bloque extends Pane{
         setLayoutX(this.x);
         setLayoutY(this.y);
         
-//        double[] d = this.getRecBounds();
-//        Circle t = new Circle(d[0],d[1],6);
-//        getChildren().add(t);
-//        t = new Circle(d[0],d[3],6);
-//        getChildren().add(t);
-//        t = new Circle(d[2],d[1],6);
-//        getChildren().add(t);
-//        t = new Circle(d[2],d[3],6);
-//        getChildren().add(t);
+        double[] d = this.getRecBounds();
+        Circle t = new Circle(d[0],d[1],6);
+        getChildren().add(t);
+        t = new Circle(d[0],d[3],6);
+        getChildren().add(t);
+        t = new Circle(d[2],d[1],6);
+        getChildren().add(t);
+        t = new Circle(d[2],d[3],6);
+        getChildren().add(t);
         
     }
     

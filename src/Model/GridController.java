@@ -59,7 +59,7 @@ public class GridController implements Initializable {
         
         hacerNavegable();
         
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             crearBloque(Color.BEIGE);
             crearBloque(Color.BURLYWOOD);
         }
@@ -96,12 +96,12 @@ public class GridController implements Initializable {
         b.setOnMouseDragged(mouseEvent -> {
             b.setPosicion(mouseEvent.getSceneX() -b. mouseAnchorX,mouseEvent.getSceneY() - b.mouseAnchorY);
             b.toFront();
+            detectarColision(b);
         });
         
         
         b.setOnMouseReleased((MouseEvent mouseEvent) -> {
             b.Soltado();
-            System.out.println(this.offsetX+"  -  "+this.offsetY);
             if (detectarColision(b)){
                 b.setPosicion(b.LastX+this.offsetX, b.LastY+ this.offsetY);
             } else {
@@ -166,8 +166,7 @@ public class GridController implements Initializable {
                 int u = i - cirs.getChildren().size();
                 double x = posx.get(i);
                 double y = posy.get(i);
-                bloques.get(u).setLayoutX(mouseEvent.getSceneX() - mouseAnchorX + x);
-                bloques.get(u).setLayoutY(mouseEvent.getSceneY() - mouseAnchorY + y);
+                bloques.get(u).setPosicion(mouseEvent.getSceneX() - mouseAnchorX + x,mouseEvent.getSceneY() - mouseAnchorY + y);
             }
             
         });
@@ -181,13 +180,19 @@ public class GridController implements Initializable {
     public boolean detectarColision(Bloque b){
         for (Bloque p : bloques) {
             if (p == b) continue;
+            
+            if (p.chorizontal.detectarColision(b)){
+                b.setColorBorde(Color.YELLOW);
+                p.chorizontal.setColorBorde(Color.YELLOW);
+            } else {
+                p.chorizontal.setColorBorde(Color.BLACK);
+            }
+            
+            
             double [] p2 = b.getRecBounds();
             double[] p1 = p.getRecBounds();
             
             if (!(p1[2] < p2[0] || p2[2] < p1[0] || p1[3] < p2[1] || p2[3] < p1[1])) {
-                System.out.println(p1[0] +" " + p1[1] + " " + p1[2] + " " + p1[3]);
-                System.out.println(p2[0] +" " + p2[1] + " " + p2[2] + " " + p2[3]);
-                System.out.println("\n");
                 return true;
             }
         }
@@ -225,22 +230,23 @@ public class GridController implements Initializable {
         }
     }
     
-     public void organizarBloques() {
-    ArrayList<Bloque> blq = new ArrayList<>(bloques);
+    public void organizarBloques() {
+        ArrayList<Bloque> blq = new ArrayList<>(bloques);
 
-    // Ordenar los bloques por su posición en el eje Y de manera descendente
-    blq.sort((bloque1, bloque2) -> Double.compare(bloque1.getLayoutY(), bloque2.getLayoutY()));
+        // Ordenar los bloques por su posición en el eje Y de manera descendente
+        blq.sort((bloque1, bloque2) -> Double.compare(bloque1.getLayoutY(), bloque2.getLayoutY()));
 
-    // Mantener las posiciones originales de los bloques al organizarlos
-    for (int i = 0; i < blq.size(); i++) {
-        Bloque bloque = blq.get(i);
-        bloque.toFront();
+        // Mantener las posiciones originales de los bloques al organizarlos
+        for (int i = 0; i < blq.size(); i++) {
+            Bloque bloque = blq.get(i);
+            bloque.toFront();
+        }
     }
-}
     
     public void crearBloque(Color c) {
         Bloque p = new Bloque(0, 0, c);
         hacerBloqueMovible(p);
+        if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
         Grid.getChildren().add(p);
         bloques.add(p);
     }
