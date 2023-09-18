@@ -46,6 +46,10 @@ public class GridController implements Initializable {
     public double mouseAnchorY;
     
     
+    public double offsetX = 0;
+    public double offsetY = 0;
+    double initialX, initialY;
+    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cirs.setScaleX(Grid.getScaleX());
@@ -55,16 +59,19 @@ public class GridController implements Initializable {
         
         hacerNavegable();
         
-        crearBloque(Color.BEIGE);
-        crearBloque(Color.BURLYWOOD);
-        crearBloque(Color.CORNFLOWERBLUE);
-        crearBloque(Color.DARKOLIVEGREEN);
-        crearBloque(Color.HOTPINK);
-        crearBloque(Color.BEIGE);
-        crearBloque(Color.BURLYWOOD);
-        crearBloque(Color.CORNFLOWERBLUE);
-        crearBloque(Color.DARKOLIVEGREEN);
-        crearBloque(Color.HOTPINK);
+        for (int i = 0; i < 10; i++) {
+            crearBloque(Color.BEIGE);
+            crearBloque(Color.BURLYWOOD);
+        }
+        
+//        crearBloque(Color.CORNFLOWERBLUE);
+//        crearBloque(Color.DARKOLIVEGREEN);
+//        crearBloque(Color.HOTPINK);
+//        crearBloque(Color.BEIGE);
+//        crearBloque(Color.BURLYWOOD);
+//        crearBloque(Color.CORNFLOWERBLUE);
+//        crearBloque(Color.DARKOLIVEGREEN);
+//        crearBloque(Color.HOTPINK);
         
         guardarPosiciones();
 
@@ -94,6 +101,15 @@ public class GridController implements Initializable {
         
         b.setOnMouseReleased((MouseEvent mouseEvent) -> {
             b.Soltado();
+            
+            if (detectarColision(b)){
+                b.setPosicion(b.LastX+this.offsetX, b.LastY+ this.offsetY);
+            } else {
+                b.LastX = b.getLayoutX() + this.offsetX;
+                b.LastY = b.getLayoutY() + this.offsetY;
+            }
+            
+            
         });
         
     }
@@ -104,20 +120,48 @@ public class GridController implements Initializable {
             guardarPosiciones();
             mouseAnchorX = mouseEvent.getX();
             mouseAnchorY = mouseEvent.getY();
+            initialX = mouseEvent.getSceneX();
+            initialY = mouseEvent.getSceneY();
         });;
-
+        
+        
         cirs.setOnMouseReleased((MouseEvent mouseEvent) -> {
             guardarPosiciones();
+            
         });
 
         cirs.setOnMouseDragged(mouseEvent -> {
+            offsetX += mouseEvent.getSceneX() - initialX;
+            offsetY += mouseEvent.getSceneY() - initialY;
+            
+            initialX = mouseEvent.getSceneX();
+            initialY = mouseEvent.getSceneY();
+            
+            //Mueve todo con relacion al mouse
             int i = 0;
+            //Recorre los puntos
             for (; i < cirs.getChildren().size(); i++) {
                 double x = posx.get(i);
                 double y = posy.get(i);
+                
+                while (x>250){
+                    x -= 500;
+                }
+                while (!(x>-250)){
+                    x += 500;
+                }
+                while (y>250){
+                    y -= 500;
+                }
+                while (!(y>-250)){
+                    y += 500;
+                }
+                
+                
                 cirs.getChildren().get(i).setLayoutX(mouseEvent.getSceneX() - mouseAnchorX + x);
                 cirs.getChildren().get(i).setLayoutY(mouseEvent.getSceneY() - mouseAnchorY + y);
             }
+            //Recorre los Bloques
             for (; i < posx.size(); i++) {
                 int u = i - cirs.getChildren().size();
                 double x = posx.get(i);
@@ -126,6 +170,7 @@ public class GridController implements Initializable {
                 bloques.get(u).setLayoutX(mouseEvent.getSceneX() - mouseAnchorX + x);
                 bloques.get(u).setLayoutY(mouseEvent.getSceneY() - mouseAnchorY + y);
             }
+            
         });
 
     }
@@ -134,10 +179,20 @@ public class GridController implements Initializable {
     
     
     
-    public void detectarColision(Bloque b){
+    public boolean detectarColision(Bloque b){
         for (Bloque p : bloques) {
+            if (p == b) continue;
+            double [] p2 = b.getRecBounds();
+            double[] p1 = p.getRecBounds();
             
+            if (!(p1[2] < p2[0] || p2[2] < p1[0] || p1[3] < p2[1] || p2[3] < p1[1])) {
+                System.out.println(p1[0] +" " + p1[1] + " " + p1[2] + " " + p1[3]);
+                System.out.println(p2[0] +" " + p2[1] + " " + p2[2] + " " + p2[3]);
+                System.out.println("\n");
+                return true;
+            }
         }
+        return false;
     }
     
     
@@ -162,8 +217,8 @@ public class GridController implements Initializable {
             for (int j = 0; j < 30; j++) {
                 Circle cir = new Circle();
                 cir.setRadius(1);
-                cir.setCenterX((i-15)*50);
-                cir.setCenterY((j-15)*50);
+                cir.setCenterX((i-10)*50);
+                cir.setCenterY((j-10)*50);
                 cir.setStrokeWidth(0);
                 cir.setFill(Color.GREY.darker().darker());
                 cirs.getChildren().add(cir);
@@ -173,7 +228,7 @@ public class GridController implements Initializable {
     
     
     public void crearBloque(Color c) {
-        Bloque p = new Bloque(30, 30, c);
+        Bloque p = new Bloque(0, 0, c);
         hacerBloqueMovible(p);
         Grid.getChildren().add(p);
         bloques.add(p);

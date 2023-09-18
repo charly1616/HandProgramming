@@ -5,6 +5,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 
@@ -32,12 +33,15 @@ public final class Bloque extends Pane{
     
     public double mouseAnchorX;
     public double mouseAnchorY;
-    
+    public double LastX;
+    public double LastY;
     
     //Constructor
     public Bloque(double x, double y, Color ColorBloque) {
         this.x = x;
+        LastX = x;
         this.y = y;
+        LastY = y;
         this.ColorBloque = ColorBloque;
         
         this.ColorBorde = Color.color(0, 0, 0);
@@ -77,7 +81,7 @@ public final class Bloque extends Pane{
         getChildren().add(SidePart);
         getChildren().add(TopPart);
         
-        
+        setHeight(77);
     }
     
     
@@ -97,6 +101,11 @@ public final class Bloque extends Pane{
     
     
     
+    public double[] getRecBounds(){
+        double [] c = {8+getX(), 7+getY(),ancho+8+getX(),this.getHeight()+getY()};
+        return c;
+    }
+            
     
     
     
@@ -155,6 +164,16 @@ public final class Bloque extends Pane{
         //la posicion del bloque
         setLayoutX(this.x);
         setLayoutY(this.y);
+        
+//        double[] d = this.getRecBounds();
+//        Circle t = new Circle(d[0],d[1],6);
+//        getChildren().add(t);
+//        t = new Circle(d[0],d[3],6);
+//        getChildren().add(t);
+//        t = new Circle(d[2],d[1],6);
+//        getChildren().add(t);
+//        t = new Circle(d[2],d[3],6);
+//        getChildren().add(t);
         
     }
     
