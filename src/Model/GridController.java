@@ -36,12 +36,22 @@ public class GridController implements Initializable {
     public AnchorPane Grid;
     
     
+    
+    // Lo que guarda los componentes
     public ArrayList<Bloque> bloques = new ArrayList<Bloque>();
     public Pane cirs = new Pane();
     
+    
+    
+    
+    //Movimiento de los componentes
     public ArrayList<Double> posx = new ArrayList<Double>();
     public ArrayList<Double> posy = new ArrayList<Double>();
     
+    
+    
+    
+    //Movimiento del fondo
     public double mouseAnchorX;
     public double mouseAnchorY;
     
@@ -49,6 +59,8 @@ public class GridController implements Initializable {
     public double offsetX = 0;
     public double offsetY = 0;
     double initialX, initialY;
+    
+    
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,7 +71,7 @@ public class GridController implements Initializable {
         
         hacerNavegable();
         
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 8; i++) {
             crearBloque(Color.BEIGE);
             crearBloque(Color.BURLYWOOD);
         }
@@ -182,10 +194,9 @@ public class GridController implements Initializable {
             if (p == b) continue;
             
             if (p.chorizontal.detectarColision(b)){
-                b.setColorBorde(Color.YELLOW);
-                p.chorizontal.setColorBorde(Color.YELLOW);
+                p.chorizontal.mostrarPreBloque();
             } else {
-                p.chorizontal.setColorBorde(Color.BLACK);
+                p.chorizontal.ocultarPreBloque();
             }
             
             
@@ -220,9 +231,11 @@ public class GridController implements Initializable {
         for (int i = 0; i < 30; i++) {
             for (int j = 0; j < 30; j++) {
                 Circle cir = new Circle();
-                cir.setRadius(1);
+                
                 cir.setCenterX((i-10)*50);
                 cir.setCenterY((j-10)*50);
+                
+                cir.setRadius(1);
                 cir.setStrokeWidth(0);
                 cir.setFill(Color.GREY.darker().darker());
                 cirs.getChildren().add(cir);
@@ -242,6 +255,8 @@ public class GridController implements Initializable {
             bloque.toFront();
         }
     }
+    
+    
     
     public void crearBloque(Color c) {
         Bloque p = new Bloque(0, 0, c);

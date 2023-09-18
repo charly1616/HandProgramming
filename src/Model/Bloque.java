@@ -58,8 +58,7 @@ public final class Bloque extends Pane{
     
     
     public void IniciarComponentes(){
-        chorizontal = new Conector(getX()+15+ancho,getY());
-        chorizontal.setPosicion(x, y);
+        chorizontal = new Conector(getX()+10+ancho,getY());
         
         SidePart = new Rectangle();
         TopPart = new Rectangle();
@@ -125,7 +124,7 @@ public final class Bloque extends Pane{
         setLayoutY(y);
         this.x = x;
         this.y = y;
-        if (chorizontal != null) chorizontal.setPosicion(x,y);
+        if (chorizontal != null) chorizontal.setPosicion(getX()+15+ancho,getY());
     }
     
     public double getX(){
@@ -174,15 +173,15 @@ public final class Bloque extends Pane{
         setLayoutX(this.x);
         setLayoutY(this.y);
         
-        double[] d = this.getRecBounds();
-        Circle t = new Circle(d[0],d[1],6);
-        getChildren().add(t);
-        t = new Circle(d[0],d[3],6);
-        getChildren().add(t);
-        t = new Circle(d[2],d[1],6);
-        getChildren().add(t);
-        t = new Circle(d[2],d[3],6);
-        getChildren().add(t);
+//        double[] d = this.getRecBounds();
+//        Circle t = new Circle(d[0],d[1],6);
+//        getChildren().add(t);
+//        t = new Circle(d[0],d[3],6);
+//        getChildren().add(t);
+//        t = new Circle(d[2],d[1],6);
+//        getChildren().add(t);
+//        t = new Circle(d[2],d[3],6);
+//        getChildren().add(t);
         
     }
     

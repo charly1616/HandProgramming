@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeLineCap;
 
 
 public final class Conector extends Pane{
@@ -57,16 +58,48 @@ public final class Conector extends Pane{
     }
     
     
+    
     public void iniciarComponentes(){
+        
+        setPosicion(x,y);
         this.toBack();
         ColorLinea = Color.color(0, 0, 0);;
         grosorLinea = 8;
         
-        SidePart = new Rectangle(getX(),getY()+7, 50,Bloque.ALTO-27);
-        TopPart = new Rectangle(getX(),getY()+27, 50,Bloque.ALTO-27);
+        
+        SidePart = new Rectangle(-6,27, 50,50);
+        TopPart = new Rectangle(-6,7, 50,56);
+        
+        SidePart.setFill(new Color(0,0.8,0,0.05));
+        TopPart.setFill(new Color(0,0.8,0,0.05));
+        
+        TopPart.setStroke(Color.BLACK);
+        SidePart.setStroke(Color.BLACK);
+        TopPart.setStrokeLineCap(StrokeLineCap.ROUND);
+        SidePart.setStrokeLineCap(StrokeLineCap.ROUND);
+        
+        SidePart.setStrokeWidth(4);
+        TopPart.setStrokeWidth(4);
+        
+        //Redondeado
+        SidePart.setArcHeight(20);
+        SidePart.setArcWidth(20);
+        TopPart.setArcHeight(20);
+        TopPart.setArcWidth(20);
+        
+        //Liso
+        SidePart.setSmooth(true);
+        TopPart.setSmooth(true);
+        
         
         SidePart.toBack();
         TopPart.toBack();
+        
+        SidePart.getStrokeDashArray().addAll(5d, 10d);
+        TopPart.getStrokeDashArray().addAll(5d, 10d);
+        
+        SidePart.setVisible(false);
+        TopPart.setVisible(false);
         
         
         if (modo.equals("h")){
@@ -89,26 +122,28 @@ public final class Conector extends Pane{
         setStyle("-fx-background-color: rgba(0, 100, 100, 0); -fx-background-radius: 10;");
         
         if (modo.equals("h")){
-            linea = new Line(getX(),getY()+getHeight()/2,getX()+ancho,getY()+getHeight()/2);
+            linea = new Line(0,getY()+getHeight()/2,40,getY()+getHeight()/2);
         } else {
-            linea = new Line(getX()+getWidth()/2,getY(),getX()+getWidth()/2,getY()+ancho);
+            linea = new Line(0+getWidth()/2,getY(),getX()+getWidth()/2,getY()+ancho);
         }
         linea.setStrokeWidth(grosorLinea);
         linea.setStroke(ColorLinea);
+        linea.getStrokeDashArray().addAll(5d, 10d);
+        linea.setStrokeLineCap(StrokeLineCap.ROUND);
         
         getChildren().add(linea);
         
         
         
-        double[] d = this.getRectVertices();
-        Circle t = new Circle(d[0],d[1],6);
-        getChildren().add(t);
-        t = new Circle(d[0],d[3],6);
-        getChildren().add(t);
-        t = new Circle(d[2],d[1],6);
-        getChildren().add(t);
-        t = new Circle(d[2],d[3],6);
-        getChildren().add(t);
+//        double[] d = this.getRectVertices();
+//        Circle t = new Circle(d[0],d[1],6);
+//        getChildren().add(t);
+//        t = new Circle(d[0],d[3],6);
+//        getChildren().add(t);
+//        t = new Circle(d[2],d[1],6);
+//        getChildren().add(t);
+//        t = new Circle(d[2],d[3],6);
+//        getChildren().add(t);
     }
     
     
@@ -158,7 +193,7 @@ public final class Conector extends Pane{
     
     
     public double[] getRectVertices(){
-        double [] d = {getX(), getY(), getX() + ancho, getY()+getHeight()};
+        double [] d = {getX(), getY(), getX()+52, getY()+80};
         return d;
     }
     
@@ -169,7 +204,19 @@ public final class Conector extends Pane{
         double [] p1 = b.getRecBounds();
         double[] p2 = getRectVertices();
 
-        return (!(p1[2] < p2[0] || p2[2] < p1[0] || p1[3] < p2[1] || p2[3] < p1[1]));
+        return (!(p1[0]+50 < p2[0] || p2[2] < p1[0] || p1[3] < p2[1] || p2[3] < p1[1]));
+    }
+    
+    public void mostrarPreBloque(){
+        TopPart.setVisible(true);
+        SidePart.setVisible(true);
+        linea.setVisible(false);
+    }
+    
+    public void ocultarPreBloque(){
+        TopPart.setVisible(false);
+        SidePart.setVisible(false);
+        linea.setVisible(true);
     }
     
     
