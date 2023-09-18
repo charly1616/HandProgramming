@@ -109,7 +109,7 @@ public class GridController implements Initializable {
                 b.LastY = b.getLayoutY() - this.offsetY;
             }
             
-            
+            organizarBloques();
         });
         
     }
@@ -225,6 +225,18 @@ public class GridController implements Initializable {
         }
     }
     
+     public void organizarBloques() {
+    ArrayList<Bloque> blq = new ArrayList<>(bloques);
+
+    // Ordenar los bloques por su posición en el eje Y de manera descendente
+    blq.sort((bloque1, bloque2) -> Double.compare(bloque1.getLayoutY(), bloque2.getLayoutY()));
+
+    // Mantener las posiciones originales de los bloques al organizarlos
+    for (int i = 0; i < blq.size(); i++) {
+        Bloque bloque = blq.get(i);
+        bloque.toFront();
+    }
+}
     
     public void crearBloque(Color c) {
         Bloque p = new Bloque(0, 0, c);
