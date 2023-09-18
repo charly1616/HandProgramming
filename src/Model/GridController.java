@@ -101,12 +101,12 @@ public class GridController implements Initializable {
         
         b.setOnMouseReleased((MouseEvent mouseEvent) -> {
             b.Soltado();
-            
+            System.out.println(this.offsetX+"  -  "+this.offsetY);
             if (detectarColision(b)){
                 b.setPosicion(b.LastX+this.offsetX, b.LastY+ this.offsetY);
             } else {
-                b.LastX = b.getLayoutX() + this.offsetX;
-                b.LastY = b.getLayoutY() + this.offsetY;
+                b.LastX = b.getLayoutX() - this.offsetX;
+                b.LastY = b.getLayoutY() - this.offsetY;
             }
             
             
@@ -166,7 +166,6 @@ public class GridController implements Initializable {
                 int u = i - cirs.getChildren().size();
                 double x = posx.get(i);
                 double y = posy.get(i);
-                System.out.println(i+"   :   "+(mouseEvent.getSceneX() - mouseAnchorX + x));
                 bloques.get(u).setLayoutX(mouseEvent.getSceneX() - mouseAnchorX + x);
                 bloques.get(u).setLayoutY(mouseEvent.getSceneY() - mouseAnchorY + y);
             }
