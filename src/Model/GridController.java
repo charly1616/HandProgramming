@@ -103,6 +103,8 @@ public class GridController implements Initializable {
         
         b.setOnDragDetected((MouseEvent mouseEvent) -> {
             b.Agarrado();
+            b.conectado.setConexion(null);
+            b.conectado = null;
         });
         
         b.setOnMouseDragged(mouseEvent -> {
@@ -114,7 +116,10 @@ public class GridController implements Initializable {
         
         b.setOnMouseReleased((MouseEvent mouseEvent) -> {
             b.Soltado();
-            if (detectarColision(b)){
+            
+            
+            
+            if (!pintarPreBloque(b) && detectarColision(b)){
                 b.setPosicion(b.LastX+this.offsetX, b.LastY+ this.offsetY);
             } else {
                 b.LastX = b.getLayoutX() - this.offsetX;
@@ -188,17 +193,35 @@ public class GridController implements Initializable {
     
     
     
-    
-    public boolean detectarColision(Bloque b){
+    public boolean pintarPreBloque(Bloque b){
         for (Bloque p : bloques) {
             if (p == b) continue;
             
             if (p.chorizontal.detectarColision(b)){
-                p.chorizontal.mostrarPreBloque();
+                p.chorizontal.mostrarPreBloque(b);
+                return true;
             } else {
                 p.chorizontal.ocultarPreBloque();
             }
+        }
+        return false;
+    }
+    
+    
+    public void ConectarBloque(Bloque b){
+        for (Bloque p : bloques) {
+            if (p == b) continue;
             
+            if (p.chorizontal.detectarColision(b)){
+                p.chorizontal.setConexion(b);
+            }
+        }
+    }
+    
+    
+    public boolean detectarColision(Bloque b){
+        for (Bloque p : bloques) {
+            if (p == b) continue;
             
             double [] p2 = b.getRecBounds();
             double[] p1 = p.getRecBounds();

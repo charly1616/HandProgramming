@@ -32,30 +32,22 @@ public final class Conector extends Pane{
     
     
     
+    
+    public Bloque conectador;
     public Bloque conexion;
     
     
     //Constructor para el vertical
-    public Conector(double x, double y, double scale){
+    public Conector(double x, double y, Bloque conectador, String modo){
         this.x = x;
-        this.modo = "v";
-        ancho = scale;
+        this.modo = modo;
+        this.conectador = conectador;
         this.y = y;
         conexion = null;
         iniciarComponentes();
         pintar();
     }
     
-    
-    //Constructor para el horizontal
-    public Conector(double x, double y){
-        this.x = x;
-        this.modo = "h";
-        this.y = y;
-        conexion = null;
-        iniciarComponentes();
-        pintar();
-    }
     
     
     
@@ -69,6 +61,8 @@ public final class Conector extends Pane{
         
         SidePart = new Rectangle(-6,27, 50,50);
         TopPart = new Rectangle(-6,7, 50,56);
+        
+        
         
         SidePart.setFill(new Color(0,0.8,0,0.05));
         TopPart.setFill(new Color(0,0.8,0,0.05));
@@ -179,7 +173,7 @@ public final class Conector extends Pane{
     
     public void setConexion(Bloque b){
         this.conexion = b;
-        b.conectado = this;
+        if (b != null) b.conectado = this;
     }
     
     
@@ -207,7 +201,16 @@ public final class Conector extends Pane{
         return (!(p1[0]+50 < p2[0] || p2[2] < p1[0] || p1[3] < p2[1] || p2[3] < p1[1]));
     }
     
-    public void mostrarPreBloque(){
+    public void mostrarPreBloque(Bloque b){
+        TopPart.setWidth(b.ancho);
+        SidePart.setWidth(b.ancho);
+        
+        Color c = b.ColorBloque;
+        c = new Color(c.getRed(), c.getGreen(),c.getBlue(), 0.2);
+        
+        TopPart.setFill(c);
+        SidePart.setFill(c);
+        
         TopPart.setVisible(true);
         SidePart.setVisible(true);
         linea.setVisible(false);

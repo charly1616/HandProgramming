@@ -58,7 +58,7 @@ public final class Bloque extends Pane{
     
     
     public void IniciarComponentes(){
-        chorizontal = new Conector(getX()+10+ancho,getY());
+        chorizontal = new Conector(getX()+10+ancho,getY(), this, "h");
         
         SidePart = new Rectangle();
         TopPart = new Rectangle();
