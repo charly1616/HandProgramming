@@ -24,6 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
 
 /**
  *
@@ -71,10 +72,16 @@ public class GridController implements Initializable {
         Grid.getChildren().add(cirs);
         
         
+        Screen pantalla = Screen.getPrimary();
+        javafx.geometry.Rectangle2D coordenadas = pantalla.getVisualBounds();
+        Grid.setPrefWidth((coordenadas.getMaxX()));
+        GridView.setPrefWidth((coordenadas.getMaxX()));
+        Grid.setPrefHeight((coordenadas.getMaxY()));
+        GridView.setPrefHeight((coordenadas.getMaxY()));
         
         hacerNavegable();
         
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 1; i++) {
             crearBloque(Color.BEIGE);
             crearBloque(Color.BURLYWOOD);
         }
@@ -194,7 +201,6 @@ public class GridController implements Initializable {
     public boolean pintarPreBloque(Bloque b){
         for (Bloque p : bloques) {
             if (p == b) continue;
-            System.out.println("UU");
             if (p.chorizontal.detectarColision(b)){
                 p.chorizontal.mostrarPreBloque(b);
                 

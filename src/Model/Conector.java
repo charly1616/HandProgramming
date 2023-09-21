@@ -195,10 +195,14 @@ public final class Conector extends Pane{
     
     public boolean detectarColision(Bloque b){
         if (conexion != null) return false;
+        
         double [] p1 = b.getRecBounds();
         double[] p2 = getRectVertices();
-
-        return (!(p1[0]+50 < p2[0] || p2[2] < p1[0] || p1[3] < p2[1] || p2[3] < p1[1]));
+        System.out.println(p1[0] + " "+p1[1] + " " + p1[2] + " "+ p1[3]);
+        System.out.println(p2[0] + " "+p2[1] + " " + p2[2] + " "+ p2[3]);
+        System.out.println(!(p1[0]+50 < p2[0] && p2[2] < p1[0] || p1[3] < p2[1] && p2[3] < p1[1]));
+        System.out.println("\n\n\n\n\n");
+        return (!(p1[0]+50 < p2[0] || p2[2] < p1[0] && p1[3] < p2[1] && p2[3] < p1[1]));
     }
     
     
