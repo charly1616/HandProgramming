@@ -81,7 +81,7 @@ public class GridController implements Initializable {
         
         hacerNavegable();
         
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 10; i++) {
             crearBloque(Color.BEIGE);
             crearBloque(Color.BURLYWOOD);
         }
@@ -118,6 +118,7 @@ public class GridController implements Initializable {
         b.setOnMouseDragged(mouseEvent -> {
             b.setPosicion(mouseEvent.getSceneX() -b. mouseAnchorX,mouseEvent.getSceneY() - b.mouseAnchorY);
             b.toFront();
+            pintarPreBloque(b);
         });
         
         
@@ -275,6 +276,7 @@ public class GridController implements Initializable {
             }
         }
     }
+    
     
     public void organizarBloques() {
         ArrayList<Bloque> blq = new ArrayList<>(bloques);

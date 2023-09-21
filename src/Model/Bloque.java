@@ -179,15 +179,15 @@ public final class Bloque extends Pane{
         setLayoutX(this.x);
         setLayoutY(this.y);
         
-        double[] d = this.getRecVertices();
-        Circle t = new Circle(d[0],d[1],6);
-        getChildren().add(t);
-        t = new Circle(d[0],d[3],6);
-        getChildren().add(t);
-        t = new Circle(d[2],d[1],6);
-        getChildren().add(t);
-        t = new Circle(d[2],d[3],6);
-        getChildren().add(t);
+//        double[] d = this.getRecVertices();
+//        Circle t = new Circle(d[0],d[1],6);
+//        getChildren().add(t);
+//        t = new Circle(d[0],d[3],6);
+//        getChildren().add(t);
+//        t = new Circle(d[2],d[1],6);
+//        getChildren().add(t);
+//        t = new Circle(d[2],d[3],6);
+//        getChildren().add(t);
         
     }
     
