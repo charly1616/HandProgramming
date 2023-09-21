@@ -23,7 +23,8 @@ public class Controller implements Initializable {
     @FXML
     public HBox ContenedorVista;
     
-    
+    @FXML
+    public AnchorPane ventana;
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -36,7 +37,8 @@ public class Controller implements Initializable {
             f.setLocation(getClass().getResource("gridpane.fxml"));
             ScrollPane p = f.load();
             //GridController Bcon = f.getController();
-            ContenedorVista.getChildren().add(p);
+            ventana.getChildren().add(p);
+            
         } catch (IOException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }

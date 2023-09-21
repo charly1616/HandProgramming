@@ -201,6 +201,8 @@ public final class Conector extends Pane{
         return (!(p1[0]+50 < p2[0] || p2[2] < p1[0] || p1[3] < p2[1] || p2[3] < p1[1]));
     }
     
+    
+    
     public void mostrarPreBloque(Bloque b){
         TopPart.setWidth(b.ancho);
         SidePart.setWidth(b.ancho);

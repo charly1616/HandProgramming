@@ -98,6 +98,12 @@ public final class Bloque extends Pane{
         setColorBorde(Color.DODGERBLUE);
         setTamBorde(6);
         toFront();
+        
+        if (conectado != null){
+            conectado.setConexion(null);
+            conectado = null;
+        }
+            
     }
     
     public void Soltado(){

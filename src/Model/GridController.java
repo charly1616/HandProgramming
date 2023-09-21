@@ -4,7 +4,7 @@
  */
 package Model;
 
-import Main.Controller;
+import javafx.scene.Node;
 import Main.Controller;
 import Model.Bloque;
 import java.io.IOException;
@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -30,7 +31,8 @@ import javafx.scene.shape.Rectangle;
  */
 public class GridController implements Initializable {
     
-    
+    @FXML
+    public ScrollPane GridView;
     
     @FXML
     public AnchorPane Grid;
@@ -61,13 +63,14 @@ public class GridController implements Initializable {
     double initialX, initialY;
     
     
-    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cirs.setScaleX(Grid.getScaleX());
         cirs.setScaleY(Grid.getScaleY());
         crearPuntos();
         Grid.getChildren().add(cirs);
+        
+        
         
         hacerNavegable();
         
@@ -91,8 +94,6 @@ public class GridController implements Initializable {
     
     
     
-    
-    
     public void hacerBloqueMovible(Bloque b){
         b.setOnMousePressed((MouseEvent mouseEvent) -> {
             b.mouseAnchorX = mouseEvent.getX();
@@ -103,14 +104,11 @@ public class GridController implements Initializable {
         
         b.setOnDragDetected((MouseEvent mouseEvent) -> {
             b.Agarrado();
-            b.conectado.setConexion(null);
-            b.conectado = null;
         });
         
         b.setOnMouseDragged(mouseEvent -> {
             b.setPosicion(mouseEvent.getSceneX() -b. mouseAnchorX,mouseEvent.getSceneY() - b.mouseAnchorY);
             b.toFront();
-            detectarColision(b);
         });
         
         
@@ -196,9 +194,10 @@ public class GridController implements Initializable {
     public boolean pintarPreBloque(Bloque b){
         for (Bloque p : bloques) {
             if (p == b) continue;
-            
+            System.out.println("UU");
             if (p.chorizontal.detectarColision(b)){
                 p.chorizontal.mostrarPreBloque(b);
+                
                 return true;
             } else {
                 p.chorizontal.ocultarPreBloque();
