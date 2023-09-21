@@ -15,6 +15,9 @@ public final class Bloque extends Pane{
     public Conector conectado = null;
     public Conector chorizontal;
     
+    public Conector conectadov = null;
+    public Conector cvertical;
+    
     //Componentes
     public Rectangle SidePart;
     public Rectangle TopPart;
@@ -49,7 +52,7 @@ public final class Bloque extends Pane{
         
         this.ColorBorde = Color.color(0, 0, 0);
         this.TamBorde = 4;
-        this.ancho = 100+ Math.random()*50;
+        this.ancho = 50+ Math.random()*120;
         
         
         IniciarComponentes();
@@ -58,7 +61,9 @@ public final class Bloque extends Pane{
     
     
     public void IniciarComponentes(){
-        chorizontal = new Conector(getX()+10+ancho,getY(), this, "h");
+        chorizontal = new Conector(this, "h");
+        cvertical = new Conector(this, "v");
+        
         
         SidePart = new Rectangle();
         TopPart = new Rectangle();
@@ -92,19 +97,32 @@ public final class Bloque extends Pane{
     }
     
     
-    
+    public void DesactivarVertical() {if (cvertical != null) cvertical.Desactivar();}
+    public void ActivarVertical() {if (cvertical != null) cvertical.Activar();}
     
     public void Agarrado(){
         setColorBorde(Color.DODGERBLUE);
         setTamBorde(6);
-        toFront();
+        AlFrente();
         
         if (conectado != null){
-            conectado.setConexion(null);
+            conectado.Desconectar();
             conectado = null;
         }
             
     }
+    
+    public void AlFrente(){
+        toFront();
+        if (chorizontal != null && chorizontal.conexion != null){
+            chorizontal.conexion.AlFrente();
+        }
+        if (cvertical != null && cvertical.conexion != null){
+            cvertical.conexion.AlFrente();
+        }
+    }
+    
+    
     
     public void Soltado(){
         setColorBorde(Color.color(0, 0, 0));
@@ -130,7 +148,8 @@ public final class Bloque extends Pane{
         setLayoutY(y);
         this.x = x;
         this.y = y;
-        if (chorizontal != null) chorizontal.setPosicion(getX()+ancho,getY());
+        if (chorizontal != null) chorizontal.fixPosicion();
+        if (cvertical != null) cvertical.fixPosicion();
     }
     
     public double getX(){

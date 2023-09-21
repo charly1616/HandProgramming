@@ -81,9 +81,8 @@ public class GridController implements Initializable {
         
         hacerNavegable();
         
-        for (int i = 0; i < 10; i++) {
-            crearBloque(Color.BEIGE);
-            crearBloque(Color.BURLYWOOD);
+        for (int i = 0; i < 40; i++) {
+            crearBloque(Color.rgb((int)(Math.random()*250),(int)(Math.random()*250),(int)(Math.random()*250)));
         }
         
 //        crearBloque(Color.CORNFLOWERBLUE);
@@ -125,16 +124,15 @@ public class GridController implements Initializable {
         b.setOnMouseReleased((MouseEvent mouseEvent) -> {
             b.Soltado();
             
-            Bloque c = pintarPreBloque(b);
+            Conector c = pintarPreBloque(b);
             if (c != null){
-                c.chorizontal.setConexion(b);
+                c.setConexion(b);
             } else if (detectarColision(b)){
                 b.setPosicion(b.LastX+this.offsetX, b.LastY+ this.offsetY);
             } else {
                 b.LastX = b.getLayoutX() - this.offsetX;
                 b.LastY = b.getLayoutY() - this.offsetY;
             }
-            
             
             
             
@@ -205,14 +203,20 @@ public class GridController implements Initializable {
     
     
     
-    public Bloque pintarPreBloque(Bloque b){
+    public Conector pintarPreBloque(Bloque b){
         for (Bloque p : bloques) {
             if (p == b) continue;
             if (p.chorizontal.detectarColision(b)){
                 p.chorizontal.mostrarPreBloque(b);
-                return p;
+                return p.chorizontal;
             } else {
                 p.chorizontal.ocultarPreBloque();
+            }
+            if (p.cvertical.detectarColision(b)){
+                p.cvertical.mostrarPreBloque(b);
+                return p.cvertical;
+            } else {
+                p.cvertical.ocultarPreBloque();
             }
         }
         return null;
@@ -225,9 +229,12 @@ public class GridController implements Initializable {
             
             if (p.chorizontal.detectarColision(b)){
                 p.chorizontal.setConexion(b);
+            }else if (p.cvertical.detectarColision(b)){
+                p.cvertical.setConexion(b);
             }
         }
     }
+    
     
     
     public boolean detectarColision(Bloque b){
@@ -294,9 +301,10 @@ public class GridController implements Initializable {
     
     
     public void crearBloque(Color c) {
-        Bloque p = new Bloque(0, 0, c);
+        Bloque p = new Bloque(Math.random()*3000-1500, Math.random()*3000-1500, c);
         hacerBloqueMovible(p);
         if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
+        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
         Grid.getChildren().add(p);
         bloques.add(p);
     }

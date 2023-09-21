@@ -16,7 +16,7 @@ public final class Conector extends Pane{
     public Rectangle TopPart;
     public Line linea;
     
-    
+    public boolean activado;
     
     public String modo;
     
@@ -24,8 +24,6 @@ public final class Conector extends Pane{
     //Propiedades
     public double ancho = 50;
     
-    public double x;
-    public double y;
     
     public double grosorLinea;
     public Color ColorLinea;
@@ -38,29 +36,51 @@ public final class Conector extends Pane{
     
     
     //Constructor para el vertical
-    public Conector(double x, double y, Bloque conectador, String modo){
-        this.x = x;
+    public Conector(Bloque conectador, String modo, boolean activado){
         this.modo = modo;
         this.conectador = conectador;
-        this.y = y;
+        this.activado = activado;
+        conexion = null;
+        iniciarComponentes();
+        pintar();
+    }
+    
+    public Conector(Bloque conectador, String modo){
+        this.modo = modo;
+        this.conectador = conectador;
+        this.activado = true;
         conexion = null;
         iniciarComponentes();
         pintar();
     }
     
     
-    
-    
     public void iniciarComponentes(){
         
-        setPosicion(x,y);
+        if (modo.equals("h")){
+            setHeight(Bloque.ALTO);
+            setWidth(ancho);
+            setPosicion(conectador.getX()+conectador.getWidth()-5,conectador.getY()+7);
+        } else {
+            setHeight(Bloque.ALTO);
+            setWidth(conectador.ancho);
+            setPosicion(conectador.getX()+7,conectador.getHeight());
+        }
+        
+        
         this.toBack();
         ColorLinea = Color.color(0, 0, 0);;
         grosorLinea = 8;
         
         
-        SidePart = new Rectangle(-6,27, 50,50);
-        TopPart = new Rectangle(-6,7, 50,56);
+        if (modo.equals("h")){
+            SidePart = new Rectangle(7,27, 50,50);
+            TopPart = new Rectangle(7,7, 50,56);
+        }else {
+            SidePart = new Rectangle(7,15, 50,50);
+            TopPart = new Rectangle(7,-5, 50,56);
+        }
+        
         
         
         
@@ -96,14 +116,10 @@ public final class Conector extends Pane{
         TopPart.setVisible(false);
         
         
-        if (modo.equals("h")){
-            setHeight(Bloque.ALTO);
-            setWidth(ancho);
-        } else {
-            setHeight(ancho);
-            setWidth(Bloque.ALTO);
-        }
-        setPosicion(x,y);
+        
+        
+        
+        
         getChildren().add(SidePart);
         getChildren().add(TopPart);
     }
@@ -118,15 +134,17 @@ public final class Conector extends Pane{
         if (modo.equals("h")){
             linea = new Line(0,getY()+getHeight()/2,40,getY()+getHeight()/2);
         } else {
-            linea = new Line(0+getWidth()/2,getY(),getX()+getWidth()/2,getY()+ancho);
+            linea = new Line((conectador.ancho)/2.0,0,(conectador.ancho)/2.0,40);
         }
         linea.setStrokeWidth(grosorLinea);
         linea.setStroke(ColorLinea);
         linea.getStrokeDashArray().addAll(5d, 10d);
         linea.setStrokeLineCap(StrokeLineCap.ROUND);
         
-        getChildren().add(linea);
+        if (!activado) linea.setVisible(false);
         
+        getChildren().add(linea);
+        fixPosicion();
         
         
 //        double[] d = this.getRectVertices();
@@ -143,6 +161,15 @@ public final class Conector extends Pane{
     
     
     
+    public void Desactivar(){
+        this.activado = false;
+        this.linea.setVisible(false);
+    }
+    
+    public void Activar(){
+        this.activado = true;
+        this.linea.setVisible(true);
+    }
     
     
     
@@ -161,22 +188,36 @@ public final class Conector extends Pane{
         setLayoutX(x);
         setLayoutY(y);
         
-        
         if (conexion != null) conexion.setPosicion(x, y);
     }
     
     
     
+    public void fixPosicion(){
+        if (modo.equals("h")){
+            setLayoutX(conectador.getX() + conectador.ancho);
+            setLayoutY(conectador.getY());
+            if (conexion != null) conexion.setPosicion(this.getLayoutX(), this.getLayoutY());
+        } else {
+            setLayoutX(conectador.getX());
+            setLayoutY(conectador.getY()+Bloque.ALTO);
+            if (conexion != null) conexion.setPosicion(this.getLayoutX(), this.getLayoutY()-20);
+        }
+        
+    }
+        
+
     
     
     
     
     public void setConexion(Bloque b){
         this.conexion = b;
+        if (modo.equals("h")) b.DesactivarVertical();
         System.out.println(b);
         if (b != null){
             b.conectado = this;
-            b.setPosicion(getX(), getY());
+            fixPosicion();
             ocultarPreBloque();
         }
     }
@@ -184,6 +225,7 @@ public final class Conector extends Pane{
     
     public void Desconectar(){
         this.conexion.conectado = null;
+        if (modo.equals("h")) this.conexion.ActivarVertical();
         this.conexion = null;
     }
     
@@ -205,7 +247,8 @@ public final class Conector extends Pane{
     
     
     public boolean detectarColision(Bloque b){
-        if (conexion != null) return false;
+        if (conexion != null || !activado) return false;
+        if (modo.equals("h") && b.cvertical.conexion != null) return false;
         
         double [] p1 = b.getRecVertices();
         double[] p2 = getRectVertices();
@@ -219,6 +262,7 @@ public final class Conector extends Pane{
     
     
     public void mostrarPreBloque(Bloque b){
+        if (!activado) return;
         TopPart.setWidth(b.ancho);
         SidePart.setWidth(b.ancho);
         
@@ -236,7 +280,7 @@ public final class Conector extends Pane{
     public void ocultarPreBloque(){
         TopPart.setVisible(false);
         SidePart.setVisible(false);
-        linea.setVisible(true);
+        if (activado) linea.setVisible(true);
     }
     
     
