@@ -173,7 +173,18 @@ public final class Conector extends Pane{
     
     public void setConexion(Bloque b){
         this.conexion = b;
-        if (b != null) b.conectado = this;
+        System.out.println(b);
+        if (b != null){
+            b.conectado = this;
+            b.setPosicion(getX(), getY());
+            ocultarPreBloque();
+        }
+    }
+    
+    
+    public void Desconectar(){
+        this.conexion.conectado = null;
+        this.conexion = null;
     }
     
     
@@ -196,13 +207,13 @@ public final class Conector extends Pane{
     public boolean detectarColision(Bloque b){
         if (conexion != null) return false;
         
-        double [] p1 = b.getRecBounds();
+        double [] p1 = b.getRecVertices();
         double[] p2 = getRectVertices();
-        System.out.println(p1[0] + " "+p1[1] + " " + p1[2] + " "+ p1[3]);
-        System.out.println(p2[0] + " "+p2[1] + " " + p2[2] + " "+ p2[3]);
-        System.out.println(!(p1[0]+50 < p2[0] && p2[2] < p1[0] || p1[3] < p2[1] && p2[3] < p1[1]));
-        System.out.println("\n\n\n\n\n");
-        return (!(p1[0]+50 < p2[0] || p2[2] < p1[0] && p1[3] < p2[1] && p2[3] < p1[1]));
+//        System.out.println(p1[0] + " "+p1[1] + " " + p1[2] + " "+ p1[3]);
+//        System.out.println(p2[0] + " "+p2[1] + " " + p2[2] + " "+ p2[3]);
+//        System.out.println(!(p1[0]+50 < p2[0] && p2[2] < p1[0] || p1[3] < p2[1] && p2[3] < p1[1]));
+//        System.out.println("\n\n\n\n\n");
+        return (!(p1[0]+50 < p2[0] || p2[2] < p1[0] || p1[3] < p2[1] || p2[3] < p1[1]));
     }
     
     

@@ -111,6 +111,8 @@ public class GridController implements Initializable {
         
         b.setOnDragDetected((MouseEvent mouseEvent) -> {
             b.Agarrado();
+            if (b.conectado != null)  b.conectado.Desconectar();
+            
         });
         
         b.setOnMouseDragged(mouseEvent -> {
@@ -122,14 +124,18 @@ public class GridController implements Initializable {
         b.setOnMouseReleased((MouseEvent mouseEvent) -> {
             b.Soltado();
             
-            
-            
-            if (!pintarPreBloque(b) && detectarColision(b)){
+            Bloque c = pintarPreBloque(b);
+            if (c != null){
+                c.chorizontal.setConexion(b);
+            } else if (detectarColision(b)){
                 b.setPosicion(b.LastX+this.offsetX, b.LastY+ this.offsetY);
             } else {
                 b.LastX = b.getLayoutX() - this.offsetX;
                 b.LastY = b.getLayoutY() - this.offsetY;
             }
+            
+            
+            
             
             organizarBloques();
         });
@@ -198,18 +204,17 @@ public class GridController implements Initializable {
     
     
     
-    public boolean pintarPreBloque(Bloque b){
+    public Bloque pintarPreBloque(Bloque b){
         for (Bloque p : bloques) {
             if (p == b) continue;
             if (p.chorizontal.detectarColision(b)){
                 p.chorizontal.mostrarPreBloque(b);
-                
-                return true;
+                return p;
             } else {
                 p.chorizontal.ocultarPreBloque();
             }
         }
-        return false;
+        return null;
     }
     
     
@@ -228,8 +233,8 @@ public class GridController implements Initializable {
         for (Bloque p : bloques) {
             if (p == b) continue;
             
-            double [] p2 = b.getRecBounds();
-            double[] p1 = p.getRecBounds();
+            double [] p2 = b.getRecVertices();
+            double[] p1 = p.getRecVertices();
             
             if (!(p1[2] < p2[0] || p2[2] < p1[0] || p1[3] < p2[1] || p2[3] < p1[1])) {
                 return true;

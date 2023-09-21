@@ -114,8 +114,8 @@ public final class Bloque extends Pane{
     
     
     
-    public double[] getRecBounds(){
-        double [] c = {8+getX(), 7+getY(),ancho+8+getX(),this.getHeight()+getY()-18};
+    public double[] getRecVertices(){
+        double [] c = {9+getX(), 8+getY(),ancho+7+getX(),this.getHeight()+getY()-18};
         return c;
     }
             
@@ -130,7 +130,7 @@ public final class Bloque extends Pane{
         setLayoutY(y);
         this.x = x;
         this.y = y;
-        if (chorizontal != null) chorizontal.setPosicion(getX()+15+ancho,getY());
+        if (chorizontal != null) chorizontal.setPosicion(getX()+ancho,getY());
     }
     
     public double getX(){
@@ -179,15 +179,15 @@ public final class Bloque extends Pane{
         setLayoutX(this.x);
         setLayoutY(this.y);
         
-//        double[] d = this.getRecBounds();
-//        Circle t = new Circle(d[0],d[1],6);
-//        getChildren().add(t);
-//        t = new Circle(d[0],d[3],6);
-//        getChildren().add(t);
-//        t = new Circle(d[2],d[1],6);
-//        getChildren().add(t);
-//        t = new Circle(d[2],d[3],6);
-//        getChildren().add(t);
+        double[] d = this.getRecVertices();
+        Circle t = new Circle(d[0],d[1],6);
+        getChildren().add(t);
+        t = new Circle(d[0],d[3],6);
+        getChildren().add(t);
+        t = new Circle(d[2],d[1],6);
+        getChildren().add(t);
+        t = new Circle(d[2],d[3],6);
+        getChildren().add(t);
         
     }
     
