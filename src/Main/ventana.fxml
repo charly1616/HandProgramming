@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 
-<AnchorPane id="AnchorPane" fx:id="ventana" prefHeight="856.0" prefWidth="1251.0" style="-fx-background-color: #FFF2D4;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller">
-    
+<AnchorPane id="AnchorPane" prefHeight="856.0" prefWidth="1251.0" style="-fx-background-color: #FFF2D4;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller">
+   <children>
+      <VBox layoutX="-5.0" layoutY="-4.0" prefHeight="862.0" prefWidth="1258.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" />
+            <HBox fx:id="ContenedorVista" prefHeight="655.0" prefWidth="1258.0" />
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>

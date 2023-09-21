@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -20,8 +21,10 @@ import javafx.scene.shape.Rectangle;
 public class Controller implements Initializable {
 
     @FXML
-    public AnchorPane ventana;
-
+    public HBox ContenedorVista;
+    
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         crearCuadricula();
@@ -33,7 +36,7 @@ public class Controller implements Initializable {
             f.setLocation(getClass().getResource("gridpane.fxml"));
             ScrollPane p = f.load();
             //GridController Bcon = f.getController();
-            ventana.getChildren().add(p);
+            ContenedorVista.getChildren().add(p);
         } catch (IOException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
