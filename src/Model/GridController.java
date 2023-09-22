@@ -4,6 +4,7 @@
  */
 package Model;
 
+import Bloques.BloqueInicio;
 import javafx.scene.Node;
 import Main.Controller;
 import Model.Bloque;
@@ -81,9 +82,19 @@ public class GridController implements Initializable {
         
         hacerNavegable();
         
+        
+        BloqueInicio p = new BloqueInicio(0, 0);
+        hacerBloqueMovible(p);
+        p.chorizontal.Desactivar();
+        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
+        Grid.getChildren().add(p);
+        bloques.add(p);
+        
+        
         for (int i = 0; i < 40; i++) {
             crearBloque(Color.rgb((int)(Math.random()*250),(int)(Math.random()*250),(int)(Math.random()*250)));
         }
+        
         
 //        crearBloque(Color.CORNFLOWERBLUE);
 //        crearBloque(Color.DARKOLIVEGREEN);

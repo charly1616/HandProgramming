@@ -9,7 +9,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 
-public final class Bloque extends Pane{
+public class Bloque extends Pane{
     
     
     public Conector conectado = null;
@@ -171,6 +171,12 @@ public final class Bloque extends Pane{
     }
     
     
+    public void setAncho(double x){
+        this.ancho = x;
+        TopPart.setWidth(this.ancho);
+        SidePart.setWidth(this.ancho);
+        setPrefWidth(this.ancho + 15);
+    }
     
     //Conecta las propiedades con el bloque
     public void Pintar(){

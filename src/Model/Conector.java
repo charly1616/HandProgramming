@@ -29,17 +29,18 @@ public final class Conector extends Pane{
     public Color ColorLinea;
     
     
-    
+    public double offX;
     
     public Bloque conectador;
     public Bloque conexion;
     
     
     //Constructor para el vertical
-    public Conector(Bloque conectador, String modo, boolean activado){
+    public Conector(Bloque conectador, String modo, boolean activado, double offX){
         this.modo = modo;
         this.conectador = conectador;
         this.activado = activado;
+        this.offX = offX;
         conexion = null;
         iniciarComponentes();
         pintar();
@@ -60,7 +61,7 @@ public final class Conector extends Pane{
         if (modo.equals("h")){
             setHeight(Bloque.ALTO);
             setWidth(ancho);
-            setPosicion(conectador.getX()+conectador.getWidth()-5,conectador.getY()+7);
+            setPosicion(   conectador.getX()+conectador.getWidth()-5+ offX   ,    conectador.getY()+7    );
         } else {
             setHeight(Bloque.ALTO);
             setWidth(conectador.ancho);
@@ -69,7 +70,7 @@ public final class Conector extends Pane{
         
         
         this.toBack();
-        ColorLinea = Color.color(0, 0, 0);;
+        ColorLinea = Color.color(0, 0, 0);
         grosorLinea = 8;
         
         
@@ -195,11 +196,11 @@ public final class Conector extends Pane{
     
     public void fixPosicion(){
         if (modo.equals("h")){
-            setLayoutX(conectador.getX() + conectador.ancho);
+            setLayoutX(conectador.getX() + conectador.ancho+offX   );
             setLayoutY(conectador.getY());
             if (conexion != null) conexion.setPosicion(this.getLayoutX(), this.getLayoutY());
         } else {
-            setLayoutX(conectador.getX());
+            setLayoutX(conectador.getX() + offX   );
             setLayoutY(conectador.getY()+Bloque.ALTO);
             if (conexion != null) conexion.setPosicion(this.getLayoutX(), this.getLayoutY()-20);
         }
