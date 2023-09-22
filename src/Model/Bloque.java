@@ -59,6 +59,16 @@ public class Bloque extends Pane{
         Pintar();
     }
     
+    public Bloque(double x, double y) {
+        this.x = x;
+        LastX = x;
+        this.y = y;
+        LastY = y;
+        
+        this.ColorBorde = Color.color(0, 0, 0);
+        this.TamBorde = 4;
+    }
+    
     
     public void IniciarComponentes(){
         chorizontal = new Conector(this, "h");
