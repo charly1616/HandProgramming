@@ -78,7 +78,10 @@ public class BloqueTexto extends Bloque{
             double textWidth = computeTextWidth(valor.getFont(), valornuevo);
             if (textWidth + 30 > 77){
                 valor.setPrefWidth(textWidth + 30);
-                setAncho(textWidth + 30);
+                setAncho(textWidth + 75);
+            } else {
+                valor.setPrefWidth(77);
+                setAncho(77 + 45);
             }
         });
         

@@ -164,12 +164,12 @@ public final class Conector extends Pane{
     
     public void Desactivar(){
         this.activado = false;
-        this.linea.setVisible(false);
+        this.ocultarLinea();
     }
     
     public void Activar(){
         this.activado = true;
-        this.linea.setVisible(true);
+        this.mostrarLinea();
     }
     
     
@@ -205,6 +205,14 @@ public final class Conector extends Pane{
             if (conexion != null) conexion.setPosicion(this.getLayoutX(), this.getLayoutY()-20);
         }
         
+        
+        if (modo.equals("h")){
+            linea.setLayoutX(0);
+            linea.setLayoutY(0);
+        } else {
+            linea.setLayoutX(0);
+            linea.setLayoutY(0);
+        }
     }
         
 
@@ -220,6 +228,7 @@ public final class Conector extends Pane{
             b.conectado = this;
             fixPosicion();
             ocultarPreBloque();
+            ocultarLinea();
         }
     }
     
@@ -228,6 +237,7 @@ public final class Conector extends Pane{
         this.conexion.conectado = null;
         if (modo.equals("h")) this.conexion.ActivarVertical();
         this.conexion = null;
+        mostrarLinea();
     }
     
     
@@ -275,14 +285,19 @@ public final class Conector extends Pane{
         
         TopPart.setVisible(true);
         SidePart.setVisible(true);
+    }
+    
+    public void ocultarLinea(){
         linea.setVisible(false);
     }
     
     public void ocultarPreBloque(){
         TopPart.setVisible(false);
         SidePart.setVisible(false);
-        if (activado) linea.setVisible(true);
     }
     
+    public void mostrarLinea(){
+        if (activado) linea.setVisible(true);
+    }
     
 }

@@ -89,7 +89,7 @@ public class BloqueInicio extends Bloque{
         tri.getPoints().addAll(-18.0, 16.0, -18.0, -13.0, 6.0, 2.0, -18.0, 16.0);
         tri.setStroke(Color.valueOf("#2c2c2c") );
         tri.setStrokeType(StrokeType.INSIDE);
-        tri.setStrokeWidth(5.0);
+        tri.setStrokeWidth(4.0);
         
         getChildren().add(tri);
 

@@ -187,8 +187,12 @@ public class Bloque extends Pane{
         SidePart.setWidth(this.ancho);
         setPrefWidth(this.ancho + 15);
         
-        if (chorizontal != null) chorizontal.fixPosicion();
-        if (cvertical != null) cvertical.fixPosicion();
+        if (chorizontal != null){
+            chorizontal.fixPosicion();
+        }
+        if (cvertical != null){
+            cvertical.fixPosicion();
+        }
     }
     
     //Conecta las propiedades con el bloque
