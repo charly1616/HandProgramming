@@ -12,15 +12,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 
-public class BloqueTexto extends Bloque{
+public abstract class BloqueTexto extends Bloque{
     public Label indicador;
     public TextField valor;
-
-    public BloqueTexto(double x, double y, Color ColorBloque) {
+    
+    public int Limite;
+    
+    public BloqueTexto(double x, double y, Color ColorBloque, int Limite) {
         super(x, y, ColorBloque);
+        this.Limite = Limite;
     }
-    
-    
     
     
     
@@ -40,14 +41,13 @@ public class BloqueTexto extends Bloque{
         
         //tamaño del label
         indicador.setPrefHeight(39); //altura
-        indicador.setPrefWidth(19); //ancho
+        indicador.setPrefWidth(26); //ancho
         
         //Se coloca la fuente
         Font font = new Font("Berlin Sans FB",12);
         indicador.setFont(font);
         
-        //Se muestra en el bloque
-        getChildren().add(indicador);
+        
         
         
         
@@ -76,18 +76,25 @@ public class BloqueTexto extends Bloque{
         
         valor.textProperty().addListener((ObservableValue<? extends String> observable, String valorviejo, String valornuevo) -> {
             double textWidth = computeTextWidth(valor.getFont(), valornuevo);
-            if (textWidth + 30 > 77){
+            if (textWidth + 30 > Limite+77){
+            }
+            else if (textWidth + 30 > 77){
                 valor.setPrefWidth(textWidth + 30);
                 setAncho(textWidth + 75);
             } else {
                 valor.setPrefWidth(77);
                 setAncho(77 + 45);
             }
+            TypeVariable();
         });
         
         
         getChildren().add(valor);
+        //Se muestra en el bloque
+        getChildren().add(indicador);
     }
+    
+    public abstract void TypeVariable();
     
     
     public static String toHex(Color color) {

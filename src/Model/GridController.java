@@ -5,7 +5,7 @@
 package Model;
 
 import Bloques.BloqueInicio;
-import Bloques.BloqueTexto;
+import Bloques.*;
 import javafx.scene.Node;
 import Main.Controller;
 import Model.Bloque;
@@ -83,13 +83,14 @@ public class GridController implements Initializable {
         
         hacerNavegable();
         
-        Bloque p = new BloqueTexto(40, 40, Color.YELLOW);
+        Bloque p = new BloqueValor(40, 40);
         hacerBloqueMovible(p);
         if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
         if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
         Grid.getChildren().add(p);
         bloques.add(p);
         p.setAncho(130);
+        
         
         
         p = new BloqueInicio(0, 0);
