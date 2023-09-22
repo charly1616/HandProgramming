@@ -83,7 +83,7 @@ public class GridController implements Initializable {
         hacerNavegable();
         
         
-        BloqueInicio p = new BloqueInicio(0, 0);
+        Bloque p = new BloqueInicio(0, 0);
         hacerBloqueMovible(p);
         p.chorizontal.Desactivar();
         if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
