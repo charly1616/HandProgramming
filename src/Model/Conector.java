@@ -9,7 +9,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 
 
-public final class Conector extends Pane{
+public class Conector extends Pane{
     
     //Componentes
     public Rectangle SidePart;
@@ -191,6 +191,10 @@ public final class Conector extends Pane{
         setLayoutY(y);
         
         if (conexion != null) conexion.setPosicion(x, y);
+    }
+    
+    public Bloque getConexion(){
+        return this.conexion;
     }
     
     
