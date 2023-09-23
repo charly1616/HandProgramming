@@ -18,20 +18,11 @@ public class BloqueValor extends BloqueTexto{
     
     @Override
     public void TypeVariable(){
-        String type = "";
-        if (valor.getText().equals("")){
-            type = "Non";
-        } else if (esNumero(valor.getText())){
-            type = "Num";
-        } else if (valor.getText().toLowerCase().equals("true") || valor.getText().toLowerCase().equals("false")){
-            type = "Bol";
-        } else {
-            type = "Str";
-        }
-        indicador.setText(type);
+        indicador.setText(GetType(valor.getText()));
     }
     
-  public String GetType(String valor) {
+    
+    public String GetType(String valor) {
         String type = "";
         if (valor.equals("")) {
             type = "Non";
@@ -45,6 +36,8 @@ public class BloqueValor extends BloqueTexto{
         return type;
     }
 
+  
+  
     public boolean esNumero(String n) {
         try {
             double b = Double.parseDouble(n);

@@ -42,6 +42,9 @@ public class Bloque extends Pane{
     public double LastX;
     public double LastY;
     
+    public boolean InconectableH;
+    public boolean InconectableV;
+    
     //Constructor
     public Bloque(double x, double y, Color ColorBloque) {
         this.x = x;

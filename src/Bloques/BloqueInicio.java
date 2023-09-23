@@ -1,6 +1,7 @@
 
 package Bloques;
 
+import javafx.animation.TranslateTransition;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
@@ -8,12 +9,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import Model.Bloque;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 
 public class BloqueInicio extends Bloque{
@@ -91,10 +94,51 @@ public class BloqueInicio extends Bloque{
         tri.setStrokeType(StrokeType.INSIDE);
         tri.setStrokeWidth(4.0);
         
+        tri.setMouseTransparent(true);
+        
         getChildren().add(tri);
 
-        
+        boton.setOnAction(e -> {
+            Undir();
+            System.out.println("ANYELA MARRON MARRON");
+        });
         
     }
-       
+    
+    public void Undir(){
+        
+        TranslateTransition transicion = Transicion(TopPart);
+        TranslateTransition transicion1 = Transicion(label);
+        TranslateTransition transicion2 = Transicion(tri);
+        transicion.setDelay(Duration.ZERO);
+        transicion1.setDelay(Duration.ZERO);
+        transicion2.setDelay(Duration.ZERO);
+        
+        
+        transicion.setByY(9);
+        transicion1.setByY(9);
+        transicion2.setByY(9);
+        
+        transicion.play();
+        transicion1.play();
+        transicion2.play();
+                 
+                
+
+    }
+    
+    public TranslateTransition Transicion(Node n){
+        TranslateTransition t = new TranslateTransition(Duration.seconds(0.06), n);
+        t.setCycleCount(1);
+        t.setAutoReverse(true);
+        TranslateTransition r = new TranslateTransition(Duration.seconds(0.06), n);
+        r.setToY(0);
+        t.setOnFinished(event -> {
+            r.play();
+        });
+
+        return t;
+    }
+    
+    
 }
