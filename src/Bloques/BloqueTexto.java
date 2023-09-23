@@ -28,7 +28,6 @@ public abstract class BloqueTexto extends Bloque{
     }
     
     
-    
     @Override
     public void IniciarComponentes(){
         super.IniciarComponentes();
@@ -104,6 +103,8 @@ public abstract class BloqueTexto extends Bloque{
         
         setAncho(130);
     }
+    
+    
     
     public abstract void TypeVariable();
     

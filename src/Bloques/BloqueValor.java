@@ -32,6 +32,13 @@ public class BloqueValor extends BloqueTexto{
     }
     
     
+    public String GetType(){
+        
+        return "";
+    }
+    
+    
+    
     public boolean esNumero(String n){
         try {
             double b = Double.parseDouble(n);
