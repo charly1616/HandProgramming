@@ -196,12 +196,17 @@ public class Bloque extends Pane{
     }
     
     
-    // 
-    public int LargoConexion(){
-        int c = 0;
-        return c;
+   public int LargoConexion() {
+    int contador = 0;
+    Bloque bloqueActual = this;
+
+    while (bloqueActual != null && bloqueActual.cvertical != null && bloqueActual.cvertical.conexion != null) {
+        contador++;
+        bloqueActual = bloqueActual.cvertical.conexion;
     }
-    
+    return contador;
+}
+
     
     public String getValor(){
         return "";
