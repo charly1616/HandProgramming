@@ -123,7 +123,7 @@ public class BloqueInicio extends Bloque{
         transicion1.play();
         transicion2.play();
                  
-                
+        
 
     }
     

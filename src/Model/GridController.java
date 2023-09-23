@@ -115,7 +115,7 @@ public class GridController implements Initializable {
         bloques.add(p);
         
         
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < 1; i++) {
             crearBloque(Color.rgb((int)(Math.random()*250),(int)(Math.random()*250),(int)(Math.random()*250)));
         }
         
@@ -258,6 +258,15 @@ public class GridController implements Initializable {
     }
     
     
+    //Hacer
+    public void OcultarPreBloques(){
+        for (Bloque p: bloques){
+            
+        }
+    }
+    
+    
+    
     public void ConectarBloque(Bloque b){
         for (Bloque p : bloques) {
             if (p == b) continue;
@@ -336,10 +345,12 @@ public class GridController implements Initializable {
     
     
     public void crearBloque(Color c) {
-        Bloque p = new Bloque(Math.random()*3000-1500, Math.random()*3000-1500, c);
+        Bloque p = new Bloque(Math.random()*00-00, Math.random()*000-00, c);
         hacerBloqueMovible(p);
         if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
-        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
+        p.cvertical = new ConectorMultiple(p);
+        Grid.getChildren().add(p.cvertical);
+//        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
         Grid.getChildren().add(p);
         bloques.add(p);
     }

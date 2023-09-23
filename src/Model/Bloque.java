@@ -198,6 +198,16 @@ public class Bloque extends Pane{
         }
     }
     
+    
+    
+    public int LargoConexion(){
+        int c = 0;
+        return c;
+    }
+    
+    
+    
+    
     //Conecta las propiedades con el bloque
     public void Pintar(){
         

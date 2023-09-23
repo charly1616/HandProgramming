@@ -34,6 +34,7 @@ public class Conector extends Pane{
     public Bloque conectador;
     public Bloque conexion;
     
+    public Conector multiconectador;
     
     //Constructor para el vertical
     public Conector(Bloque conectador, String modo, boolean activado, double offX){
@@ -46,10 +47,23 @@ public class Conector extends Pane{
         pintar();
     }
     
+    public Conector(ConectorMultiple conectador, String modo, boolean activado){
+        this.modo = modo;
+        this.conectador = null;
+        this.multiconectador = conectador;
+        this.activado = activado;
+        conexion = null;
+        this.offX = 0;
+        iniciarComponentes();
+        pintar();
+    }
+    
+    
     public Conector(Bloque conectador, String modo){
         this.modo = modo;
         this.conectador = conectador;
         this.activado = true;
+        this.offX = 0;
         conexion = null;
         iniciarComponentes();
         pintar();
@@ -58,15 +72,23 @@ public class Conector extends Pane{
     
     public void iniciarComponentes(){
         
-        if (modo.equals("h")){
-            setHeight(Bloque.ALTO);
-            setWidth(ancho);
-            setPosicion(   conectador.getX()+conectador.getWidth()-5+ offX   ,    conectador.getY()+7    );
+        if (conectador != null){
+            if (modo.equals("h")){
+                setHeight(Bloque.ALTO);
+                setWidth(ancho);
+                setPosicion(   conectador.getX()+conectador.getWidth()-5+ offX   ,    conectador.getY()+7    );
+            } else {
+                setHeight(Bloque.ALTO);
+                setWidth(conectador.ancho);
+                setPosicion(conectador.getX()+7,conectador.getHeight());
+            }
         } else {
             setHeight(Bloque.ALTO);
-            setWidth(conectador.ancho);
-            setPosicion(conectador.getX()+7,conectador.getHeight());
+            setWidth(ancho);
+            setPosicion(   multiconectador.getLayoutX()-5+ offX   ,    multiconectador.getLayoutY()+7    );
+
         }
+        
         
         
         
@@ -110,6 +132,7 @@ public class Conector extends Pane{
         SidePart.toBack();
         TopPart.toBack();
         
+        //Punteado
         SidePart.getStrokeDashArray().addAll(5d, 10d);
         TopPart.getStrokeDashArray().addAll(5d, 10d);
         
@@ -200,24 +223,37 @@ public class Conector extends Pane{
     
     
     public void fixPosicion(){
-        if (modo.equals("h")){
-            setLayoutX(conectador.getX() + conectador.ancho+offX   );
-            setLayoutY(conectador.getY());
+        if (conectador != null){
+            if (modo.equals("h")){
+                setLayoutX(conectador.getX() + conectador.ancho+offX   );
+                setLayoutY(conectador.getY());
+                if (conexion != null) conexion.setPosicion(this.getLayoutX(), this.getLayoutY());
+            } else {
+                setLayoutX(conectador.getX() + offX   );
+                setLayoutY(conectador.getY()+Bloque.ALTO);
+                if (conexion != null) conexion.setPosicion(this.getLayoutX(), this.getLayoutY()-20);
+            }
+
+
+            if (modo.equals("h")){
+                linea.setLayoutX(0);
+                linea.setLayoutY(0);
+            } else {
+                linea.setLayoutX(0);
+                linea.setLayoutY(0);
+            }
+        } else {
+            
+            setLayoutX( multiconectador.getLayoutX()-5+ offX   );
+            setLayoutY(   multiconectador.getLayoutY()+7);
             if (conexion != null) conexion.setPosicion(this.getLayoutX(), this.getLayoutY());
-        } else {
-            setLayoutX(conectador.getX() + offX   );
-            setLayoutY(conectador.getY()+Bloque.ALTO);
-            if (conexion != null) conexion.setPosicion(this.getLayoutX(), this.getLayoutY()-20);
-        }
-        
-        
-        if (modo.equals("h")){
+
+
             linea.setLayoutX(0);
             linea.setLayoutY(0);
-        } else {
-            linea.setLayoutX(0);
-            linea.setLayoutY(0);
+            
         }
+        
     }
         
 
