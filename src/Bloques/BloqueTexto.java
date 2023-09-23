@@ -18,9 +18,13 @@ public abstract class BloqueTexto extends Bloque{
     
     public int Limite;
     
-    public BloqueTexto(double x, double y, Color ColorBloque, int Limite) {
+    public int LetrasMax;
+    
+    
+    public BloqueTexto(double x, double y, Color ColorBloque, int Limite, int LetrasMax) {
         super(x, y, ColorBloque);
         this.Limite = Limite;
+        this.LetrasMax = LetrasMax;
     }
     
     
@@ -75,7 +79,12 @@ public abstract class BloqueTexto extends Bloque{
                 "; -fx-alignment: BOTTOM_CENTER;");
         
         valor.textProperty().addListener((ObservableValue<? extends String> observable, String valorviejo, String valornuevo) -> {
+            
+            if (valornuevo.length()>this.LetrasMax ){
+                valor.setText(valorviejo);
+            }
             double textWidth = computeTextWidth(valor.getFont(), valornuevo);
+            
             if (textWidth + 30 > Limite+77){
             }
             else if (textWidth + 30 > 77){
