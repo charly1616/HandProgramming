@@ -42,8 +42,7 @@ public class Bloque extends Pane{
     public double LastX;
     public double LastY;
     
-    public boolean InconectableH;
-    public boolean InconectableV;
+    public boolean Inconectable;
     
     //Constructor
     public Bloque(double x, double y, Color ColorBloque) {
@@ -113,6 +112,7 @@ public class Bloque extends Pane{
     public void DesactivarVertical() {if (cvertical != null) cvertical.Desactivar();}
     public void ActivarVertical() {if (cvertical != null) cvertical.Activar();}
     
+    
     public void Agarrado(){
         setColorBorde(Color.DODGERBLUE);
         setTamBorde(6);
@@ -121,9 +121,10 @@ public class Bloque extends Pane{
         if (conectado != null){
             conectado.Desconectar();
             conectado = null;
-        }
-            
+        } 
     }
+    
+    
     
     public void AlFrente(){
         toFront();
@@ -150,10 +151,6 @@ public class Bloque extends Pane{
         return c;
     }
             
-    
-    
-    
-    
     
     
     public void setPosicion(double x, double y){
@@ -199,7 +196,7 @@ public class Bloque extends Pane{
     }
     
     
-    
+    // 
     public int LargoConexion(){
         int c = 0;
         return c;

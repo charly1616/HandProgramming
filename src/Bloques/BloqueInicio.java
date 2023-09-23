@@ -100,7 +100,6 @@ public class BloqueInicio extends Bloque{
 
         boton.setOnAction(e -> {
             Undir();
-            System.out.println("ANYELA MARRON MARRON");
         });
         
     }
@@ -123,7 +122,7 @@ public class BloqueInicio extends Bloque{
         transicion1.play();
         transicion2.play();
                  
-        
+        System.out.println(this.LargoConexion());
 
     }
     
