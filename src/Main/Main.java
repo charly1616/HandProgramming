@@ -1,5 +1,3 @@
-
-
 package Main;
 
 import javafx.animation.KeyFrame;
@@ -35,7 +33,7 @@ public class Main extends Application {
         primaryStage.setScene(loadingScene);
 
         // Cargar la imagen de fondo
-        Image backgroundImage = new Image("2.jpg"); 
+        Image backgroundImage = new Image("2.jpg");
         ImageView backgroundImageView = new ImageView(backgroundImage);
         rootPane.getChildren().add(backgroundImageView);
 
@@ -43,23 +41,23 @@ public class Main extends Application {
 
         // Simular la carga gradual con una animación
         Timeline timeline = new Timeline(
-            new KeyFrame(Duration.ZERO, event -> {
-                // Simular la carga aquí si es necesario
-            }),
-            new KeyFrame(Duration.seconds(3), event -> {
-                try {
-                    // Cargar la ventana principal
-                    Parent mainRoot = FXMLLoader.load(getClass().getResource("ventana.fxml"));
-                    Scene mainScene = new Scene(mainRoot);
-                    primaryStage.setScene(mainScene);
-                    primaryStage.setTitle("PROYECTO SISTEMAS");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    // Ocultar la imagen de fondo y mostrar la ventana principal
-                    rootPane.getChildren().remove(backgroundImageView);
-                }
-            })
+                new KeyFrame(Duration.ZERO, event -> {
+                    // Simular la carga aquí si es necesario
+                }),
+                new KeyFrame(Duration.seconds(3), event -> {
+                    try {
+                        // Cargar la ventana principal
+                        Parent mainRoot = FXMLLoader.load(getClass().getResource("ventana.fxml"));
+                        Scene mainScene = new Scene(mainRoot);
+                        primaryStage.setScene(mainScene);
+                        primaryStage.setTitle("PROYECTO SISTEMAS");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        // Ocultar la imagen de fondo y mostrar la ventana principal
+                        rootPane.getChildren().remove(backgroundImageView);
+                    }
+                })
         );
         timeline.setCycleCount(1); // Ejecutar una vez
         timeline.play();
