@@ -22,17 +22,16 @@ public class BloqueMat extends BloqueOP{
         
     }
 
-    public boolean esOperacionPosible() {
-        // Verifica si es posible realizar la operación
-        if (operaciones.getText().equals("+")) {
-            Bloque bloqueIzquierdo = conectado != null ? conectado.conectador : null;
-            Bloque bloqueDerecho = chorizontal != null && chorizontal.conexion != null ? chorizontal.conexion : null;
-        }
+   public boolean PosibleConex() {
+        Bloque bloqueIzquierdo = conectado != null ? conectado.conectador : null;
+        Bloque bloqueDerecho = chorizontal != null && chorizontal.conexion != null ? chorizontal.conexion : null;
         
-        // Por defecto, no es posible realizar la operación
-        return false;
+        if (bloqueIzquierdo instanceof BloqueValor || bloqueIzquierdo instanceof BloqueVariable) {
+            if (bloqueDerecho instanceof BloqueValor || bloqueDerecho instanceof BloqueVariable) {
+                return true;
+            }
+        }
+      return false;
     }
-   
-
    
 }

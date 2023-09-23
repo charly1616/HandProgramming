@@ -47,5 +47,4 @@ public class BloqueOP extends Bloque {
     }
     
     
-    
 }
