@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
 /**
  *
  * @author Hands Programming
@@ -22,7 +23,7 @@ public class BloqueOP extends Bloque {
         super.IniciarComponentes();
         
         //Creando el Label
-        operaciones = new Label("op");
+        operaciones = new Label("Op");
         
         //alineamiento del indicador
         operaciones.setAlignment(Pos.CENTER_RIGHT);

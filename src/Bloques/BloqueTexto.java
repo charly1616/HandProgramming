@@ -50,11 +50,6 @@ public abstract class BloqueTexto extends Bloque{
         Font font = new Font("Berlin Sans FB",14);
         indicador.setFont(font);
         
-        
-        
-        
-        
-        
         valor = new TextField();
         
         valor.setPromptText("Dato");

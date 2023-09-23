@@ -27,7 +27,7 @@ public class BloqueInicio extends Bloque{
     public Polyline tri;
     
     
-    public ArrayList<BloqueVariable> bloques = new ArrayList<BloqueVariable>();
+    public ArrayList<BloqueVariable> bloquesval = new ArrayList<BloqueVariable>();
     
     
     
@@ -145,20 +145,29 @@ public class BloqueInicio extends Bloque{
         return t;
     }
     
-    
-    
-    public boolean esVariable(String nombre){
-        return true;
+    public boolean esVariable(String nombre) {
+        for (BloqueVariable variable : bloquesval) {
+            if (variable.getNombre().equals(nombre)) {
+                return true;
+            }
+        }
+        return false;
     }
+
     
-    
-    public String getValor(String nombre){
-        return "";
+       public String getValor(String nombre) {
+        for (BloqueVariable variable : bloquesval) {
+            if (variable.getNombre().equals(nombre)) {
+                return variable.getValor();
+            }
+        }
+        System.out.println("No se encuentra en la lista");
+        return null;
     }
-    
-    
+
+
     public void vaciarVariables(){
-        
+        bloquesval.clear();
     }
     
     
