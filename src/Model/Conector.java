@@ -1,6 +1,7 @@
 
 package Model;
 
+import Bloques.BloqueInicio;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -255,24 +256,21 @@ public class Conector extends Pane{
         }
         
     }
-        
-
     
-    
-    
-    
-    public void setConexion(Bloque b){
-        this.conexion = b;
-        if (modo.equals("h")) b.DesactivarVertical();
-        System.out.println(b);
-        if (b != null){
-            b.conectado = this;
-            fixPosicion();
-            ocultarPreBloque();
-            ocultarLinea();
-        }
+   public void setConexion(Bloque b) {
+    if (b instanceof BloqueInicio) {
+        return;
     }
-    
+    this.conexion = b;
+    if (modo.equals("h")) b.DesactivarVertical();
+    System.out.println(b);
+    if (b != null) {
+        b.conectado = this;
+        fixPosicion();
+        ocultarPreBloque();
+        ocultarLinea();
+    }
+}
     
     public void Desconectar(){
         this.conexion.conectado = null;
