@@ -34,7 +34,7 @@ public abstract class BloqueTexto extends Bloque{
         super.IniciarComponentes();
         
         //Creando el Label
-        indicador = new Label("str");
+        indicador = new Label("Str");
         
         //alineamiento del indicador
         indicador.setAlignment(Pos.CENTER_RIGHT);
@@ -48,7 +48,7 @@ public abstract class BloqueTexto extends Bloque{
         indicador.setPrefWidth(26); //ancho
         
         //Se coloca la fuente
-        Font font = new Font("Berlin Sans FB",12);
+        Font font = new Font("Berlin Sans FB",14);
         indicador.setFont(font);
         
         
@@ -101,6 +101,8 @@ public abstract class BloqueTexto extends Bloque{
         getChildren().add(valor);
         //Se muestra en el bloque
         getChildren().add(indicador);
+        
+        setAncho(130);
     }
     
     public abstract void TypeVariable();

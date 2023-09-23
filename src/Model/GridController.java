@@ -83,13 +83,31 @@ public class GridController implements Initializable {
         
         hacerNavegable();
         
-        Bloque p = new BloqueValor(40, 40);
+        Bloque p = new BloqueValor(120, 120);
         hacerBloqueMovible(p);
         if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
         if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
         Grid.getChildren().add(p);
         bloques.add(p);
-        p.setAncho(130);
+        
+        
+        
+        
+        p = new BloqueValor(120, 120);
+        hacerBloqueMovible(p);
+        if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
+        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
+        Grid.getChildren().add(p);
+        bloques.add(p);
+        
+        
+        p = new BloqueVariable(120, 120);
+        hacerBloqueMovible(p);
+        if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
+        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
+        Grid.getChildren().add(p);
+        bloques.add(p);
+        
         
         
         

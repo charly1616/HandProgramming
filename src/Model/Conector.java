@@ -69,7 +69,7 @@ public final class Conector extends Pane{
         }
         
         
-        this.toBack();
+        
         ColorLinea = Color.color(0, 0, 0);
         grosorLinea = 8;
         
@@ -117,12 +117,13 @@ public final class Conector extends Pane{
         TopPart.setVisible(false);
         
         
-        
+        this.setMouseTransparent(true);
         
         
         
         getChildren().add(SidePart);
         getChildren().add(TopPart);
+        
     }
     
     
