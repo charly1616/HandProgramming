@@ -23,13 +23,22 @@ public class ConectorMultiple extends Conector{
     
     
     public void setLargoLinea(){
-        linea.setEndY(Bloque.ALTO*(largoConector+2));
+        linea.setEndY(altoLinea());
+    }
+    
+    public double altoLinea(){
+        return Bloque.ALTO*(largoConector+2);
     }
     
     
+    public void setPreBloqueY(){
+        this.SidePart.setY(7+altoLinea());
+        this.TopPart.setY(altoLinea());
+    }
+    
     @Override
     public double[] getRectVertices(){
-        double [] d = {getX(), getY()+Bloque.ALTO*(largoConector+2), getX()+52, getY()+80+Bloque.ALTO*(largoConector+2)};
+        double [] d = {getX(), getY()+altoLinea(), getX()+52, getY()+80+altoLinea()};
         return d;
     }
     

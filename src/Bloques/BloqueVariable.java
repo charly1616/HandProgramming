@@ -5,7 +5,10 @@ import javafx.scene.paint.Color;
 
 
 public class BloqueVariable extends BloqueTexto{
-
+    
+    public BloqueInicio inicio;
+    
+    
     public BloqueVariable(double x, double y) {
         super(x, y, Color.ORANGE, 250, 15);
     }
@@ -18,6 +21,10 @@ public class BloqueVariable extends BloqueTexto{
         valor.setPromptText("Var");
     }
     
+    
+    public String getNombre(){
+        return valor.getText();
+    }
     
     
     @Override

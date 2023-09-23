@@ -203,6 +203,10 @@ public class Bloque extends Pane{
     }
     
     
+    public String getValor(){
+        return "";
+    }
+    
     
     
     //Conecta las propiedades con el bloque

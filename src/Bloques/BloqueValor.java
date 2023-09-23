@@ -22,6 +22,14 @@ public class BloqueValor extends BloqueTexto{
     }
     
     
+    @Override
+    public String getValor(){
+        return valor.getText();
+    }
+    
+    
+    
+    
     public String GetType(String valor) {
         String type = "";
         if (valor.equals("")) {

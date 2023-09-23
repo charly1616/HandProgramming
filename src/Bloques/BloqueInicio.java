@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import Model.Bloque;
+import java.util.ArrayList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,6 +27,9 @@ public class BloqueInicio extends Bloque{
     public Polyline tri;
     
     
+    public ArrayList<BloqueVariable> bloques = new ArrayList<BloqueVariable>();
+    
+    
     
     public BloqueInicio(double x, double y) {
         super(x,y);
@@ -37,6 +41,8 @@ public class BloqueInicio extends Bloque{
         chorizontal.Desactivar();
         cvertical.offX = 60;
     }
+    
+    
     
     @Override
     public void IniciarComponentes(){
@@ -137,6 +143,22 @@ public class BloqueInicio extends Bloque{
         });
 
         return t;
+    }
+    
+    
+    
+    public boolean esVariable(String nombre){
+        return true;
+    }
+    
+    
+    public String getValor(String nombre){
+        return "";
+    }
+    
+    
+    public void vaciarVariables(){
+        
     }
     
     
