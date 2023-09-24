@@ -264,11 +264,9 @@ public class GridController implements Initializable {
     }
     
     
-    
-    
     public Conector pintarPreBloque(Bloque b){
         for (Bloque p : bloques) {
-            if (p == b || b instanceof BloqueInicio) continue;
+            if (p == b) continue;
             if (p.chorizontal.detectarColision(b)){
                 p.chorizontal.mostrarPreBloque(b);
                 return p.chorizontal;
@@ -287,7 +285,6 @@ public class GridController implements Initializable {
             } else if (p.cvertical.inner != null){
                 p.cvertical.inner.ocultarPreBloque();
             }
-            
         }
         return null;
     }

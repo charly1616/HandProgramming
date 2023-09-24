@@ -279,11 +279,12 @@ public class Conector extends Pane{
     
     
     
-    public boolean puedeConectarse(Bloque b){
-        if (b.Inconectableh && modo.equals("h")) return false;
-        if (b.Inconectablev && modo.equals("v")) return false;
-        return true;
-    }
+    public boolean puedeConectarse(Bloque b) {
+    if (b.Inconectableh && modo.equals("h")) return false;
+    if (b.Inconectablev && modo.equals("v")) return false;
+    if (multiconectador != null) return true;
+    return true;
+}
     
     
     
