@@ -21,24 +21,27 @@ public class BloqueVariable extends BloqueTexto{
         valor.setPromptText("Var");
     }
     
-    
-    public String getNombre(){
+       public String getNombre() {
         return valor.getText();
     }
-    
-    public String getValor(){
+
+    public String getValor() {
         return valorVariable;
     }
-    
-    public void setValor(){
-        
+
+    public void setValor(String nuevoValor) {
+        valorVariable = nuevoValor;
     }
-    
-    public String encontrarValor(){
-        return "Non";
+
+    public String encontrarValor() {
+        if (valorVariable != null && !valorVariable.isEmpty()) {
+            return valorVariable;
+        } else {
+            return "Non";
+        }
     }
-    
-    
+
+
     
     @Override
     public void TypeVariable(){
