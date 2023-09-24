@@ -186,7 +186,8 @@ public class GridController implements Initializable {
         
             b.setOnMouseReleased((MouseEvent mouseEvent) -> {
             b.Soltado();
-
+            OcultarPreBloques();
+    
             Conector c = pintarPreBloque(b);
             if (c != null) {
                 c.setConexion(b);
@@ -197,7 +198,6 @@ public class GridController implements Initializable {
                 b.LastY = b.getLayoutY() - this.offsetY;
             }
 
-            OcultarPreBloques();
             organizarBloques();
         });
 
@@ -304,19 +304,21 @@ public class GridController implements Initializable {
     }
 
     
-    
-    
-    public void ConectarBloque(Bloque b){
+        public void ConectarBloque(Bloque b) {
         for (Bloque p : bloques) {
-            if (p == b) continue;
-            
-            if (p.chorizontal.detectarColision(b)){
+            if (p == b) {
+                continue;
+            }
+
+            if (p.chorizontal.detectarColision(b)) {
                 p.chorizontal.setConexion(b);
-            }else if (p.cvertical.detectarColision(b)){
+            } else if (p.cvertical.detectarColision(b)) {
                 p.cvertical.setConexion(b);
             }
         }
+        OcultarPreBloques();
     }
+
     
     
     
