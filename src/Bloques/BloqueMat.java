@@ -17,7 +17,7 @@ public class BloqueMat extends BloqueOP{
     
     public BloqueMat(double x, double y, String signo) {
         super(x, y);
-        operaciones.setText("X");
+        operaciones.setText("+");
     }
     
      @Override
@@ -26,7 +26,5 @@ public class BloqueMat extends BloqueOP{
         
     }
    
-    
-    
     
 }

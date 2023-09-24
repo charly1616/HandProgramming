@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 /**
  *
@@ -37,7 +38,7 @@ public class BloqueOP extends Bloque {
         operaciones.setPrefWidth(26); //ancho
         
         //Se coloca la fuente
-        Font font = new Font("Berlin Sans FB",14);
+        Font font = Font.font("Berlin Sans FB", FontWeight.BOLD, 21);
         operaciones.setFont(font);
    
         
