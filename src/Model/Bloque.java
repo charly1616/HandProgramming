@@ -42,7 +42,11 @@ public class Bloque extends Pane{
     public double LastX;
     public double LastY;
     
-    public boolean Inconectable;
+    public boolean Inconectable; //No se puede conectar a otros
+    
+    
+    
+    
     
     //Constructor
     public Bloque(double x, double y, Color ColorBloque) {
@@ -61,6 +65,8 @@ public class Bloque extends Pane{
         Pintar();
     }
     
+    
+    
     public Bloque(double x, double y) {
         this.x = x;
         LastX = x;
@@ -70,6 +76,7 @@ public class Bloque extends Pane{
         this.ColorBorde = Color.color(0, 0, 0);
         this.TamBorde = 4;
     }
+    
     
     
     public void IniciarComponentes(){
@@ -111,6 +118,7 @@ public class Bloque extends Pane{
     
     public void DesactivarVertical() {if (cvertical != null) cvertical.Desactivar();}
     public void ActivarVertical() {if (cvertical != null) cvertical.Activar();}
+    
     
     
     public void Agarrado(){
@@ -195,17 +203,16 @@ public class Bloque extends Pane{
         }
     }
     
-    
-   public int LargoConexion() {
-    int contador = 0;
-    Bloque bloqueActual = this;
+    public int LargoConexion() {
+        int contador = 0;
+        Bloque bloqueActual = this;
 
-    while (bloqueActual != null && bloqueActual.cvertical != null && bloqueActual.cvertical.conexion != null) {
-        contador++;
-        bloqueActual = bloqueActual.cvertical.conexion;
+        while (bloqueActual != null && bloqueActual.cvertical != null && bloqueActual.cvertical.conexion != null) {
+            contador++;
+            bloqueActual = bloqueActual.cvertical.conexion;
+        }
+        return contador;
     }
-    return contador;
-}
 
     
     public String getValor(){

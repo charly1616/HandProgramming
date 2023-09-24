@@ -8,6 +8,7 @@ public class BloqueVariable extends BloqueTexto{
     
     public BloqueInicio inicio;
     
+    public String valorVariable;
     
     public BloqueVariable(double x, double y) {
         super(x, y, Color.ORANGE, 250, 15);
