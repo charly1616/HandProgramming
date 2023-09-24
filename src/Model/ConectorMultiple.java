@@ -17,6 +17,9 @@ public class ConectorMultiple extends Conector{
         setLargoLinea();
         setPreBloqueY();
         conectador.Inconectableh = true;
+        Circle cir = new Circle(inner.getLayoutX(), inner.getLayoutY(),5);
+        cir.setFill(Color.RED);
+        getChildren().add(cir);
     }
     
     @Override
@@ -25,11 +28,7 @@ public class ConectorMultiple extends Conector{
         inner = new Conector(this,"h",true);
         inner.multiconectador = this;
         inner.identable = true;
-        inner.setLayoutX(conectador.ancho/2.0);
-        inner.setLayoutY(0);
-        Circle cir = new Circle(inner.getLayoutX(), inner.getLayoutY(),5);
-        cir.setFill(Color.RED);
-        getChildren().add(cir);
+        inner.setPosicion(0, 0);
         setPreBloqueY();
         
     }

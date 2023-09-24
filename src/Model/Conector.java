@@ -189,7 +189,13 @@ public class Conector extends Pane{
         if (!activado) {
             linea.setVisible(false);
         }
-
+        
+        
+        
+        Circle juanda = new Circle(0,0,8);
+        getChildren().add(juanda);
+        
+        
         getChildren().add(linea);
         fixPosicion();
 
@@ -266,7 +272,7 @@ public class Conector extends Pane{
         } else {
             
             setLayoutX( multiconectador.getLayoutX()-5+ offX   );
-            setLayoutY(   multiconectador.getLayoutY()+7);
+            setLayoutY(   multiconectador.getLayoutY()+15);
             if (conexion != null) conexion.setPosicion(this.getLayoutX()+ offX + multiconectador.conectador.ancho/2.0, this.getLayoutY()-15);
 
 
@@ -311,7 +317,7 @@ public class Conector extends Pane{
             multiconectador.largoConector = conexion.LargoConexion()+1;
             multiconectador.fixPosicion();
         }
-        if (conexion == null){
+        if (conectador == null && true){
             
         }
         if (conectador != null && conectador.conectado != null){
