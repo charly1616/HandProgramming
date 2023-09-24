@@ -215,17 +215,18 @@ public class Bloque extends Pane{
         return contador;
     }
 
+    
+    
     public int LargoConexionMultiple() {
         int contador = 0;
         Bloque bloqueActual = this;
 
         while (bloqueActual != null && bloqueActual.cvertical != null && bloqueActual.cvertical.conexion != null) {
+            if (bloqueActual.cvertical.inner != null && bloqueActual.cvertical.inner.conexion != null){
+                contador += bloqueActual.cvertical.inner.conexion.LargoConexionMultiple();
+            }
             contador++;
             bloqueActual = bloqueActual.cvertical.conexion;
-        }
-        
-        if (cvertical.inner != null && cvertical.inner.conexion != null){
-            contador += cvertical.inner.conexion.LargoConexionMultiple();
         }
         
         
@@ -233,9 +234,11 @@ public class Bloque extends Pane{
     }
     
     
+    
     public String getValor(){
         return "";
     }
+    
     
     
     

@@ -26,9 +26,23 @@ public class BloqueVariable extends BloqueTexto{
         return valor.getText();
     }
     
+    public String getValor(){
+        return valorVariable;
+    }
+    
+    public void setValor(){
+        
+    }
+    
+    public String encontrarValor(){
+        return "Non";
+    }
+    
+    
     
     @Override
     public void TypeVariable(){
+        valorVariable = valor.getText();
     }
     
 }

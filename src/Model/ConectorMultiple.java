@@ -17,9 +17,9 @@ public class ConectorMultiple extends Conector{
         setLargoLinea();
         setPreBloqueY();
         conectador.Inconectableh = true;
-        Circle cir = new Circle(inner.getLayoutX(), inner.getLayoutY(),5);
-        cir.setFill(Color.RED);
-        getChildren().add(cir);
+//        Circle cir = new Circle(inner.getLayoutX(), inner.getLayoutY(),5);
+//        cir.setFill(Color.RED);
+//        getChildren().add(cir);
     }
     
     @Override
@@ -60,6 +60,9 @@ public class ConectorMultiple extends Conector{
         if (inner != null) inner.setPosicion(x+conectador.ancho/2.0, y);
         fixPosicion();
     }
+    
+    
+    
     
     @Override
     public void fixPosicion(){

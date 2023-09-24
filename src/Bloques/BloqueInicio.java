@@ -157,13 +157,12 @@ public class BloqueInicio extends Bloque{
     }
 
     
-       public String getValor(String nombre) {
+      public String getValor(String nombre) {
         for (BloqueVariable variable : bloquesval) {
             if (variable.getNombre().equals(nombre)) {
                 return variable.getValor();
             }
         }
-        System.out.println("No se encuentra en la lista");
         return null;
     }
 

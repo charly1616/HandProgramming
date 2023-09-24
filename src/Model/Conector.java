@@ -177,8 +177,7 @@ public class Conector extends Pane{
                 linea = new Line(0, Bloque.ALTO / 2, 40, Bloque.ALTO / 2);
             }
         } else {
-
-            linea = new Line((conectador.ancho) / 2.0, 0, (conectador.ancho) / 2.0, 40);
+            linea = new Line(47, 0, 47, 40);
 
         }
         linea.setStrokeWidth(grosorLinea);
@@ -191,9 +190,6 @@ public class Conector extends Pane{
         }
         
         
-        
-        Circle juanda = new Circle(0,0,8);
-        getChildren().add(juanda);
         
         
         getChildren().add(linea);
@@ -266,7 +262,7 @@ public class Conector extends Pane{
                 linea.setLayoutX(0);
                 linea.setLayoutY(0);
             } else {
-                linea.setLayoutX(conectador.ancho/2.0);
+                linea.setLayoutX(0);
                 linea.setLayoutY(0);
             }
         } else {
@@ -315,15 +311,19 @@ public class Conector extends Pane{
     
     public void fixLargoLineaIdentada(){
         if (conectador == null && conexion != null){
-            multiconectador.largoConector = conexion.LargoConexion()+1;
+            multiconectador.largoConector = conexion.LargoConexionMultiple()+1;
             multiconectador.fixPosicion();
+            if (multiconectador.conectador != null && multiconectador.conectador.conectado != null){
+                multiconectador.conectador.conectado.fixLargoLineaIdentada();
+            }
         }
-        if (conectador == null && true){
-            
-        }
+        
         if (conectador != null && conectador.conectado != null){
             conectador.conectado.fixLargoLineaIdentada();
         }
+        
+        if (inner != null)System.out.println("JUANDA PINPON");
+        
     }
     
     
