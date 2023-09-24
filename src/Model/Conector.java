@@ -376,20 +376,25 @@ public class Conector extends Pane{
     
     
     
-    public void mostrarPreBloque(Bloque b){
-        if (!activado ) return;
-        TopPart.setWidth(b.ancho);
-        SidePart.setWidth(b.ancho);
-        
-        Color c = b.ColorBloque;
-        c = new Color(c.getRed(), c.getGreen(),c.getBlue(), 0.2);
-        
-        TopPart.setFill(c);
-        SidePart.setFill(c);
-        
-        TopPart.setVisible(true);
-        SidePart.setVisible(true);
+    public void mostrarPreBloque(Bloque b) {
+    if (!activado || !puedeConectarse(b)) {
+        return;
     }
+
+    TopPart.setWidth(b.ancho);
+    SidePart.setWidth(b.ancho);
+
+    Color c = b.ColorBloque;
+    c = new Color(c.getRed(), c.getGreen(), c.getBlue(), 0.2);
+
+    TopPart.setFill(c);
+    SidePart.setFill(c);
+
+    TopPart.setVisible(true);
+    SidePart.setVisible(true);
+}
+
+    
     
     public void ocultarLinea(){
         linea.setVisible(false);
