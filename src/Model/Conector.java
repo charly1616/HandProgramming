@@ -266,7 +266,7 @@ public class Conector extends Pane{
                 linea.setLayoutX(0);
                 linea.setLayoutY(0);
             } else {
-                linea.setLayoutX(0);
+                linea.setLayoutX(conectador.ancho/2.0);
                 linea.setLayoutY(0);
             }
         } else {

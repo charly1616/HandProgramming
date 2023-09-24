@@ -48,4 +48,17 @@ public class BloqueOP extends Bloque {
     }
     
     
+    public boolean PosibleConex() {
+        Bloque bloqueIzquierdo = conectado != null ? conectado.conectador : null;
+        Bloque bloqueDerecho = chorizontal != null && chorizontal.conexion != null ? chorizontal.conexion : null;
+        
+        if (bloqueIzquierdo instanceof BloqueValor || bloqueIzquierdo instanceof BloqueVariable) {
+            if (bloqueDerecho instanceof BloqueValor || bloqueDerecho instanceof BloqueVariable) {
+                return true;
+            }
+        }
+      return false;
+    }
+    
+    
 }

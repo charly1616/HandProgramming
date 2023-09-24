@@ -111,14 +111,14 @@ public class GridController implements Initializable {
         bloques.add(p);
         
         
-        p = new BloqueOP(120, 120);
+        p = new BloqueMat(120, 120,"");
         hacerBloqueMovible(p);
         if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
         if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
         Grid.getChildren().add(p);
         bloques.add(p);
         
-        p = new BloqueOP(120, 120);
+         p = new BloqueMat(120, 120,"");
         hacerBloqueMovible(p);
         if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
         if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
@@ -126,7 +126,7 @@ public class GridController implements Initializable {
         bloques.add(p);
         
         
-        p = new BloqueOP(120, 120);
+        p = new BloqueMat(120, 120,"");
         hacerBloqueMovible(p);
         if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
         if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
