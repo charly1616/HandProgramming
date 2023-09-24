@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Model;
 
 import Bloques.BloqueInicio;
@@ -187,24 +184,23 @@ public class GridController implements Initializable {
             pintarPreBloque(b);
         });
         
-        
-        b.setOnMouseReleased((MouseEvent mouseEvent) -> {
+            b.setOnMouseReleased((MouseEvent mouseEvent) -> {
             b.Soltado();
-            
+
             Conector c = pintarPreBloque(b);
-            if (c != null){
+            if (c != null) {
                 c.setConexion(b);
-            } else if (detectarColision(b)){
-                b.setPosicion(b.LastX+this.offsetX, b.LastY+ this.offsetY);
+            } else if (detectarColision(b)) {
+                b.setPosicion(b.LastX + this.offsetX, b.LastY + this.offsetY);
             } else {
                 b.LastX = b.getLayoutX() - this.offsetX;
                 b.LastY = b.getLayoutY() - this.offsetY;
             }
-            
-            
-            
+
+            OcultarPreBloques();
             organizarBloques();
         });
+
         
     }
     
@@ -297,12 +293,16 @@ public class GridController implements Initializable {
     }
     
     
-    //Hacer
-    public void OcultarPreBloques(){
-        for (Bloque p: bloques){
-            
+      public void OcultarPreBloques() {
+        for (Bloque p : bloques) {
+            p.chorizontal.ocultarPreBloque();
+            p.cvertical.ocultarPreBloque();
+            if (p.cvertical.inner != null) {
+                p.cvertical.inner.ocultarPreBloque();
+            }
         }
     }
+
     
     
     

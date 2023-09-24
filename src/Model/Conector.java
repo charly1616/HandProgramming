@@ -292,9 +292,7 @@ public class Conector extends Pane{
             ocultarPreBloque();
             ocultarLinea();
         }
-        
         fixLargoLineaIdentada();
-        
     }
     
     
