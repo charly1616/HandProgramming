@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 
 public class BloqueVariable extends BloqueTexto{
     
-    public BloqueInicio inicio;
     
     public String valorVariable;
     
