@@ -277,10 +277,19 @@ public class Conector extends Pane{
         
     }
     
+    
+    
+    public boolean puedeConectarse(Bloque b){
+        if (b.Inconectableh && modo.equals("h")) return false;
+        if (b.Inconectablev && modo.equals("v")) return false;
+        return true;
+    }
+    
+    
+    
     public void setConexion(Bloque b) {
-        if (b instanceof BloqueInicio) {
-            return;
-        }
+        if (!puedeConectarse(b)) return;
+        
         this.conexion = b;
         if (modo.equals("h") && !identable) {
             b.DesactivarVertical();
@@ -368,7 +377,7 @@ public class Conector extends Pane{
     
     
     public void mostrarPreBloque(Bloque b){
-        if (!activado) return;
+        if (!activado ) return;
         TopPart.setWidth(b.ancho);
         SidePart.setWidth(b.ancho);
         

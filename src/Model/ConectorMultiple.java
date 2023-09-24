@@ -16,6 +16,7 @@ public class ConectorMultiple extends Conector{
         
         setLargoLinea();
         setPreBloqueY();
+        conectador.Inconectableh = true;
     }
     
     @Override
@@ -30,6 +31,7 @@ public class ConectorMultiple extends Conector{
         cir.setFill(Color.RED);
         getChildren().add(cir);
         setPreBloqueY();
+        
     }
     
     
@@ -39,7 +41,7 @@ public class ConectorMultiple extends Conector{
     }
     
     public double altoLinea(){
-        return (Bloque.ALTO-7)*(largoConector+1);
+        return (Bloque.ALTO-15)*(largoConector)+80;
     }
     
     
@@ -82,16 +84,17 @@ public class ConectorMultiple extends Conector{
     
     
     
+    
     @Override
     public void fixLargoLineaIdentada(){
         if (conectador == null && conexion != null){
             int c = 0;
             
             if (inner.conexion != null){
-                c = inner.conexion.LargoConexion();
+                c = inner.conexion.LargoConexionMultiple();
             }
             
-            multiconectador.largoConector = conexion.LargoConexion()+1 + c;
+            multiconectador.largoConector = conexion.LargoConexionMultiple()+1 + c;
             multiconectador.fixPosicion();
             multiconectador.fixLargoLineaIdentada();
             if (multiconectador.conexion != null && multiconectador.conexion.conectado != null){

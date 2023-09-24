@@ -40,6 +40,8 @@ public class BloqueInicio extends Bloque{
         Pintar();
         chorizontal.Desactivar();
         cvertical.offX = 60;
+        Inconectableh = true;
+        Inconectablev = true;
     }
     
     

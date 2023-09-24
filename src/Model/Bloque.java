@@ -23,7 +23,7 @@ public class Bloque extends Pane{
     public Rectangle TopPart;
     
     //Constantes
-    public static final int ALTO = 84;
+    public static final int ALTO = 77;
     
     
     //Propiedades
@@ -42,9 +42,8 @@ public class Bloque extends Pane{
     public double LastX;
     public double LastY;
     
-    public boolean Inconectable; //No se puede conectar a otros
-    
-    
+    public boolean Inconectableh; //No se puede conectar a otros
+    public boolean Inconectablev;
     
     
     
@@ -214,6 +213,23 @@ public class Bloque extends Pane{
         return contador;
     }
 
+    public int LargoConexionMultiple() {
+        int contador = 0;
+        Bloque bloqueActual = this;
+
+        while (bloqueActual != null && bloqueActual.cvertical != null && bloqueActual.cvertical.conexion != null) {
+            contador++;
+            bloqueActual = bloqueActual.cvertical.conexion;
+        }
+        
+        if (cvertical.inner != null && cvertical.inner.conexion != null){
+            contador += cvertical.inner.conexion.LargoConexionMultiple();
+        }
+        
+        
+        return contador;
+    }
+    
     
     public String getValor(){
         return "";
