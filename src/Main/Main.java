@@ -9,13 +9,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Main extends Application {
-
+    
+    
+    
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Crear una escena con StackPane para superponer el fondo
@@ -36,17 +41,15 @@ public class Main extends Application {
         Image backgroundImage = new Image("2.jpg");
         ImageView backgroundImageView = new ImageView(backgroundImage);
         rootPane.getChildren().add(backgroundImageView);
-
+        
         primaryStage.show();
 
         // Simular la carga gradual con una animación
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, event -> {
-                    // Simular la carga aquí si es necesario
                 }),
                 new KeyFrame(Duration.seconds(3), event -> {
                     try {
-                        // Cargar la ventana principal
                         Parent mainRoot = FXMLLoader.load(getClass().getResource("ventana.fxml"));
                         Scene mainScene = new Scene(mainRoot);
                         primaryStage.setScene(mainScene);

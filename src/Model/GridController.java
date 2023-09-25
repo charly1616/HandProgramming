@@ -16,13 +16,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Scale;
 import javafx.stage.Screen;
 
 /**
@@ -32,10 +35,12 @@ import javafx.stage.Screen;
 public class GridController implements Initializable {
     
     @FXML
-    public ScrollPane GridView;
+    public Pane GridView;
+    public Scale scale;
+    public Scene escena;
     
     @FXML
-    public AnchorPane Grid;
+    public Pane Grid;
     
     
     
@@ -65,18 +70,24 @@ public class GridController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        
+        
+        
+        Screen pantalla = Screen.getPrimary();
+        javafx.geometry.Rectangle2D coordenadas = pantalla.getVisualBounds();
+        
+        GridView.setPrefWidth((coordenadas.getMaxX()));
+        GridView.setPrefHeight((coordenadas.getMaxY()));
+        Grid.setPrefWidth(GridView.getWidth());
+        Grid.setPrefHeight(GridView.getHeight());
+        
         cirs.setScaleX(Grid.getScaleX());
         cirs.setScaleY(Grid.getScaleY());
         crearPuntos();
         Grid.getChildren().add(cirs);
         
         
-        Screen pantalla = Screen.getPrimary();
-        javafx.geometry.Rectangle2D coordenadas = pantalla.getVisualBounds();
-        Grid.setPrefWidth((coordenadas.getMaxX()));
-        GridView.setPrefWidth((coordenadas.getMaxX()));
-        Grid.setPrefHeight((coordenadas.getMaxY()));
-        GridView.setPrefHeight((coordenadas.getMaxY()));
+        Grid.setBackground(Background.EMPTY);
         
         hacerNavegable();
         
@@ -159,8 +170,30 @@ public class GridController implements Initializable {
 //        crearBloque(Color.HOTPINK);
         
         guardarPosiciones();
-
+        hacerZoomeable();
     }
+    
+    
+    public void hacerZoomeable(){
+        scale = new Scale(1, 1);
+        GridView.getTransforms().add(scale);
+        escena = new Scene(GridView, GridView.getWidth(), GridView.getHeight());
+        
+        
+        GridView.setOnScroll(event -> {
+            double zoomFactor = 1.05; // Ajusta el factor de zoom según tus necesidades
+            if (event.getDeltaY() > 0) {
+                // Zoom in (aumentar el tamaño)
+                scale.setX(scale.getX() * zoomFactor);
+                scale.setY(scale.getY() * zoomFactor);
+            } else {
+                // Zoom out (disminuir el tamaño)
+                scale.setX(scale.getX() / zoomFactor);
+                scale.setY(scale.getY() / zoomFactor);
+            }
+        });
+    }
+    
     
     
     
@@ -179,7 +212,7 @@ public class GridController implements Initializable {
         });
         
         b.setOnMouseDragged(mouseEvent -> {
-            b.setPosicion(mouseEvent.getSceneX() -b. mouseAnchorX,mouseEvent.getSceneY() - b.mouseAnchorY);
+            b.setPosicion(mouseEvent.getSceneX() -b.mouseAnchorX,mouseEvent.getSceneY() - b.mouseAnchorY);
             b.toFront();
             pintarPreBloque(b);
         });
@@ -208,8 +241,8 @@ public class GridController implements Initializable {
     public void hacerNavegable() {
         cirs.setOnMousePressed((MouseEvent mouseEvent) -> {
             guardarPosiciones();
-            mouseAnchorX = mouseEvent.getX();
-            mouseAnchorY = mouseEvent.getY();
+            mouseAnchorX = mouseEvent.getX()*scale.getX();
+            mouseAnchorY = mouseEvent.getY()*scale.getX();
             initialX = mouseEvent.getSceneX();
             initialY = mouseEvent.getSceneY();
         });;
@@ -256,7 +289,7 @@ public class GridController implements Initializable {
                 int u = i - cirs.getChildren().size();
                 double x = posx.get(i);
                 double y = posy.get(i);
-                bloques.get(u).setPosicion(mouseEvent.getSceneX() - mouseAnchorX + x,mouseEvent.getSceneY() - mouseAnchorY + y);
+                bloques.get(u).setPosicion(mouseEvent.getSceneX() - mouseAnchorX + x ,mouseEvent.getSceneY() - mouseAnchorY + y);
             }
             
         });

@@ -204,6 +204,8 @@ public class Bloque extends Pane{
         }
     }
     
+    
+    //Largo de la columna de bloques no identados
     public int LargoConexion() {
         int contador = 0;
         Bloque bloqueActual = this;
@@ -219,17 +221,19 @@ public class Bloque extends Pane{
     
     public int LargoConexionMultiple() {
         int contador = 0;
-        Bloque bloqueActual = this;
-
-        while (bloqueActual != null && bloqueActual.cvertical != null && bloqueActual.cvertical.conexion != null) {
-            if (bloqueActual.cvertical.inner != null && bloqueActual.cvertical.inner.conexion != null){
-                contador += bloqueActual.cvertical.inner.conexion.LargoConexionMultiple();
-            }
+        //Propaga la deteccion del largo de las conexiones a los identados
+        if (cvertical.inner != null && cvertical.inner.conexion != null){
+            contador += cvertical.inner.conexion.LargoConexionMultiple()+1;
+        } else if (cvertical.inner != null){
             contador++;
-            bloqueActual = bloqueActual.cvertical.conexion;
         }
-        
-        
+
+        //Coloca un largo adicional para los vacios o continua contando los siguientes
+        if (cvertical.conexion != null) contador += cvertical.conexion.LargoConexionMultiple();
+
+        //Se añade a èl mismo
+        contador++;
+
         return contador;
     }
     

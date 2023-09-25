@@ -106,8 +106,8 @@ public class Conector extends Pane{
         
         if (modo.equals("h")){
             if (conectador == null){
-                SidePart = new Rectangle(0,20, 50,50);
-                TopPart = new Rectangle(0,0, 50,56);
+                SidePart = new Rectangle(55+7,20-8, 50,50);
+                TopPart = new Rectangle(55+7,0-8, 50,56);
             } else {
                 SidePart = new Rectangle(7,27, 50,50);
                 TopPart = new Rectangle(7,7, 50,56);
@@ -269,7 +269,7 @@ public class Conector extends Pane{
             
             setLayoutX( multiconectador.getLayoutX()-5+ offX   );
             setLayoutY(   multiconectador.getLayoutY()+15);
-            if (conexion != null) conexion.setPosicion(this.getLayoutX()+ offX + multiconectador.conectador.ancho/2.0, this.getLayoutY()-15);
+            if (conexion != null) conexion.setPosicion(this.getLayoutX()+ offX + 55, this.getLayoutY()-15);
 
 
             linea.setLayoutX(0);
@@ -294,7 +294,9 @@ public class Conector extends Pane{
     public void setConexion(Bloque b) {
         if (!puedeConectarse(b)) return;
         
+        
         this.conexion = b;
+        fixLargoLineaIdentada();
         if (modo.equals("h") && !identable) {
             b.DesactivarVertical();
         }
@@ -305,30 +307,38 @@ public class Conector extends Pane{
             ocultarPreBloque();
             ocultarLinea();
         }
-        fixLargoLineaIdentada();
+        
     }
     
     
     public void fixLargoLineaIdentada(){
+        
+        //Propagar al identador
         if (conectador == null && conexion != null){
-            multiconectador.largoConector = conexion.LargoConexionMultiple()+1;
+            
+            //actualiza el largo del conector 
+            multiconectador.largoConector = conexion.LargoConexionMultiple();
             multiconectador.fixPosicion();
-            if (multiconectador.conectador != null && multiconectador.conectador.conectado != null){
-                multiconectador.conectador.conectado.fixLargoLineaIdentada();
-            }
+            multiconectador.fixLargoLineaIdentada();
+        } else if (conectador == null ){
+            //actualiza el largo del conector 
+            multiconectador.largoConector = 0;
+            multiconectador.fixPosicion();
+            multiconectador.fixLargoLineaIdentada();
         }
         
+        //propagar al de arriba
         if (conectador != null && conectador.conectado != null){
+            conectador.conectado.fixPosicion();
             conectador.conectado.fixLargoLineaIdentada();
         }
-        
-        if (inner != null)System.out.println("JUANDA PINPON");
         
     }
     
     
 
     public void Desconectar(){
+        
         this.conexion.conectado = null;
         if (modo.equals("h")) this.conexion.ActivarVertical();
         this.conexion = null;
@@ -336,6 +346,7 @@ public class Conector extends Pane{
             multiconectador.largoConector = 0;
             multiconectador.fixPosicion();
         }
+        fixLargoLineaIdentada();
         mostrarLinea();
     }
     
@@ -352,7 +363,7 @@ public class Conector extends Pane{
     
     
     public double[] getRectVertices(){
-        if (modo.equals("h")){
+        if (modo.equals("v")){
             double [] d = {getX()+7, getY()+7, getX()+52, getY()+Bloque.ALTO/2.0};
             return d;
         } else {
@@ -361,7 +372,7 @@ public class Conector extends Pane{
                 double [] d = {getX()+7, getY()+7, getX()+conectador.ancho/2.0, getY()+Bloque.ALTO/2.0};
                 return d;
             } else {
-                double [] d = {getX()+7, getY()+7, getX()+multiconectador.conectador.ancho/2.0, getY()+Bloque.ALTO/2.0};
+                double [] d = {getX()+7+55, getY()+7, getX()+multiconectador.conectador.ancho/2.0+55, getY()+Bloque.ALTO/2.0};
                 return d;
             }
         }

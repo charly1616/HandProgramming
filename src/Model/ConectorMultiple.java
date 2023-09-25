@@ -27,6 +27,7 @@ public class ConectorMultiple extends Conector{
         super.iniciarComponentes();
         inner = new Conector(this,"h",true);
         inner.multiconectador = this;
+        inner.linea.setStartX(45);
         inner.identable = true;
         inner.setPosicion(0, 0);
         setPreBloqueY();
@@ -40,7 +41,7 @@ public class ConectorMultiple extends Conector{
     }
     
     public double altoLinea(){
-        return (Bloque.ALTO-15)*(largoConector)+80;
+        return (Bloque.ALTO-18)*(largoConector)+80;
     }
     
     
@@ -87,27 +88,27 @@ public class ConectorMultiple extends Conector{
     
     
     
-    @Override
-    public void fixLargoLineaIdentada(){
-        if (conectador == null && conexion != null){
-            int c = 0;
-            
-            if (inner.conexion != null){
-                c = inner.conexion.LargoConexionMultiple();
-            }
-            
-            multiconectador.largoConector = conexion.LargoConexionMultiple()+1 + c;
-            multiconectador.fixPosicion();
-            multiconectador.fixLargoLineaIdentada();
-            if (multiconectador.conexion != null && multiconectador.conexion.conectado != null){
-                multiconectador.conexion.conectado.fixLargoLineaIdentada();
-            }
-        }
-        if (conectador != null && conectador.conectado != null){
-            conectador.conectado.fixLargoLineaIdentada();
-        }
-    }
-    
+//    @Override
+//    public void fixLargoLineaIdentada(){
+//        if (conectador == null && conexion != null){
+//            int c = 0;
+//            
+//            if (inner.conexion != null){
+//                c = inner.conexion.LargoConexionMultiple()+1;
+//            }
+//            
+//            multiconectador.largoConector = conexion.LargoConexionMultiple()+ c;
+//            multiconectador.fixPosicion();
+//            multiconectador.fixLargoLineaIdentada();
+//            if (multiconectador.conexion != null && multiconectador.conexion.conectado != null){
+//                multiconectador.conexion.conectado.fixLargoLineaIdentada();
+//            }
+//        }
+//        if (conectador != null && conectador.conectado != null){
+//            conectador.conectado.fixLargoLineaIdentada();
+//        }
+//    }
+//    
     
     @Override
     public void ocultarLinea(){

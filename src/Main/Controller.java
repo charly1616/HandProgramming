@@ -11,20 +11,21 @@ import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Controller implements Initializable {
 
-    @FXML
-    public HBox ContenedorVista;
     
     @FXML
-    public AnchorPane ventana;
+    public BorderPane ventana;
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -35,9 +36,11 @@ public class Controller implements Initializable {
         try {
             FXMLLoader f = new FXMLLoader();
             f.setLocation(getClass().getResource("gridpane.fxml"));
-            ScrollPane p = f.load();
+            Pane p = f.load();
             //GridController Bcon = f.getController();
-            ventana.getChildren().add(p);
+            ventana.setCenter(p);
+            
+            
             
         } catch (IOException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);

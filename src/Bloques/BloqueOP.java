@@ -38,7 +38,7 @@ public class BloqueOP extends Bloque {
         operaciones.setPrefWidth(26); //ancho
         
         //Se coloca la fuente
-        Font font = Font.font("Berlin Sans FB", FontWeight.BOLD, 21);
+        Font font = Font.font("Berlin Sans FB", FontWeight.NORMAL, 32);
         operaciones.setFont(font);
    
         
