@@ -1,6 +1,7 @@
 
 package Model;
 
+import Bloques.BloqueEjecutable;
 import Bloques.BloqueInicio;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -12,7 +13,7 @@ import javafx.scene.shape.Rectangle;
 
 public class Bloque extends Pane{
     
-    public Bloque inicio;
+    public BloqueEjecutable ejecutador;
     
     public Conector conectado = null;
     public Conector chorizontal;
@@ -284,6 +285,11 @@ public class Bloque extends Pane{
         
     }
     
+    
+    
+    public void Hacer(){
+        
+    }
     
     
     

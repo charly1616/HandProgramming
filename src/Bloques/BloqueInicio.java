@@ -20,14 +20,12 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 
-public class BloqueInicio extends Bloque{
+public class BloqueInicio extends BloqueEjecutable{
     
     public Label label;
     public Button boton;
     public Polyline tri;
     
-    
-    public ArrayList<BloqueVariable> bloquesval = new ArrayList<BloqueVariable>();
     
     
     
@@ -40,7 +38,6 @@ public class BloqueInicio extends Bloque{
         Pintar();
         chorizontal.Desactivar();
         cvertical.offX = 60;
-        Inconectableh = true;
         Inconectablev = true;
     }
     
@@ -147,29 +144,7 @@ public class BloqueInicio extends Bloque{
         return t;
     }
     
-    public boolean esVariable(String nombre) {
-        for (BloqueVariable variable : bloquesval) {
-            if (variable.getNombre().equals(nombre)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     
-      public String getValor(String nombre) {
-        for (BloqueVariable variable : bloquesval) {
-            if (variable.getNombre().equals(nombre)) {
-                return variable.getValor();
-            }
-        }
-        return null;
-    }
-
-
-    public void vaciarVariables(){
-        bloquesval.clear();
-    }
     
     
 }
