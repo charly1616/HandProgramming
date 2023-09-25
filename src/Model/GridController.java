@@ -43,6 +43,9 @@ public class GridController implements Initializable {
     public Pane Grid;
     
     
+    public CreadorDeBloques creador;
+    
+    
     
     // Lo que guarda los componentes
     public ArrayList<Bloque> bloques = new ArrayList<Bloque>();

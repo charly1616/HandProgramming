@@ -44,7 +44,7 @@ public abstract class BloqueTexto extends Bloque{
         
         //tamaño del label
         indicador.setPrefHeight(39); //altura
-        indicador.setPrefWidth(26); //ancho
+        indicador.setPrefWidth(32); //ancho
         
         //Se coloca la fuente
         Font font = new Font("Berlin Sans FB",14);

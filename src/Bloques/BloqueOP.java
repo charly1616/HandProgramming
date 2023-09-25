@@ -14,9 +14,12 @@ import javafx.scene.text.FontWeight;
 public class BloqueOP extends Bloque {   
     
     public Label operaciones;
-
-    public BloqueOP(double x, double y) {
+    public String signo;
+    
+    public BloqueOP(double x, double y, String sign) {
         super(x, y, Color.BLANCHEDALMOND);
+        operaciones.setText(sign);
+        signo = sign;
     }
     
     @Override
@@ -27,7 +30,7 @@ public class BloqueOP extends Bloque {
         operaciones = new Label("Op");
         
         //alineamiento del indicador
-        operaciones.setAlignment(Pos.CENTER_RIGHT);
+        operaciones.setAlignment(Pos.CENTER_LEFT);
         
         //Posicion del label
         operaciones.setLayoutX(19);
