@@ -53,6 +53,10 @@ public class BloqueEjecutable extends Bloque{
     }
 
     
+    //HACER
+    public void EjecutarHijos(){
+        
+    }
     
     
     

@@ -286,11 +286,20 @@ public class Bloque extends Pane{
     }
     
     
-    
+    //No se hace nada aqui porque se va a sobreescribir
     public void Hacer(){
-        
     }
     
     
+    //Hacer FUNCION
+    public Bloque Siguiente(){
+        return new Bloque(6,0);
+    }
+    
+    
+    //HACER FUNCION
+    public Bloque SiguienteLinea(){
+        return new Bloque(6,0);
+    }
     
 }
