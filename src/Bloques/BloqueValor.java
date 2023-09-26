@@ -30,7 +30,7 @@ public class BloqueValor extends BloqueTexto{
     
     
     
-    public String GetType(String valor) {
+    public static String GetType(String valor) {
         String type = "";
         if (valor.equals("")) {
             type = "Non";
@@ -46,7 +46,7 @@ public class BloqueValor extends BloqueTexto{
 
   
   
-    public boolean esNumero(String n) {
+    public static boolean esNumero(String n) {
         try {
             double b = Double.parseDouble(n);
             return true;

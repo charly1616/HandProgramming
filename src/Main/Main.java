@@ -1,5 +1,6 @@
 package Main;
 
+import Model.EvaluadorExpresiones;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -62,6 +63,8 @@ public class Main extends Application {
                     }
                 })
         );
+        
+        
         timeline.setCycleCount(1); // Ejecutar una vez
         timeline.play();
     }
