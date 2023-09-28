@@ -1,6 +1,7 @@
 
 package Model;
 
+import Bloques.*;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -17,8 +18,8 @@ public class CreadorDeBloques {
     
     
     //Crea un Bloque General, es una guia
-    public void crearBloque(Color c) {
-        Bloque p = new Bloque(Math.random()*00-00, Math.random()*000-00, c);
+    public void crearBloque(Color c, int x, int y) {
+        Bloque p = new Bloque(x, y);
         cuadricula.hacerBloqueMovible(p);
         if (p.chorizontal != null) cuadricula.Grid.getChildren().add(p.chorizontal);
         p.setAncho(150);
@@ -27,6 +28,9 @@ public class CreadorDeBloques {
         cuadricula.Grid.getChildren().add(p);
         cuadricula.bloques.add(p);
     }
+    
+    
+    
     
     
 }

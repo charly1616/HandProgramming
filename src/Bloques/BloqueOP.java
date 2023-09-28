@@ -16,8 +16,8 @@ public class BloqueOP extends Bloque {
     public Label operaciones;
     public String signo;
     
-    public BloqueOP(double x, double y, String sign) {
-        super(x, y, Color.BLANCHEDALMOND);
+    public BloqueOP(double x, double y, String sign, Color c) {
+        super(x, y, c);
         operaciones.setText(sign);
         signo = sign;
     }

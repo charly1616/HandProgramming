@@ -4,6 +4,8 @@
  */
 package Bloques;
 
+import javafx.scene.paint.Color;
+
 /**
  *
  * @author User
@@ -11,7 +13,7 @@ package Bloques;
 public class BloqueLogico extends BloqueOP{
     
     public BloqueLogico(double x, double y, String sign) {
-        super(x, y, sign);
+        super(x, y, sign, Color.PALEGOLDENROD);
     }
     
 }

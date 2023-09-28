@@ -16,7 +16,7 @@ public class BloqueMat extends BloqueOP{
     
     
     public BloqueMat(double x, double y, String signo) {
-        super(x, y,signo);
+        super(x, y,signo, Color.PINK);
         
     }
     
