@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import Model.Bloque;
+import Model.EvaluadorExpresiones;
 import java.util.ArrayList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -127,9 +128,13 @@ public class BloqueInicio extends BloqueEjecutable{
         transicion1.play();
         transicion2.play();
                  
-        System.out.println(this.LargoConexionMultiple());
+        System.out.println(EvaluadorExpresiones.Expresion(cvertical.conexion));
 
     }
+    
+    
+    
+    
     
     public TranslateTransition Transicion(Node n){
         TranslateTransition t = new TranslateTransition(Duration.seconds(0.06), n);

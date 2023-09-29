@@ -94,7 +94,40 @@ public class GridController implements Initializable {
         
         hacerNavegable();
         
-        Bloque p = new BloqueValor(120, 120);
+        
+        
+        Bloque p ;
+        
+        for (int i = 0; i < 20; i++) {
+            p = new BloqueValor(1000, 120);
+            hacerBloqueMovible(p);
+            if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
+            if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
+            Grid.getChildren().add(p);
+            bloques.add(p);
+        }
+        
+        for (int i = 0; i < 10; i++) {
+            p = new BloqueVariable(1500, 120);
+            hacerBloqueMovible(p);
+            if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
+            if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
+            Grid.getChildren().add(p);
+            bloques.add(p);
+        }
+        
+        
+        
+        
+        
+        p = new BloqueMat(120, 1000,"+");
+        hacerBloqueMovible(p);
+        if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
+        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
+        Grid.getChildren().add(p);
+        bloques.add(p);
+        
+         p = new BloqueMat(120, 1000,"-");
         hacerBloqueMovible(p);
         if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
         if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
@@ -102,14 +135,7 @@ public class GridController implements Initializable {
         bloques.add(p);
         
         
-        p = new BloqueValor(120, 120);
-        hacerBloqueMovible(p);
-        if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
-        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
-        Grid.getChildren().add(p);
-        bloques.add(p);
-        
-        p = new BloqueVariable(120, 120);
+        p = new BloqueMat(120, 1000,"x");
         hacerBloqueMovible(p);
         if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
         if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
@@ -117,30 +143,7 @@ public class GridController implements Initializable {
         bloques.add(p);
         
         
-        p = new BloqueVariable(120, 120);
-        hacerBloqueMovible(p);
-        if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
-        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
-        Grid.getChildren().add(p);
-        bloques.add(p);
-        
-        
-        p = new BloqueMat(120, 120,"");
-        hacerBloqueMovible(p);
-        if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
-        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
-        Grid.getChildren().add(p);
-        bloques.add(p);
-        
-         p = new BloqueMat(120, 120,"");
-        hacerBloqueMovible(p);
-        if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
-        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
-        Grid.getChildren().add(p);
-        bloques.add(p);
-        
-        
-        p = new BloqueMat(120, 120,"");
+        p = new BloqueMat(120, 1000,"^");
         hacerBloqueMovible(p);
         if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
         if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
@@ -416,7 +419,7 @@ public class GridController implements Initializable {
     
     
     public void crearBloque(Color c) {
-        Bloque p = new Bloque(Math.random()*00-00, Math.random()*000-00, c);
+        Bloque p = new Bloque(500, 120, c);
         hacerBloqueMovible(p);
         if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
         p.setAncho(150);
