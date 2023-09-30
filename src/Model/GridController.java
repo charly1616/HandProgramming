@@ -98,6 +98,13 @@ public class GridController implements Initializable {
         
         Bloque p ;
         
+         p = new BloqueMostrar(-500, 1000);
+        hacerBloqueMovible(p);
+        if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
+        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
+        Grid.getChildren().add(p);
+        bloques.add(p);
+        
         
         p = new BloqueLabel(-500, 1000,Color.AQUA,"Olga");
         hacerBloqueMovible(p);

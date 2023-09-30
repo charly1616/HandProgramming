@@ -128,8 +128,7 @@ public class BloqueInicio extends BloqueEjecutable{
         transicion1.play();
         transicion2.play();
                  
-        System.out.println(EvaluadorExpresiones.Expresion(cvertical.conexion));
-        cvertical.conexion.setError(true);
+       
     }
     
     
