@@ -302,4 +302,16 @@ public class Bloque extends Pane{
         return new Bloque(6,0);
     }
     
+    public void setError(boolean error) {
+    if (error) {
+        setColorBorde(Color.RED); // Cambiar el color del borde a rojo
+        setTamBorde(6); // Cambiar el grosor del borde a 6
+    } else {
+        // Restaurar el color y el grosor del borde a los valores normales
+        setColorBorde(Color.color(0, 0, 0));
+        setTamBorde(4);
+    }
+}
+
+    
 }
