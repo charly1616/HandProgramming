@@ -466,7 +466,7 @@ public class GridController implements Initializable {
     
     
     public void crearBloque(Color c) {
-        Bloque p = new Bloque(500, 120, c);
+        Bloque p = new Bloque(1000, 120, c);
         hacerBloqueMovible(p);
         if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
         p.setAncho(150);
