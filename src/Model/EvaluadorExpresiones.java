@@ -62,7 +62,13 @@ public class EvaluadorExpresiones {
     public static String EvLog(String ev){
         
         String [] Sep = ev.split("&|or");
-        String [] separators = {};
+        String[] separadores = new String[Sep.length - 1];
+        
+        for (int i = 0; i < Sep.length; i++) {
+            if (i < Sep.length - 1) {
+                separadores[i] = ev.substring(Sep[i].length(), Sep[i].length() + 2);
+            }
+        }
         
         if (Sep.length == 1){
             return EvLogMat(Sep[0]);
@@ -73,7 +79,13 @@ public class EvaluadorExpresiones {
     
     public static String EvLogMat(String ev){
         String [] Sep = ev.split(">|<|=|!=|<=|>=");
-        String [] separators = {};
+        String[] separadores = new String[Sep.length - 1];
+        
+        for (int i = 0; i < Sep.length; i++) {
+            if (i < Sep.length - 1) {
+                separadores[i] = ev.substring(Sep[i].length(), Sep[i].length() + 2);
+            }
+        }
         if (Sep.length == 1){
             return EvMatSum(Sep[0]);
         }
@@ -83,20 +95,88 @@ public class EvaluadorExpresiones {
     
     public static String EvMatSum(String ev){
         String [] Sep = ev.split("\\+|\\-");
-        String [] separators = {};
+        String[] separadores = new String[Sep.length - 1];
+        
+        int u = 0;
+        for (int i = 0; i < ev.length(); i++) {
+            if (ev.charAt(i) == '+'||ev.charAt(i) == '-'){
+                separadores[u] = ev.charAt(i)+"";
+                u++;
+            }
+        }
+        
         if (Sep.length == 1){
             return EvMatMult(Sep[0]);
         }
+        
+        
+        try {
+            double x = Double.parseDouble(EvMatMult(Sep[0]));
+            for (int i = 1; i < Sep.length; i++) {
+                double x2 = Double.parseDouble(EvMatMult(Sep[i]));
+                switch (separadores[i - 1]) {
+                    case "+" -> {
+                        x = x + x2;
+                        break;
+                    }
+                    case "-" -> {
+                        x = x - x2;
+                        break;
+                    }
+                }
+            }
+            return x+"";
+        }catch (Exception e){
+            
+        }
+        
+        
         return "";
     }
     
     
     public static String EvMatMult(String ev){
-        String [] Sep = ev.split("\\*|\\/|\\%");
-        String [] separators = {};
+        String [] Sep = ev.split("x|\\/|\\%");
+        String[] separadores = new String[Sep.length - 1];
+        
+        int u = 0;
+        for (int i = 0; i < ev.length(); i++) {
+            if (ev.charAt(i) == 'x'||ev.charAt(i) == '/'||ev.charAt(i) == '%'){
+                separadores[u] = ev.charAt(i)+"";
+                u++;
+            }
+        }
         if (Sep.length == 1){
             return EvMatPot(Sep[0]);
         }
+        
+        try {
+            double x = Double.parseDouble(EvMatPot(Sep[0]));
+            for (int i = 1; i < Sep.length; i++) {
+                double x2 = Double.parseDouble(EvMatPot(Sep[i]));
+                switch (separadores[i - 1]) {
+                    case "x" -> {
+                        x = x * x2;
+                        break;
+                    }
+                    case "/" -> {
+                        x = x / x2;
+                        break;
+                    }
+                    case "%" -> {
+                        x = x % x2;
+                        break;
+                    }
+                }
+
+                
+            }
+            return x+"";
+        }catch (Exception e){
+            
+        }
+        
+        
         return "";
     }
     
@@ -117,7 +197,7 @@ public class EvaluadorExpresiones {
             }
             return x+"";
         }catch (Exception e){
-            
+            System.out.println("Errorcito");
         }
         
         return "";

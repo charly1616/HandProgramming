@@ -98,8 +98,17 @@ public class GridController implements Initializable {
         
         Bloque p ;
         
+        
+        p = new BloqueLabel(-500, 1000,Color.AQUA,"Olga");
+        hacerBloqueMovible(p);
+        if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
+        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
+        Grid.getChildren().add(p);
+        bloques.add(p);
+        
+        
         for (int i = 0; i < 20; i++) {
-            p = new BloqueValor(1000, 120);
+            p = new BloqueValor(500, 120);
             hacerBloqueMovible(p);
             if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
             if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
@@ -116,46 +125,80 @@ public class GridController implements Initializable {
             bloques.add(p);
         }
         
-        p = new BloqueLabel(-500, 1000,Color.AQUA,"Olga");
+        
+        
+        
+        for (int i = 0; i < 10; i++) {
+            p = new BloqueMat(120, 1000,"+");
+            hacerBloqueMovible(p);
+            if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
+            if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
+            Grid.getChildren().add(p);
+            bloques.add(p);
+        }
+        
+        
+        
+        for (int i = 0; i < 10; i++) {
+            p = new BloqueMat(200, 1000,"-");
+            hacerBloqueMovible(p);
+            if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
+            if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
+            Grid.getChildren().add(p);
+            bloques.add(p);
+        }
+        
+        for (int i = 0; i < 10; i++) {
+            p = new BloqueMat(300, 1000,"x");
+            hacerBloqueMovible(p);
+            if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
+            if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
+            Grid.getChildren().add(p);
+            bloques.add(p);
+        }
+        
+        
+        for (int i = 0; i < 10; i++) {
+            p = new BloqueMat(400, 1000,"^");
+            hacerBloqueMovible(p);
+            if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
+            if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
+            Grid.getChildren().add(p);
+            bloques.add(p);
+        }
+        
+        for (int i = 0; i < 10; i++) {
+            p = new BloqueMat(600, 1000,"/");
+            hacerBloqueMovible(p);
+            if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
+            if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
+            Grid.getChildren().add(p);
+            bloques.add(p);
+        }
+        
+        
+        for (int i = 0; i < 10; i++) {
+            p = new BloqueMat(500, 1000,"%");
+            hacerBloqueMovible(p);
+            if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
+            if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
+            Grid.getChildren().add(p);
+            bloques.add(p);
+        }
+        
+        
+        
+        p = new BloqueInicio(0, 0);
         hacerBloqueMovible(p);
-        if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
+        p.chorizontal.Desactivar();
         if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
         Grid.getChildren().add(p);
         bloques.add(p);
         
         
-        p = new BloqueMat(120, 1000,"+");
-        hacerBloqueMovible(p);
-        if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
-        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
-        Grid.getChildren().add(p);
-        bloques.add(p);
-        
-         p = new BloqueMat(120, 1000,"-");
-        hacerBloqueMovible(p);
-        if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
-        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
-        Grid.getChildren().add(p);
-        bloques.add(p);
-        
-        
-        p = new BloqueMat(120, 1000,"x");
-        hacerBloqueMovible(p);
-        if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
-        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
-        Grid.getChildren().add(p);
-        bloques.add(p);
-        
-        
-        p = new BloqueMat(120, 1000,"^");
-        hacerBloqueMovible(p);
-        if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
-        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
-        Grid.getChildren().add(p);
-        bloques.add(p);
-        
-        
-        
+        for (int i = 0; i < 4; i++) {
+            crearBloque(Color.rgb((int)(Math.random()*250),(int)(Math.random()*250),(int)(Math.random()*250)));
+        }
         
         p = new BloqueInicio(0, 0);
         hacerBloqueMovible(p);

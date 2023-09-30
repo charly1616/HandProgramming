@@ -77,6 +77,7 @@ public abstract class BloqueTexto extends Bloque{
             if (valornuevo.length()>this.LetrasMax ){
                 valor.setText(valorviejo);
             }
+            
             double textWidth = computeTextWidth(valor.getFont(), valornuevo);
             
             if (textWidth + 30 > Limite+77){

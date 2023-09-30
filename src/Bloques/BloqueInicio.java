@@ -129,7 +129,7 @@ public class BloqueInicio extends BloqueEjecutable{
         transicion2.play();
                  
         System.out.println(EvaluadorExpresiones.Expresion(cvertical.conexion));
-
+        cvertical.conexion.setError(true);
     }
     
     
