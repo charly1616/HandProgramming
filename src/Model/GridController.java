@@ -203,21 +203,10 @@ public class GridController implements Initializable {
         bloques.add(p);
         
         
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 8; i++) {
             crearBloque(Color.rgb((int)(Math.random()*250),(int)(Math.random()*250),(int)(Math.random()*250)));
         }
         
-        p = new BloqueInicio(0, 0);
-        hacerBloqueMovible(p);
-        p.chorizontal.Desactivar();
-        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
-        Grid.getChildren().add(p);
-        bloques.add(p);
-        
-        
-        for (int i = 0; i < 4; i++) {
-            crearBloque(Color.rgb((int)(Math.random()*250),(int)(Math.random()*250),(int)(Math.random()*250)));
-        }
         
         
 //        crearBloque(Color.CORNFLOWERBLUE);

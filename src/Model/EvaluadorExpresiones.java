@@ -36,6 +36,7 @@ public class EvaluadorExpresiones {
             if (Actual.chorizontal.conexion == null) break;
             
             if ((BloqueValor.GetType(Actual.getValor()).equals("Str"))){
+                exA =  exA;
                 other += Expresion(Actual.chorizontal.conexion);
                 break;
             }
@@ -81,14 +82,70 @@ public class EvaluadorExpresiones {
         String [] Sep = ev.split(">|<|=|!=|<=|>=");
         String[] separadores = new String[Sep.length - 1];
         
-        for (int i = 0; i < Sep.length; i++) {
-            if (i < Sep.length - 1) {
-                separadores[i] = ev.substring(Sep[i].length(), Sep[i].length() + 2);
+        int u = 0;
+        for (int i = 0; i < ev.length(); i++) {
+            switch (ev.charAt(i)){
+                case '>' -> {
+                    if (i+1 < ev.length() && ev.charAt(i+1) == '='){
+                        separadores[u] = ev.charAt(i)+"=";
+                        u++;
+                    } else {
+                        separadores[u] = ev.charAt(i)+"";
+                        u++;
+                    }
+                    break;
+                }
+                case '<' -> {
+                    if (i+1 < ev.length() && ev.charAt(i+1) == '='){
+                        separadores[u] = ev.charAt(i)+"=";
+                        u++;
+                    } else {
+                        separadores[u] = ev.charAt(i)+"";
+                        u++;
+                    }
+                    break;
+                }
+                case '!' -> {
+                    if (i+1 < ev.length() && ev.charAt(i+1) == '='){
+                        separadores[u] = ev.charAt(i)+"=";
+                        u++;
+                    }
+                    break;
+                }
+                case '=' -> {
+                    separadores[u] = ev.charAt(i)+"";
+                    u++;
+                    break;
+                }
+                
             }
         }
         if (Sep.length == 1){
             return EvMatSum(Sep[0]);
         }
+        
+        
+        try {
+            double x = Double.parseDouble(EvMatSum(Sep[0]));
+            for (int i = 1; i < Sep.length; i++) {
+                double x2 = Double.parseDouble(EvMatMult(Sep[i]));
+                switch (separadores[i - 1]) {
+                    case "=" -> {
+                        x = x + x2;
+                        break;
+                    }
+                    case "!=" -> {
+                        x = x - x2;
+                        break;
+                    }
+                }
+            }
+            return x+"";
+        }catch (Exception e){
+            
+        }
+        
+        
         return "";
     }
     
@@ -136,6 +193,7 @@ public class EvaluadorExpresiones {
     
     
     public static String EvMatMult(String ev){
+        if (ev.equals("")) return"";
         String [] Sep = ev.split("x|\\/|\\%");
         String[] separadores = new String[Sep.length - 1];
         
@@ -221,6 +279,25 @@ public class EvaluadorExpresiones {
     
     public static boolean InstBloqueValor(Bloque b){
         return (b instanceof BloqueValor || b instanceof BloqueVariable);
+    }
+    
+    
+    public static boolean MatExpresion(String s){
+        char [] chars = {'1','2','3','4','5','6','7','8','9','0','+','-','x','/','%','^'};
+        
+        
+        for (int i = 0; i < s.length(); i++) {
+            boolean f = false;
+            for (char u : chars){
+                if (s.charAt(i) == u){
+                    f = true;
+                    break;
+                }
+            }
+            if (!f) return false;
+        }
+        
+        return true;
     }
     
     

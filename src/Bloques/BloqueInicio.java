@@ -127,7 +127,11 @@ public class BloqueInicio extends BloqueEjecutable{
         transicion.play();
         transicion1.play();
         transicion2.play();
-                 
+        
+        
+        if (this.cvertical.conexion != null){
+            this.cvertical.conexion.Hacer();
+        }
        
     }
     
