@@ -180,6 +180,13 @@ public class Bloque extends Pane{
         return getLayoutY();
     }
     
+    public void setColorBloque(Color c){
+        ColorBloque=c;
+        
+        TopPart.setFill(c);
+        SidePart.setFill(c.darker().darker()); //La parte de abajo es un color mas oscuro
+    }
+    
     public void setColorBorde(Color s){
         TopPart.setStroke(s);
         SidePart.setStroke(s);
@@ -245,7 +252,7 @@ public class Bloque extends Pane{
     }
     
     
-    
+   
     
     //Conecta las propiedades con el bloque
     public void Pintar(){
