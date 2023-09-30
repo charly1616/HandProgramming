@@ -1,4 +1,3 @@
-
 package Bloques;
 
 import Model.EvaluadorExpresiones;
@@ -8,10 +7,10 @@ import javafx.scene.paint.Color;
  *
  * @author juand
  */
-public class BloqueMostrar extends BloqueLabel{
+public class BloqueMostrar extends BloqueLabel {
     
     public BloqueMostrar(double x, double y) {
-        super(x, y,Color.AQUA,"Mostrar");
+        super(x, y, Color.AQUA, "Mostrar");
     }
     
     @Override
@@ -20,8 +19,12 @@ public class BloqueMostrar extends BloqueLabel{
             System.out.println(EvaluadorExpresiones.Expresion(chorizontal.conexion));
             chorizontal.conexion.setError(true);
         } else {
-            System.out.println("Esta vacio");
+            System.out.println("Esta vacío");
+        }
+        
+        // Aquí verificamos si el siguiente bloque está conectado
+        if (chorizontal.conexion != null) {
+            chorizontal.conexion.Hacer();
         }
     }
-
 }
