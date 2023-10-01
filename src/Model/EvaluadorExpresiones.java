@@ -13,7 +13,7 @@ public class EvaluadorExpresiones {
     
     
     
-    
+    //Concatenar
     public static String Expresion(Bloque inicial){
         
         
@@ -46,8 +46,13 @@ public class EvaluadorExpresiones {
                 break;
             }
             
-            //Si el bloque que está conectado al anterior no es Operacion, error
-            if (!(Actual.chorizontal.conexion instanceof BloqueOP)) return "";
+            //Si el bloque que está conectado al anterior no es Operacion concatena
+            if (!(Actual.chorizontal.conexion instanceof BloqueOP) && InstBloqueValor(Actual.chorizontal.conexion)){
+                other += Expresion(Actual.chorizontal.conexion);
+                break;
+            } else if (!(Actual.chorizontal.conexion instanceof BloqueOP)){
+                break;
+            }
             
             exA += Actual.chorizontal.conexion.getValor();
             Actual = Actual.chorizontal.conexion.chorizontal.conexion;
@@ -55,25 +60,91 @@ public class EvaluadorExpresiones {
             if (!(InstBloqueValor(Actual))) return "";
         }
         
-        return EvLog(exA) + other;
+        return EvLog(exA) +" "+ other;
+    }
+    
+    
+    
+    public static boolean EvCondicion(Bloque inicial){
+        if (!(InstBloqueValor(inicial))) return false;
+        
+        Bloque Actual = inicial;
+        String lconexion = "";
+        String lvalue = "";
+        String exA = "";
+        
+        int l = 0;
+        int lm = 0;
+        
+        while (Actual != null){
+            //Se obtiene el valor
+            exA += Actual.getValor();
+            lvalue = BloqueValor.GetType(Actual.getValor());
+            
+            //Si no hay mas bloques o el siguiente bloque es otro valor, termina ahí
+            if (Actual.chorizontal.conexion == null ) break;
+            if (!(Actual.chorizontal.conexion instanceof BloqueOP)) break;
+            
+            
+            //Si el bloque es string, debe haber un bloque == al lado y lo mismo alreves
+            if ((BloqueValor.GetType(Actual.getValor()).equals("Str")) && !Actual.chorizontal.conexion.getValor().equals("=")) break;
+            if ((BloqueValor.GetType(Actual.chorizontal.conexion.getValor()).equals("Str")) && !Actual.getValor().equals("=")) break;
+            
+            
+            if (Actual instanceof BloqueLogico) l++;
+            if (Actual instanceof BloqueLMat) lm++;
+            
+            if (lm > l+1) return false;
+            
+            
+            
+            exA += Actual.chorizontal.conexion.getValor();
+            if (Actual.chorizontal.conexion == null) break;
+            Actual = Actual.chorizontal.conexion.chorizontal.conexion;
+            //Si el bloque actual, osea el que se acaba de conectar no es valor, error
+            if (!(InstBloqueValor(Actual))) break;
+        }
+        return ValBool(EvLog(exA));
     }
     
     
     
     public static String EvLog(String ev){
         
-        String [] Sep = ev.split("&|or");
+        String [] Sep = ev.split("&|o");
         String[] separadores = new String[Sep.length - 1];
         
-        for (int i = 0; i < Sep.length; i++) {
-            if (i < Sep.length - 1) {
-                separadores[i] = ev.substring(Sep[i].length(), Sep[i].length() + 2);
+        int u = 0;
+        for (int i = 0; i < ev.length(); i++) {
+            if (ev.charAt(i) == '&'||ev.charAt(i) == 'o'){
+                separadores[u] = ev.charAt(i)+"";
+                u++;
             }
         }
         
         if (Sep.length == 1){
             return EvLogMat(Sep[0]);
         }
+        
+        
+        
+        try {
+            String l = EvLogMat(Sep[0]);
+            if (!BloqueValor.GetType(l).equals("bol")) return "";
+            boolean x = ValBool(l);
+            for (int i = 1; i < Sep.length; i++) {
+                boolean x2 = ValBool(EvLogMat(Sep[i]));
+                switch (separadores[i - 1]) {
+                    case "&" -> {return (x == x2)+"";}
+                    case "o" -> {return (x != x2)+"";}
+                }
+            }
+            return x+"";
+        }catch (Exception e){
+            
+        }
+        
+        
         return "";
     }
     
@@ -88,7 +159,7 @@ public class EvaluadorExpresiones {
                 case '>' -> {
                     if (i+1 < ev.length() && ev.charAt(i+1) == '='){
                         separadores[u] = ev.charAt(i)+"=";
-                        u++;
+                        u++;i++;
                     } else {
                         separadores[u] = ev.charAt(i)+"";
                         u++;
@@ -98,7 +169,7 @@ public class EvaluadorExpresiones {
                 case '<' -> {
                     if (i+1 < ev.length() && ev.charAt(i+1) == '='){
                         separadores[u] = ev.charAt(i)+"=";
-                        u++;
+                        u++;i++;
                     } else {
                         separadores[u] = ev.charAt(i)+"";
                         u++;
@@ -108,7 +179,7 @@ public class EvaluadorExpresiones {
                 case '!' -> {
                     if (i+1 < ev.length() && ev.charAt(i+1) == '='){
                         separadores[u] = ev.charAt(i)+"=";
-                        u++;
+                        u++;i++;
                     }
                     break;
                 }
@@ -128,16 +199,14 @@ public class EvaluadorExpresiones {
         try {
             double x = Double.parseDouble(EvMatSum(Sep[0]));
             for (int i = 1; i < Sep.length; i++) {
-                double x2 = Double.parseDouble(EvMatMult(Sep[i]));
+                double x2 = Double.parseDouble(EvMatSum(Sep[i]));
                 switch (separadores[i - 1]) {
-                    case "=" -> {
-                        x = x + x2;
-                        break;
-                    }
-                    case "!=" -> {
-                        x = x - x2;
-                        break;
-                    }
+                    case "=" -> {return (x == x2)+"";}
+                    case "!=" -> {return (x != x2)+"";}
+                    case ">" -> {return (x > x2) + "";}
+                    case "<" -> {return (x < x2) + "";}
+                    case ">=" -> {return (x >= x2) + "";}
+                    case "<=" -> {return (x <= x2) + "";}
                 }
             }
             return x+"";
@@ -280,6 +349,13 @@ public class EvaluadorExpresiones {
     public static boolean InstBloqueValor(Bloque b){
         return (b instanceof BloqueValor || b instanceof BloqueVariable);
     }
+    
+    
+    
+    public static boolean ValBool(String s){
+        return s.equalsIgnoreCase("true");
+    }
+    
     
     
     public static boolean MatExpresion(String s){
