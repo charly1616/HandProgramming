@@ -19,8 +19,10 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -36,7 +38,7 @@ public class GridController implements Initializable {
     
     @FXML
     public Pane GridView;
-    public Scale scale;
+    public double scale = 1;
     public Scene escena;
     
     @FXML
@@ -49,6 +51,7 @@ public class GridController implements Initializable {
     
     // Lo que guarda los componentes
     public ArrayList<Bloque> bloques = new ArrayList<Bloque>();
+    public ArrayList<Circle> puntos = new ArrayList<Circle>();
     public Pane cirs = new Pane();
     
     
@@ -66,9 +69,8 @@ public class GridController implements Initializable {
     public double mouseAnchorY;
     
     
-    public double offsetX = 0;
-    public double offsetY = 0;
-    double initialX, initialY;
+    private double lastMouseX, lastMouseY;
+    
     
     
     @Override
@@ -224,22 +226,40 @@ public class GridController implements Initializable {
     
     
     public void hacerZoomeable(){
-        scale = new Scale(1, 1);
-        GridView.getTransforms().add(scale);
-        escena = new Scene(GridView, GridView.getWidth(), GridView.getHeight());
-        
-        
-        GridView.setOnScroll(event -> {
-            double zoomFactor = 1.05; // Ajusta el factor de zoom según tus necesidades
-            if (event.getDeltaY() > 0) {
-                // Zoom in (aumentar el tamaño)
-                scale.setX(scale.getX() * zoomFactor);
-                scale.setY(scale.getY() * zoomFactor);
-            } else {
-                // Zoom out (disminuir el tamaño)
-                scale.setX(scale.getX() / zoomFactor);
-                scale.setY(scale.getY() / zoomFactor);
-            }
+//        scale = new Scale(1, 1);
+//        GridView.getTransforms().add(scale);
+//        escena = new Scene(GridView, GridView.getWidth(), GridView.getHeight());
+//        
+//        
+//        GridView.setOnScroll(event -> {
+//            double zoomFactor = 1.05; // Ajusta el factor de zoom según tus necesidades
+//            if (event.getDeltaY() > 0) {
+//                // Zoom in (aumentar el tamaño)
+//                scale.setX(scale.getX() * zoomFactor);
+//                scale.setY(scale.getY() * zoomFactor);
+//            } else {
+//                // Zoom out (disminuir el tamaño)
+//                scale.setX(scale.getX() / zoomFactor);
+//                scale.setY(scale.getY() / zoomFactor);
+//            }
+//        });
+        Grid.getParent().setOnScroll((ScrollEvent event) -> {
+            double scaleFactor = (event.getDeltaY() > 0) ? 1.1 : 0.9;
+            scale *= scaleFactor;
+            System.out.println(scale);
+            double mouseX = event.getSceneX();
+            double mouseY = event.getSceneY();
+
+            // Calcular el desplazamiento del punto de enfoque
+            double offsetX = (mouseX) * (1 - scaleFactor);
+            double offsetY = (mouseY) * (1 - scaleFactor);
+
+            Grid.setScaleX(scale);
+            Grid.setScaleY(scale);
+
+            // Ajustar la posición para mantener el punto de enfoque
+            Grid.setTranslateX((Grid.getTranslateX()+offsetX+8)*scaleFactor);
+            Grid.setTranslateY((Grid.getTranslateY()+offsetY+8)*scaleFactor);
         });
     }
     
@@ -247,26 +267,28 @@ public class GridController implements Initializable {
     
     
     public void hacerBloqueMovible(Bloque b){
-        b.setOnMousePressed((MouseEvent mouseEvent) -> {
-            b.mouseAnchorX = mouseEvent.getX();
-            b.mouseAnchorY = mouseEvent.getY();
+        b.setOnMousePressed(event -> {
+            b.mouseAnchorX = event.getX()*scale+Grid.getTranslateX();
+            b.mouseAnchorY = event.getY()*scale+Grid.getTranslateY();
+            event.consume();
         });
         
         
-        
-        b.setOnDragDetected((MouseEvent mouseEvent) -> {
+        b.setOnDragDetected(event -> {
             b.Agarrado();
             if (b.conectado != null)  b.conectado.Desconectar();
-            
+            event.consume();
         });
         
-        b.setOnMouseDragged(mouseEvent -> {
-            b.setPosicion(mouseEvent.getSceneX() -b.mouseAnchorX,mouseEvent.getSceneY() - b.mouseAnchorY);
+        b.setOnMouseDragged(event -> {
+            b.setPosicion((event.getSceneX()) -b.mouseAnchorX,(event.getSceneY()) - b.mouseAnchorY);
+            b.setPosicion(b.getX()/scale,b.getY()/scale);
             b.toFront();
             pintarPreBloque(b);
+            event.consume();
         });
         
-            b.setOnMouseReleased((MouseEvent mouseEvent) -> {
+        b.setOnMouseReleased(event -> {
             b.Soltado();
             OcultarPreBloques();
     
@@ -274,13 +296,14 @@ public class GridController implements Initializable {
             if (c != null) {
                 c.setConexion(b);
             } else if (detectarColision(b)) {
-                b.setPosicion(b.LastX + this.offsetX, b.LastY + this.offsetY);
+                b.setPosicion(b.LastX/scale, b.LastY/scale);
             } else {
-                b.LastX = b.getLayoutX() - this.offsetX;
-                b.LastY = b.getLayoutY() - this.offsetY;
+                b.LastX = b.getX();
+                b.LastY = b.getY();
             }
 
             organizarBloques();
+            event.consume();
         });
 
         
@@ -288,60 +311,77 @@ public class GridController implements Initializable {
     
     
     public void hacerNavegable() {
-        cirs.setOnMousePressed((MouseEvent mouseEvent) -> {
-            guardarPosiciones();
-            mouseAnchorX = mouseEvent.getX()*scale.getX();
-            mouseAnchorY = mouseEvent.getY()*scale.getX();
-            initialX = mouseEvent.getSceneX();
-            initialY = mouseEvent.getSceneY();
-        });;
-        
-        
-        cirs.setOnMouseReleased((MouseEvent mouseEvent) -> {
-            guardarPosiciones();
-            
+        Grid.getParent().setOnMousePressed(event -> {
+            lastMouseX = event.getSceneX();
+            lastMouseY = event.getSceneY();
+            event.consume();
         });
 
-        cirs.setOnMouseDragged(mouseEvent -> {
-            offsetX += mouseEvent.getSceneX() - initialX;
-            offsetY += mouseEvent.getSceneY() - initialY;
-            
-            initialX = mouseEvent.getSceneX();
-            initialY = mouseEvent.getSceneY();
-            
-            //Mueve todo con relacion al mouse
-            int i = 0;
-            //Recorre los puntos
-            for (; i < cirs.getChildren().size(); i++) {
-                double x = posx.get(i);
-                double y = posy.get(i);
-                
-                while (x>250){
-                    x -= 500;
-                }
-                while (!(x>-250)){
-                    x += 500;
-                }
-                while (y>250){
-                    y -= 500;
-                }
-                while (!(y>-250)){
-                    y += 500;
-                }
-                
-                
-                cirs.getChildren().get(i).setLayoutX(mouseEvent.getSceneX() - mouseAnchorX + x);
-                cirs.getChildren().get(i).setLayoutY(mouseEvent.getSceneY() - mouseAnchorY + y);
-            }
-            //Recorre los Bloques
-            for (; i < posx.size(); i++) {
-                int u = i - cirs.getChildren().size();
-                double x = posx.get(i);
-                double y = posy.get(i);
-                bloques.get(u).setPosicion(mouseEvent.getSceneX() - mouseAnchorX + x ,mouseEvent.getSceneY() - mouseAnchorY + y);
-            }
-            
+        Grid.getParent().setOnMouseDragged(event -> {
+            double deltaX = event.getSceneX() - lastMouseX;
+            double deltaY = event.getSceneY() - lastMouseY;
+            Grid.setTranslateX(Grid.getTranslateX() + deltaX);
+            Grid.setTranslateY(Grid.getTranslateY() + deltaY);
+            lastMouseX = event.getSceneX();
+            lastMouseY = event.getSceneY();
         });
+        
+        
+        
+//        cirs.setOnMousePressed((MouseEvent mouseEvent) -> {
+//            guardarPosiciones();
+//            mouseAnchorX = mouseEvent.getX()*scale;
+//            mouseAnchorY = mouseEvent.getY()*scale;
+//            initialX = mouseEvent.getSceneX();
+//            initialY = mouseEvent.getSceneY();
+//        });
+//        
+//        
+//        cirs.setOnMouseReleased((MouseEvent mouseEvent) -> {
+//            guardarPosiciones();
+//            
+//        });
+//
+//        cirs.setOnMouseDragged(mouseEvent -> {
+//            offsetX += mouseEvent.getSceneX() - initialX;
+//            offsetY += mouseEvent.getSceneY() - initialY;
+//            
+//            initialX = mouseEvent.getSceneX();
+//            initialY = mouseEvent.getSceneY();
+//            
+//            //Mueve todo con relacion al mouse
+//            int i = 0;
+//            //Recorre los puntos
+//            for (; i < puntos.size(); i++) {
+//                double x = posx.get(i);
+//                double y = posy.get(i);
+//                
+//                while (x>250){
+//                    x -= 500;
+//                }
+//                while (!(x>-250)){
+//                    x += 500;
+//                }
+//                while (y>250){
+//                    y -= 500;
+//                }
+//                while (!(y>-250)){
+//                    y += 500;
+//                }
+//                
+//                
+//                puntos.get(i).setLayoutX(mouseEvent.getSceneX() - mouseAnchorX + x);
+//                puntos.get(i).setLayoutY(mouseEvent.getSceneY() - mouseAnchorY + y);
+//            }
+//            //Recorre los Bloques
+//            for (; i < posx.size(); i++) {
+//                int u = i - puntos.size();
+//                double x = posx.get(i);
+//                double y = posy.get(i);
+//                bloques.get(u).setPosicion(mouseEvent.getSceneX() - mouseAnchorX + x ,mouseEvent.getSceneY() - mouseAnchorY + y);
+//            }
+//            
+//        });
 
     }
     
@@ -417,7 +457,7 @@ public class GridController implements Initializable {
     public void guardarPosiciones(){
         posx.clear();
         posy.clear();
-        for (Node c : cirs.getChildren()) {
+        for (Node c : puntos) {
             posx.add(c.getLayoutX());
             posy.add(c.getLayoutY());
         }
@@ -440,7 +480,8 @@ public class GridController implements Initializable {
                 cir.setRadius(1);
                 cir.setStrokeWidth(0);
                 cir.setFill(Color.GREY.darker().darker());
-                cirs.getChildren().add(cir);
+                puntos.add(cir);
+                Grid.getChildren().add(cir);
             }
         }
     }
