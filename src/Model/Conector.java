@@ -427,5 +427,5 @@ public class Conector extends Pane{
     public void mostrarLinea(){
         if (activado) linea.setVisible(true);
     }
-    
+
 }

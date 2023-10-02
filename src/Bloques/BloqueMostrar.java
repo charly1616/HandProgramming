@@ -26,5 +26,9 @@ public class BloqueMostrar extends BloqueLabel {
         if (chorizontal.conexion != null) {
             chorizontal.conexion.Hacer();
         }
+        
+        //Ejecutar la siguiente linea
+        if (SiguienteLinea()!= null) Siguiente().Hacer();
+        else ejecutador.vaciarVariables();
     }
 }

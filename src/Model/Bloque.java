@@ -320,6 +320,13 @@ public class Bloque extends Pane{
         }
     }
     
+    
+    public void setEjecutador(BloqueEjecutable b){
+        this.ejecutador = b;
+    }
+    
+    
+    
     public void Debug(){}
 
 }

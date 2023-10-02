@@ -50,12 +50,32 @@ public class BloqueEjecutable extends Bloque{
     
     public void vaciarVariables() {
         variables.clear();
+        limpiarEjecutadores();
+        
+        //Ejecutar la siguiente linea
+        if (SiguienteLinea()!= null) Siguiente().Hacer();
+        else ejecutador.vaciarVariables();
     }
-
+    
+    public void limpiarEjecutadores(){
+        
+    }
+    
+    
+    
+    
+    
+    @Override
+    public void Hacer(){
+        variables.addAll(ejecutador.variables);
+        EjecutarHijos();
+        
+    }
     
     //HACER
     public void EjecutarHijos(){
-        
+        if (this.cvertical.inner.conexion == null) return;
+        this.cvertical.inner.conexion.Hacer();
     }
     
     

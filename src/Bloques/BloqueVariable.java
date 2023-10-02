@@ -1,6 +1,7 @@
 
 package Bloques;
 
+import Model.EvaluadorExpresiones;
 import javafx.scene.paint.Color;
 
 
@@ -41,7 +42,18 @@ public class BloqueVariable extends BloqueTexto{
         }
     }
 
-
+    @Override
+    public void Hacer(){
+        ejecutador.setValor(this, RevisarValor());
+        if (SiguienteLinea()!= null) Siguiente().Hacer();
+        else ejecutador.vaciarVariables();
+    }
+    
+    
+    public String RevisarValor(){
+        return EvaluadorExpresiones.Expresion(Siguiente());
+    }
+    
     
     @Override
     public void TypeVariable(){

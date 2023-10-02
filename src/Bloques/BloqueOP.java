@@ -33,7 +33,7 @@ public class BloqueOP extends Bloque {
         operaciones.setAlignment(Pos.CENTER_LEFT);
         
         //Posicion del label
-        operaciones.setLayoutX(19);
+        operaciones.setLayoutX(30);
         operaciones.setLayoutY(15);
         
         //tamaño del label

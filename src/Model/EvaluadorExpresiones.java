@@ -82,13 +82,13 @@ public class EvaluadorExpresiones {
             lvalue = BloqueValor.GetType(Actual.getValor());
             
             //Si no hay mas bloques o el siguiente bloque es otro valor, termina ahí
-            if (Actual.chorizontal.conexion == null ) break;
-            if (!(Actual.chorizontal.conexion instanceof BloqueOP)) break;
+            if (Actual.chorizontal.conexion == null ) {break;}
+            if (!(Actual.chorizontal.conexion instanceof BloqueOP)){ break;}
             
             
             //Si el bloque es string, debe haber un bloque == al lado y lo mismo alreves
-            if ((BloqueValor.GetType(Actual.getValor()).equals("Str")) && !Actual.chorizontal.conexion.getValor().equals("=")) break;
-            if ((BloqueValor.GetType(Actual.chorizontal.conexion.getValor()).equals("Str")) && !Actual.getValor().equals("=")) break;
+            if ((BloqueValor.GetType(Actual.getValor()).equals("Str")) && !Actual.chorizontal.conexion.getValor().equals("=")) {break;}
+            if (Actual.chorizontal.conexion.chorizontal.conexion != null && (BloqueValor.GetType(Actual.chorizontal.conexion.chorizontal.conexion.getValor()).equals("Str")) && !Actual.getValor().equals("=")) {break;}
             
             
             if (Actual instanceof BloqueLogico) l++;
@@ -99,10 +99,10 @@ public class EvaluadorExpresiones {
             
             
             exA += Actual.chorizontal.conexion.getValor();
-            if (Actual.chorizontal.conexion == null) break;
+            if (Actual.chorizontal.conexion == null) {break;}
             Actual = Actual.chorizontal.conexion.chorizontal.conexion;
             //Si el bloque actual, osea el que se acaba de conectar no es valor, error
-            if (!(InstBloqueValor(Actual))) break;
+            if (!(InstBloqueValor(Actual))) {break;}
         }
         return ValBool(EvLog(exA));
     }
@@ -110,7 +110,7 @@ public class EvaluadorExpresiones {
     
     
     public static String EvLog(String ev){
-        
+        System.out.println(ev);
         String [] Sep = ev.split("&|o");
         String[] separadores = new String[Sep.length - 1];
         
@@ -130,13 +130,13 @@ public class EvaluadorExpresiones {
         
         try {
             String l = EvLogMat(Sep[0]);
-            if (!BloqueValor.GetType(l).equals("bol")) return "";
+            if (!BloqueValor.GetType(l).equals("Bol")) return "";
             boolean x = ValBool(l);
             for (int i = 1; i < Sep.length; i++) {
                 boolean x2 = ValBool(EvLogMat(Sep[i]));
                 switch (separadores[i - 1]) {
-                    case "&" -> {return (x == x2)+"";}
-                    case "o" -> {return (x != x2)+"";}
+                    case "&" -> {x  = x && x2;}
+                    case "o" -> {x = x || x2;}
                 }
             }
             return x+"";
@@ -353,7 +353,7 @@ public class EvaluadorExpresiones {
     
     
     public static boolean ValBool(String s){
-        return s.equalsIgnoreCase("true");
+        return s.toLowerCase().equals("true");
     }
     
     
