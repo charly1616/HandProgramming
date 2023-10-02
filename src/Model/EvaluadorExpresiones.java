@@ -114,6 +114,10 @@ public class EvaluadorExpresiones {
         String [] Sep = ev.split("&|o");
         String[] separadores = new String[Sep.length - 1];
         
+        if (Sep.length == 1){
+            return EvLogMat(Sep[0]);
+        }
+        
         int u = 0;
         for (int i = 0; i < ev.length(); i++) {
             if (ev.charAt(i) == '&'||ev.charAt(i) == 'o'){
@@ -121,11 +125,6 @@ public class EvaluadorExpresiones {
                 u++;
             }
         }
-        
-        if (Sep.length == 1){
-            return EvLogMat(Sep[0]);
-        }
-        
         
         
         try {

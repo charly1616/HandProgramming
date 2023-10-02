@@ -28,7 +28,10 @@ public class BloqueCondicional extends BloqueEjecutable{
     @Override
     public void IniciarComponentes() {
         super.IniciarComponentes();
-
+        
+        this.cvertical = new ConectorMultiple(this);
+        
+        
         stackPane = new StackPane();
         stackPane.setAlignment(Pos.CENTER_RIGHT);
 
