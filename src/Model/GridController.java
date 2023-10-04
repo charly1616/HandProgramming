@@ -107,6 +107,12 @@ public class GridController implements Initializable {
         
         
         for (int i = 0; i < 10; i++) {
+            p = new BloqueWhile(-500, 800);
+            hacerBloqueMovible(p);
+            añadirBloque(p);
+        }
+        
+        for (int i = 0; i < 10; i++) {
             p = new BloqueIF(-500, 1200);
             hacerBloqueMovible(p);
             añadirBloque(p);

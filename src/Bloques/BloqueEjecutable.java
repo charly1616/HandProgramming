@@ -66,7 +66,6 @@ public class BloqueEjecutable extends Bloque{
     
     @Override
     public void Hacer(){
-        
         if (ejecutador.variables !=  null && ejecutador.variables != null) variables.addAll(ejecutador.variables);
         if (this instanceof BloqueCondicional) EjecutarHijos();
         

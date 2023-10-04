@@ -9,14 +9,13 @@ import javafx.scene.paint.Color;
  */
 public class BloqueWhile extends BloqueCondicional{
     
-    public BloqueWhile(double x, double y, String Text) {
+    public BloqueWhile(double x, double y) {
         super(x, y, "While", Color.BLUEVIOLET);
     }
     
       
     @Override
     public void Hacer(){
-        
         if (Siguiente() != null && evaluarSiguiente()){
             super.Hacer();
             Hacer();

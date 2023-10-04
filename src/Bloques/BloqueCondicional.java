@@ -59,7 +59,6 @@ public class BloqueCondicional extends BloqueEjecutable{
         stackPane.setPrefHeight(65);
         setAncho(textWidth + 62);
         label.setVisible(true);
-        System.out.println(Text);
     }
     
     
