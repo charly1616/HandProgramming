@@ -67,7 +67,7 @@ public class BloqueEjecutable extends Bloque{
     
     @Override
     public void Hacer(){
-        variables.addAll(ejecutador.variables);
+        if (ejecutador.variables != null) variables.addAll(ejecutador.variables);
         EjecutarHijos();
         
     }
