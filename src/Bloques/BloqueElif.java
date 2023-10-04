@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 public class BloqueElif extends BloqueCondicional{
     
     public BloqueElif(double x, double y) {
-        super(x, y, "Elif", Color.DARKCYAN);
+        super(x, y, "Elif", Color.DARKCYAN.brighter());
     }
     
     @Override

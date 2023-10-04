@@ -16,7 +16,6 @@ public class BloqueIF extends BloqueCondicional{
         if (Siguiente() != null && evaluarSiguiente()){
             super.Hacer();
         } else if (SiguienteLinea() instanceof BloqueElse || SiguienteLinea() instanceof BloqueElif){
-            System.out.println("SIPPPP");
             SiguienteLinea().ejecutador = ejecutador;
             SiguienteLinea().Hacer();
         } else {

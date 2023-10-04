@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 public class BloqueElse extends BloqueCondicional{
     
     public BloqueElse(double x, double y) {
-        super(x, y, "Else", Color.DARKSLATEBLUE);
+        super(x, y, "Else", Color.DARKSLATEBLUE.brighter());
         
     }
     
