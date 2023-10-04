@@ -300,7 +300,6 @@ public class Conector extends Pane{
         if (modo.equals("h") && !identable) {
             b.DesactivarVertical();
         }
-        System.out.println(b);
         if (b != null) {
             b.conectado = this;
             fixPosicion();

@@ -15,20 +15,17 @@ public class BloqueMostrar extends BloqueLabel {
     
     @Override
     public void Hacer() {
-        if (chorizontal.conexion != null) {
-            System.out.println(EvaluadorExpresiones.Expresion(chorizontal.conexion));
-            chorizontal.conexion.setError(true);
+        if (Siguiente() != null) {
+            System.out.println(EvaluadorExpresiones.Expresion(Siguiente()));
+//            chorizontal.conexion.setError(true);
         } else {
             System.out.println("Esta vacío");
         }
         
-        // Aquí verificamos si el siguiente bloque está conectado
-        if (chorizontal.conexion != null) {
-            chorizontal.conexion.Hacer();
-        }
-        
         //Ejecutar la siguiente linea
         if (SiguienteLinea()!= null) Siguiente().Hacer();
-        else ejecutador.vaciarVariables();
+        else if (ejecutador != null){
+            ejecutador.vaciarVariables();
+        }
     }
 }

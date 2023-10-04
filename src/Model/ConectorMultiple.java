@@ -30,6 +30,7 @@ public class ConectorMultiple extends Conector{
         inner.linea.setStartX(45);
         inner.identable = true;
         inner.setPosicion(0, 0);
+        inner.fixPosicion();
         setPreBloqueY();
         
     }

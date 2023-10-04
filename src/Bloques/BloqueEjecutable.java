@@ -53,8 +53,7 @@ public class BloqueEjecutable extends Bloque{
         limpiarEjecutadores();
         
         //Ejecutar la siguiente linea
-        if (SiguienteLinea()!= null) Siguiente().Hacer();
-        else ejecutador.vaciarVariables();
+        if (SiguienteLinea()== null) ejecutador.vaciarVariables();
     }
     
     public void limpiarEjecutadores(){
@@ -67,14 +66,16 @@ public class BloqueEjecutable extends Bloque{
     
     @Override
     public void Hacer(){
-        if (ejecutador.variables != null) variables.addAll(ejecutador.variables);
-        EjecutarHijos();
+        
+        if (ejecutador.variables !=  null && ejecutador.variables != null) variables.addAll(ejecutador.variables);
+        if (this instanceof BloqueCondicional) EjecutarHijos();
         
     }
     
     //HACER
     public void EjecutarHijos(){
         if (this.cvertical.inner.conexion == null) return;
+        this.cvertical.inner.conexion.ejecutador = this;
         this.cvertical.inner.conexion.Hacer();
     }
     

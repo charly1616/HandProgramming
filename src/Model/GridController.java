@@ -99,15 +99,34 @@ public class GridController implements Initializable {
         
         
         Bloque p ;
+        for (int i = 0; i < 10; i++) {
+            p = new BloqueMostrar(-500, 1000);
+            hacerBloqueMovible(p);
+            añadirBloque(p);
+        }
         
-         p = new BloqueMostrar(-500, 1000);
-        hacerBloqueMovible(p);
-        añadirBloque(p);
+        
+        for (int i = 0; i < 10; i++) {
+            p = new BloqueIF(-500, 1200);
+            hacerBloqueMovible(p);
+            añadirBloque(p);
+        }
         
         
-        p = new BloqueLabel(-500, 1000,Color.AQUA,"Olga");
-        hacerBloqueMovible(p);
-        añadirBloque(p);
+        for (int i = 0; i < 10; i++) {
+            p = new BloqueElif(-500, 1400);
+            hacerBloqueMovible(p);
+            añadirBloque(p);
+        }
+        
+        
+        for (int i = 0; i < 10; i++) {
+            p = new BloqueElse(-500, 1600);
+            hacerBloqueMovible(p);
+            añadirBloque(p);
+        }
+        
+        
         
         
         for (int i = 0; i < 20; i++) {
@@ -202,7 +221,6 @@ public class GridController implements Initializable {
         Grid.getParent().setOnScroll((ScrollEvent event) -> {
             double scaleFactor = (event.getDeltaY() > 0) ? 1.1 : 0.9;
             scale *= scaleFactor;
-            System.out.println(scale);
             double mouseX = event.getSceneX();
             double mouseY = event.getSceneY();
 
@@ -238,7 +256,7 @@ public class GridController implements Initializable {
         
         b.setOnMouseDragged(event -> {
             b.setPosicion((event.getSceneX()) -b.mouseAnchorX,(event.getSceneY()) - b.mouseAnchorY);
-            b.setPosicion(b.getX()/scale-200*scale,b.getY()/scale-70*scale);
+            b.setPosicion(b.getX()/scale-200/scale,b.getY()/scale-70/scale);
             b.toFront();
             pintarPreBloque(b);
             event.consume();
@@ -252,7 +270,7 @@ public class GridController implements Initializable {
             if (c != null) {
                 c.setConexion(b);
             } else if (detectarColision(b)) {
-                b.setPosicion(b.LastX/scale, b.LastY/scale);
+                b.setPosicion(b.LastX/scale-200/scale, b.LastY/scale-50/scale);
             } else {
                 b.LastX = b.getX();
                 b.LastY = b.getY();
@@ -467,9 +485,18 @@ public class GridController implements Initializable {
     
     
     public void añadirBloque(Bloque p){
-        if (p.chorizontal != null) Grid.getChildren().add(p.chorizontal);
-        if (p.cvertical != null) Grid.getChildren().add(p.cvertical);
-        if (p.cvertical.inner != null) Grid.getChildren().add(p.cvertical.inner);
+        if (p.chorizontal != null) {
+            Grid.getChildren().add(p.chorizontal);
+            p.chorizontal.fixPosicion();
+        }
+        if (p.cvertical != null) {
+            Grid.getChildren().add(p.cvertical);
+            p.cvertical.fixPosicion();
+        }
+        if (p.cvertical.inner != null){
+            Grid.getChildren().add(p.cvertical.inner);
+            p.cvertical.inner.fixPosicion();
+        }
         Grid.getChildren().add(p);
         bloques.add(p);
     }

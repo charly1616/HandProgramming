@@ -47,6 +47,8 @@ public class BloqueVariable extends BloqueTexto{
         ejecutador.setValor(this, RevisarValor());
         if (SiguienteLinea()!= null) Siguiente().Hacer();
         else ejecutador.vaciarVariables();
+        
+        if (Siguiente() != null) Siguiente().ejecutador = ejecutador;
     }
     
     

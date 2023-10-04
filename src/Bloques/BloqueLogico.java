@@ -16,4 +16,13 @@ public class BloqueLogico extends BloqueOP{
         super(x, y, sign, Color.PALEGOLDENROD);
     }
     
+    @Override
+    public String getValor(){
+        if (signo.equals("o")){
+            return "___o___";
+        }
+        return this.signo;
+    }
+    
+    
 }

@@ -304,14 +304,14 @@ public class Bloque extends Pane{
     
     //Hacer FUNCION
     public Bloque Siguiente(){
-        return new Bloque(6,0);
+        return chorizontal.conexion;
         
     }
       
     
     //HACER FUNCION
     public Bloque SiguienteLinea(){
-        return new Bloque(6, 0);
+        return cvertical.conexion;
     }
 
     public void setError(boolean error) {

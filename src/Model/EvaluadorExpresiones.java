@@ -110,7 +110,7 @@ public class EvaluadorExpresiones {
     
     
     public static String EvLog(String ev){
-        String [] Sep = ev.split("&|o");
+        String [] Sep = ev.split("&|___o___");
         String[] separadores = new String[Sep.length - 1];
         
         if (Sep.length == 1){

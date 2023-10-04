@@ -64,6 +64,7 @@ public class BloqueCondicional extends BloqueEjecutable{
     
     
     public boolean evaluarSiguiente(){
+        System.out.println("Evaluando");
         return EvaluadorExpresiones.EvCondicion(Siguiente());
     }
     

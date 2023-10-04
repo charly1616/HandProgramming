@@ -129,8 +129,12 @@ public class BloqueInicio extends BloqueEjecutable{
         transicion2.play();
         
         
-        if (this.cvertical.conexion != null){
-            this.cvertical.conexion.Hacer();
+        if (SiguienteLinea() != null){
+            System.out.println("Haciendo");
+            if (SiguienteLinea() != null){
+                SiguienteLinea().ejecutador = this;
+                SiguienteLinea().Hacer();
+            }
         }
        
        
