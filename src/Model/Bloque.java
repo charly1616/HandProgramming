@@ -188,17 +188,13 @@ public class Bloque extends Pane{
     }
     
     public void setColorBorde(Color s){
-        if (TopPart!=null && SidePart!=null) {
         TopPart.setStroke(s);
         SidePart.setStroke(s);
-        }
     }
     
     public void setTamBorde(double b){
-         if (TopPart!=null && SidePart!=null) {
         TopPart.setStrokeWidth(b);
         SidePart.setStrokeWidth(b);
-         }
     }
     
     
@@ -300,14 +296,13 @@ public class Bloque extends Pane{
     //No se hace nada aqui porque se va a sobreescribir
     public void Hacer(){
     }
-  
+    
     
     //Hacer FUNCION
     public Bloque Siguiente(){
         return new Bloque(6,0);
-        
     }
-      
+    
     
     //HACER FUNCION
     public Bloque SiguienteLinea(){
@@ -332,20 +327,6 @@ public class Bloque extends Pane{
     
     
     
-    public void Debug() {
-        if (chorizontal.conexion!=null) this.chorizontal.conexion.Debug();
-        if (cvertical.conexion!=null) this.cvertical.conexion.Debug();
-    }
+    public void Debug(){}
 
-    public void ponerRojo(Bloque bloque) {
-        if (bloque == null) {
-            return;
-        }
-        bloque.setColorBorde(Color.RED);
-        bloque.setTamBorde(6);
-
-        if (bloque.chorizontal.conexion != null) {
-            ponerRojo(bloque.chorizontal.conexion);
-        }
-    }
 }

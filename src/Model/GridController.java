@@ -238,7 +238,7 @@ public class GridController implements Initializable {
         
         b.setOnMouseDragged(event -> {
             b.setPosicion((event.getSceneX()) -b.mouseAnchorX,(event.getSceneY()) - b.mouseAnchorY);
-            b.setPosicion(b.getX()/scale-200,b.getY()/scale-70);
+            b.setPosicion(b.getX()/scale,b.getY()/scale);
             b.toFront();
             pintarPreBloque(b);
             event.consume();
