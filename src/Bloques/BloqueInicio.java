@@ -131,8 +131,8 @@ public class BloqueInicio extends BloqueEjecutable{
         
         if (this.cvertical.conexion != null){
             this.cvertical.conexion.Hacer();
-            System.out.println(EvaluadorExpresiones.EvCondicion(cvertical.conexion));
         }
+       
        
     }
     
@@ -152,8 +152,4 @@ public class BloqueInicio extends BloqueEjecutable{
 
         return t;
     }
-    
-    
-    
-    
 }
