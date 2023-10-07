@@ -115,6 +115,7 @@ public class Bloque extends Pane{
         setHeight(77);
         
         
+         
     }
     
     
@@ -348,4 +349,8 @@ public class Bloque extends Pane{
             ponerRojo(bloque.chorizontal.conexion);
         }
     }
+    
+  
+    
+    
 }

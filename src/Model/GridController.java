@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
@@ -203,6 +204,7 @@ public class GridController implements Initializable {
         
         guardarPosiciones();
         hacerZoomeable();
+       
     }
     
     
@@ -368,6 +370,11 @@ public class GridController implements Initializable {
     
     public Conector pintarPreBloque(Bloque b){
         for (Bloque p : bloques) {
+              p.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                eliminarBloque(p);
+            }
+        });
             if (p == b) continue;
             OcultarPreBloques();
             if (p.chorizontal.detectarColision(b)){
@@ -507,6 +514,11 @@ public class GridController implements Initializable {
         bloques.add(p);
     }
     
-    
-    
+    public void eliminarBloque(Bloque bloque) {
+        // Eliminar el bloque del contenedor
+        Grid.getChildren().removeAll(bloque, bloque.chorizontal, bloque.cvertical);
+
+        // Eliminar el bloque del ArrayList
+        bloques.remove(bloque);
+    }
 }
