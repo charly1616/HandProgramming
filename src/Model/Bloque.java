@@ -122,8 +122,10 @@ public class Bloque extends Pane{
     public void DesactivarVertical() {if (cvertical != null) cvertical.Desactivar();}
     public void ActivarVertical() {if (cvertical != null) cvertical.Activar();}
     
-    
-    
+
+    /*Hace: Permite arrastrar el bloque con el maus
+      Se pone el borde un poco mas grande y el color cambia a azul
+    */
     public void Agarrado(){
         setColorBorde(Color.DODGERBLUE);
         setTamBorde(6);
@@ -136,7 +138,7 @@ public class Bloque extends Pane{
     }
     
     
-    
+    //Hace: Permite llevar el bloque al frente haciendolo visible
     public void AlFrente(){
         toFront();
         if (chorizontal != null && chorizontal.conexion != null){
@@ -148,7 +150,7 @@ public class Bloque extends Pane{
     }
     
     
-    
+    //Cuando se suelta se pone el bloque normal (tamaño y color de borde(negro))
     public void Soltado(){
         setColorBorde(Color.color(0, 0, 0));
         setTamBorde(4);
@@ -156,14 +158,16 @@ public class Bloque extends Pane{
     
     
     
-    
+    /*Calcula y devuelve las coordenadas de los vértices de un rectángulo 
+      en función de la posición actual del objeto.
+    */
     public double[] getRecVertices(){
         double [] c = {9+getX(), 8+getY(),ancho+7+getX(),this.getHeight()+getY()-18};
         return c;
     }
             
     
-    
+    //Recibe las posiciones actuales del bloque y permite cambiar estas mismas
     public void setPosicion(double x, double y){
         setLayoutX(x);
         setLayoutY(y);
@@ -181,6 +185,10 @@ public class Bloque extends Pane{
         return getLayoutY();
     }
     
+    
+    /*Recibe: Color que se desea para el bloque
+      Hace: Le pone el color a el bloque y un tono mas oscuro para la "base"
+    */
     public void setColorBloque(Color c){
         ColorBloque=c;
         
@@ -188,6 +196,10 @@ public class Bloque extends Pane{
         SidePart.setFill(c.darker().darker()); //La parte de abajo es un color mas oscuro
     }
     
+    
+    /*Recibe: Color que se desea para el borde del bloque
+      Hace: Le cambia el color a el borde del bloque
+    */
     public void setColorBorde(Color s){
         if (TopPart!=null && SidePart!=null) {
         TopPart.setStroke(s);
@@ -195,6 +207,10 @@ public class Bloque extends Pane{
         }
     }
     
+    
+    /*Recibe: Tamaño del borde que se desea
+      Hace: Si existe el bloque le cambia el tamaño que se puso.
+    */
     public void setTamBorde(double b){
          if (TopPart!=null && SidePart!=null) {
         TopPart.setStrokeWidth(b);
@@ -202,7 +218,9 @@ public class Bloque extends Pane{
          }
     }
     
-    
+    /*Permite Extender el bloque asegurarse de que sus componentes visuales 
+    se actualicen en consecuencia para reflejar el nuevo tamaño
+    */
     public void setAncho(double x){
         this.ancho = x;
         TopPart.setWidth(this.ancho);
@@ -232,9 +250,13 @@ public class Bloque extends Pane{
 
     
     
+    /* 
+    Funciona como LargoConexion pero "mejor"
+    Diferencia: Este tiene en cuenta los bloques que estan "dentro de otros" 
+     y tambien los espacios que van despues del ultimo bloque de forma vertical 
+    */
     public int LargoConexionMultiple() {
-        int contador = 0;
-        //Propaga la deteccion del largo de las conexiones a los identados
+        int contador = 0;  //Propaga la deteccion del largo de las conexiones a los identados
         if (cvertical.inner != null && cvertical.inner.conexion != null){
             contador += cvertical.inner.conexion.LargoConexionMultiple()+1;
         } else if (cvertical.inner != null){
@@ -242,22 +264,13 @@ public class Bloque extends Pane{
         }
 
         //Coloca un largo adicional para los vacios o continua contando los siguientes
+        
         if (cvertical.conexion != null) contador += cvertical.conexion.LargoConexionMultiple();
-
-        //Se añade a èl mismo
         contador++;
 
         return contador;
     }
-    
-    
-    
-    public String getValor(){
-        return "";
-    }
-    
-    
-   
+ 
     
     //Conecta las propiedades con el bloque
     public void Pintar(){
@@ -303,41 +316,44 @@ public class Bloque extends Pane{
     }
   
     
-    //Hacer FUNCION
+    //Hace: Pasa al siguiente bloque de la misma linea de manera horizontal
     public Bloque Siguiente(){
         return chorizontal.conexion;
         
     }
       
     
-    //HACER FUNCION
+    //Hace: Pasa a la siguiente linea de bloque de manera vertical.
     public Bloque SiguienteLinea(){
         return cvertical.conexion;
     }
-
+ 
+    
+    
+    //Recibe un booleano, si esta malo pone el bloque en rojo, sino vuelve a su color de borde natural.
     public void setError(boolean error) {
         if (error) {
             setColorBorde(Color.RED); // Cambiar el color del borde a rojo
             setTamBorde(6); // Cambiar el grosor del borde a 6
         } else {
-            // Restaurar el color y el grosor del borde a los valores normales
             setColorBorde(Color.color(0, 0, 0));
             setTamBorde(4);
         }
     }
+   
     
-    
-    public void setEjecutador(BloqueEjecutable b){
-        this.ejecutador = b;
-    }
-    
-    
-    
+    /*
+    Comienza desde el bloque actual y luego explora todos los bloques 
+    conectados horizontalmente y verticalmente
+    */
     public void Debug() {
         if (chorizontal.conexion!=null) this.chorizontal.conexion.Debug();
         if (cvertical.conexion!=null) this.cvertical.conexion.Debug();
     }
 
+    
+    /*Recibe un bloque, si existe le cambia el tamaño del borde 
+     y el color cambia a rojo */
     public void ponerRojo(Bloque bloque) {
         if (bloque == null) {
             return;
@@ -350,7 +366,13 @@ public class Bloque extends Pane{
         }
     }
     
-  
+    public String getValor(){
+        return "";
+    }
+    
+     public void setEjecutador(BloqueEjecutable b){
+        this.ejecutador = b;
+    }
     
     
 }

@@ -41,6 +41,9 @@ public class Conector extends Pane{
     
     public boolean identable; //Los que se conectan no pierden su habilidad de cVertical
     
+    
+    //Constructores:
+    
     //Constructor para el vertical
     public Conector(Bloque conectador, String modo, boolean activado, double offX){
         this.modo = modo;
@@ -52,6 +55,7 @@ public class Conector extends Pane{
         pintar();
     }
     
+    //Constructor para el Multiple
     public Conector(ConectorMultiple conectador, String modo, boolean activado){
         this.modo = modo;
         this.conectador = null;
@@ -63,7 +67,7 @@ public class Conector extends Pane{
         pintar();
     }
     
-    
+    //Constructor para el Horizontal
     public Conector(Bloque conectador, String modo){
         this.modo = modo;
         this.conectador = conectador;
@@ -165,7 +169,10 @@ public class Conector extends Pane{
     
     
     
-    
+    /*
+     Se encarga de establecer la apariencia visual de un conector incluyendo la línea
+     de conexión que se muestra entre el conector y otro elemento cuando está activado.
+    */
     public void pintar(){
         this.toBack();
         setStyle("-fx-background-color: rgba(0, 100, 100, 0); -fx-background-radius: 10;");

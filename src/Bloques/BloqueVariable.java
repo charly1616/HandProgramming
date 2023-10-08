@@ -61,5 +61,4 @@ public class BloqueVariable extends BloqueTexto{
     public void TypeVariable(){
         valorVariable = valor.getText();
     }
-    
 }
