@@ -58,11 +58,6 @@ public class GridController implements Initializable {
     
     
     
-    //Movimiento de los componentes
-    public ArrayList<Double> posx = new ArrayList<Double>();
-    public ArrayList<Double> posy = new ArrayList<Double>();
-    
-    
     
     
     //Movimiento del fondo
@@ -73,7 +68,13 @@ public class GridController implements Initializable {
     private double lastMouseX, lastMouseY;
     
     
-    
+    /* 
+        Recibe: (URL, ResourceBundle) cosas que son necesarias para JavaFX
+        Devuelve: (void) (Nada)
+        Hace: añade la pantalla, establece las caracteristicas como el tamaño, coloca los eventos -(Metodos {hacerNavegable}{hacerZoomeable})
+        crea el bloque de inicio y los bloques iniciales -(Metodos {hacerBloqueMovible}{añadirBloque}), aparte de los puntos -(Metodo {crearPuntos})
+        
+    */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         
@@ -191,41 +192,20 @@ public class GridController implements Initializable {
             crearBloque(Color.rgb((int)(Math.random()*250),(int)(Math.random()*250),(int)(Math.random()*250)));
         }
         
-        
-        
-//        crearBloque(Color.CORNFLOWERBLUE);
-//        crearBloque(Color.DARKOLIVEGREEN);
-//        crearBloque(Color.HOTPINK);
-//        crearBloque(Color.BEIGE);
-//        crearBloque(Color.BURLYWOOD);
-//        crearBloque(Color.CORNFLOWERBLUE);
-//        crearBloque(Color.DARKOLIVEGREEN);
-//        crearBloque(Color.HOTPINK);
-        
-        guardarPosiciones();
         hacerZoomeable();
        
     }
     
     
+    
+    /* 
+        Recibe: (Nada)
+        Devuelve: (void) (Nada)
+        Hace: establece el evento que cuando se ruede se haga zoom, aplica el zoom a todos los componentes
+        
+    */
+    
     public void hacerZoomeable(){
-//        scale = new Scale(1, 1);
-//        GridView.getTransforms().add(scale);
-//        escena = new Scene(GridView, GridView.getWidth(), GridView.getHeight());
-//        
-//        
-//        GridView.setOnScroll(event -> {
-//            double zoomFactor = 1.05; // Ajusta el factor de zoom según tus necesidades
-//            if (event.getDeltaY() > 0) {
-//                // Zoom in (aumentar el tamaño)
-//                scale.setX(scale.getX() * zoomFactor);
-//                scale.setY(scale.getY() * zoomFactor);
-//            } else {
-//                // Zoom out (disminuir el tamaño)
-//                scale.setX(scale.getX() / zoomFactor);
-//                scale.setY(scale.getY() / zoomFactor);
-//            }
-//        });
         Grid.getParent().setOnScroll((ScrollEvent event) -> {
             double scaleFactor = (event.getDeltaY() > 0) ? 1.1 : 0.9;
             scale *= scaleFactor;
@@ -247,7 +227,15 @@ public class GridController implements Initializable {
     
     
     
-    
+    /* 
+        Recibe: (Bloque b)
+        Devuelve: (void) (Nada)
+        Hace: le coloca distintos eventos al bloque "b"
+        hace que "b" se pueda agarrar y arrastrar, conecta la funcion {agarrado} y {soltado}
+        establece las conexiones -(funcion {detectarColision}{b.setConexion}) cuando se mueve el bloque
+        hace que cuando se de click dos veces, se elimine
+        
+    */
     public void hacerBloqueMovible(Bloque b){
         b.setOnMousePressed(event -> {
             b.mouseAnchorX = event.getX()*scale+Grid.getTranslateX();
@@ -287,11 +275,22 @@ public class GridController implements Initializable {
             organizarBloques();
             event.consume();
         });
-
         
+        b.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                eliminarBloque(b);
+            }
+        });
     }
     
     
+    
+    /* 
+        Recibe: (Nada)
+        Devuelve: (void) (Nada)
+        Hace: hace que el fondo "Grid" se pueda mover y que todos los bloques y puntos se muevan con él
+        
+    */
     public void hacerNavegable() {
         Grid.getParent().setOnMousePressed(event -> {
             lastMouseX = event.getSceneX();
@@ -308,95 +307,51 @@ public class GridController implements Initializable {
             lastMouseY = event.getSceneY();
         });
         
-        
-        
-//        cirs.setOnMousePressed((MouseEvent mouseEvent) -> {
-//            guardarPosiciones();
-//            mouseAnchorX = mouseEvent.getX()*scale;
-//            mouseAnchorY = mouseEvent.getY()*scale;
-//            initialX = mouseEvent.getSceneX();
-//            initialY = mouseEvent.getSceneY();
-//        });
-//        
-//        
-//        cirs.setOnMouseReleased((MouseEvent mouseEvent) -> {
-//            guardarPosiciones();
-//            
-//        });
-//
-//        cirs.setOnMouseDragged(mouseEvent -> {
-//            offsetX += mouseEvent.getSceneX() - initialX;
-//            offsetY += mouseEvent.getSceneY() - initialY;
-//            
-//            initialX = mouseEvent.getSceneX();
-//            initialY = mouseEvent.getSceneY();
-//            
-//            //Mueve todo con relacion al mouse
-//            int i = 0;
-//            //Recorre los puntos
-//            for (; i < puntos.size(); i++) {
-//                double x = posx.get(i);
-//                double y = posy.get(i);
-//                
-//                while (x>250){
-//                    x -= 500;
-//                }
-//                while (!(x>-250)){
-//                    x += 500;
-//                }
-//                while (y>250){
-//                    y -= 500;
-//                }
-//                while (!(y>-250)){
-//                    y += 500;
-//                }
-//                
-//                
-//                puntos.get(i).setLayoutX(mouseEvent.getSceneX() - mouseAnchorX + x);
-//                puntos.get(i).setLayoutY(mouseEvent.getSceneY() - mouseAnchorY + y);
-//            }
-//            //Recorre los Bloques
-//            for (; i < posx.size(); i++) {
-//                int u = i - puntos.size();
-//                double x = posx.get(i);
-//                double y = posy.get(i);
-//                bloques.get(u).setPosicion(mouseEvent.getSceneX() - mouseAnchorX + x ,mouseEvent.getSceneY() - mouseAnchorY + y);
-//            }
-//            
-//        });
 
     }
     
     
-    public Conector pintarPreBloque(Bloque b){
+    /* 
+        Recibe: (Bloque b) 
+        Devuelve: (Conector) devuelve el primer conector que está colisionando con "b"
+        Hace: busca en todos los bloques, en todos sus conectores si el conector está colisionando, cuando es así, muestra el prebloque de ese conector y devuelve al conector
+        cuando no encuentra ninguno devuelve null
+        
+    */
+    public Conector pintarPreBloque(Bloque b) {
         for (Bloque p : bloques) {
-              p.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-                eliminarBloque(p);
+            
+            if (p == b) {
+                continue;
             }
-        });
-            if (p == b) continue;
             OcultarPreBloques();
-            if (p.chorizontal.detectarColision(b)){
+            if (p.chorizontal.detectarColision(b)) {
                 p.chorizontal.mostrarPreBloque(b);
                 return p.chorizontal;
             }
-            
-            if (p.cvertical.inner != null && p.cvertical.inner.detectarColision(b)){
+
+            if (p.cvertical.inner != null && p.cvertical.inner.detectarColision(b)) {
                 p.cvertical.inner.mostrarPreBloque(b);
                 return p.cvertical.inner;
             }
-            if (p.cvertical.detectarColision(b)){
+            if (p.cvertical.detectarColision(b)) {
                 p.cvertical.mostrarPreBloque(b);
                 return p.cvertical;
             }
-            
+
         }
         return null;
     }
     
     
-      public void OcultarPreBloques() {
+    
+    /* 
+        Recibe: (Nada)
+        Devuelve: (void) (Nada)
+        Hace: oculta todos los prebloques de todos los conectores de todos los bloques en la lista "bloques"
+        
+    */
+    public void OcultarPreBloques() {
         for (Bloque p : bloques) {
             p.chorizontal.ocultarPreBloque();
             p.cvertical.ocultarPreBloque();
@@ -407,7 +362,15 @@ public class GridController implements Initializable {
     }
 
     
-        public void ConectarBloque(Bloque b) {
+      
+    /* 
+        Recibe: (Bloque b)
+        Devuelve: (void) (Nada)
+        Hace: establece las conexiones de "b" con el primer conector que esté cerca de "b" sea conector vertical u horizontal
+        despues oculta todos los prebloques
+        
+    */
+    public void ConectarBloque(Bloque b) {
         for (Bloque p : bloques) {
             if (p == b) {
                 continue;
@@ -424,12 +387,17 @@ public class GridController implements Initializable {
 
     
     
-    
+    /* 
+        Recibe: (Bloque b)
+        Devuelve: (boolean) que significa que el bloque "b" esta colisionando con otro o no
+        Hace: verifica si "b" está colisionando con alguno de los otros bloques en la lista "bloques" (usa los vertices para ver si están encima de otro)
+        
+    */
     public boolean detectarColision(Bloque b){
+        double [] p2 = b.getRecVertices();
         for (Bloque p : bloques) {
             if (p == b) continue;
             
-            double [] p2 = b.getRecVertices();
             double[] p1 = p.getRecVertices();
             
             if (!(p1[2] < p2[0] || p2[2] < p1[0] || p1[3] < p2[1] || p2[3] < p1[1])) {
@@ -441,21 +409,11 @@ public class GridController implements Initializable {
     
     
     
-    public void guardarPosiciones(){
-        posx.clear();
-        posy.clear();
-        for (Node c : puntos) {
-            posx.add(c.getLayoutX());
-            posy.add(c.getLayoutY());
-        }
-        for (Bloque c : bloques) {
-            posx.add(c.getX());
-            posy.add(c.getY());
-        }
-    }
-    
-    
-    
+    /* 
+        Recibe: (Nada)
+        Devuelve: (Void)(Nada)
+        Hace: crea puntos "cir" en una cuadricula y los añade al panel y a una lista de puntos llamada "puntos"
+    */
     public void crearPuntos(){
         for (int i = 0; i < 30; i++) {
             for (int j = 0; j < 30; j++) {
@@ -474,6 +432,12 @@ public class GridController implements Initializable {
     }
     
     
+    /* 
+        Recibe: (Nada)
+        Devuelve: (Void)(Nada)
+        Hace: organiza los bloques de mayor altura a menor altura
+        Hace que los que estén mas alto se vean detrás
+    */
     public void organizarBloques() {
         ArrayList<Bloque> blq = new ArrayList<>(bloques);
 
@@ -489,6 +453,13 @@ public class GridController implements Initializable {
     
     
     
+    /* Funcion de prueba (Existe para crear bloques mientras no haya una funcion especifica)
+        Recibe: (Color c) que es el color que uno le quiere poner al bloque
+        Devuelve: (Void)(Nada)
+        Hace: crea un bloque "p" con el color especificado en la posicion tal 
+        ,hace que "p" sea movible -(otra funcion "hacerBloqueMovible") 
+        y añade -(otra funcion "añadirBloque") a "p"
+    */
     public void crearBloque(Color c) {
         Bloque p = new BloqueCondicional(1000, 120,"if",Color.CORNFLOWERBLUE);
         hacerBloqueMovible(p);
@@ -497,6 +468,12 @@ public class GridController implements Initializable {
 
     
     
+    
+    /* 
+        Recibe: (Bloque p) que es el bloque que se va a añadir
+        Devuelve: (Void)(Nada)
+        Hace: añade al bloque "p" y todos sus componentes (conectores) al panel e ingresa a "p" a la lista "bloques" 
+    */
     public void añadirBloque(Bloque p){
         if (p.chorizontal != null) {
             Grid.getChildren().add(p.chorizontal);
@@ -514,10 +491,19 @@ public class GridController implements Initializable {
         bloques.add(p);
     }
     
+    
+    
+    /* 
+        Recibe: (Bloque) que es el bloque que se va a eliminar
+        Devuelve: (Void)(Nada)
+        Hace: Elimina el bloque y sus conexiones del panel y del arrayList
+    */
     public void eliminarBloque(Bloque bloque) {
         // Eliminar el bloque del contenedor
         Grid.getChildren().removeAll(bloque, bloque.chorizontal, bloque.cvertical);
-
+        if (bloque.cvertical.inner != null){
+            Grid.getChildren().remove(bloque.cvertical.inner);
+        }
         // Eliminar el bloque del ArrayList
         bloques.remove(bloque);
     }
