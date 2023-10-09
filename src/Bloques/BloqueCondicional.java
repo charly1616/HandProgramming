@@ -25,6 +25,12 @@ public class BloqueCondicional extends BloqueEjecutable{
         Pintar();
     }
 
+    
+    /*
+    Crear los componentes visuales necesarios para representar un bloque condicional.
+    Esto incluye la creación de un StackPane que contiene una etiqueta con el texto 
+    del bloque y la inicialización de un conector múltiple (cvertical) que parece estar relacionado con la lógica de conexión del bloque.
+    */
     @Override
     public void IniciarComponentes() {
         super.IniciarComponentes();
@@ -44,12 +50,23 @@ public class BloqueCondicional extends BloqueEjecutable{
         getChildren().add(stackPane);
     }
 
+    
+    /*
+    Calcula el ancho necesario para mostrar un texto con una fuente específica
+    Esto puede ser útil para ajustar el tamaño de los elementos que contienen el texto, como el StackPan
+    para asegurarse de que el texto encaje adecuadamente sin ser recortado ni desbordado. 
+    */
     private double computeTextWidth(javafx.scene.text.Font font, String text) {
         javafx.scene.text.Text textNode = new javafx.scene.text.Text(text);
         textNode.setFont(font);
         return textNode.getBoundsInLocal().getWidth();
     }
 
+    
+    /*
+     Se encarga de establecer el tamaño visual (ancho y alto) de un bloque condicional y ajustar su contenido 
+    (en este caso, un StackPane que contiene una etiqueta de texto) para que se muestre correctamente en la interfaz gráfica.
+    */
     @Override
     public void Pintar() {
         super.Pintar();
@@ -62,6 +79,7 @@ public class BloqueCondicional extends BloqueEjecutable{
     }
     
     
+    //Evalua el bloque que le sigue
     public boolean evaluarSiguiente(){
         System.out.println("Evaluando");
         return EvaluadorExpresiones.EvCondicion(Siguiente());
