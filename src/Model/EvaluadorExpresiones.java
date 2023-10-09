@@ -63,8 +63,11 @@ public class EvaluadorExpresiones {
     
     
     /*
-     Recibe un Bloque inicial como argumento y evalúa si representa una expresión condicional válida
-     para poder hacer uso de las expresiones
+        Recibe: un Bloque inicial como argumento y evalúa todos los bloques siguientes para ver si representa una expresión condicional válida
+        para poder hacer uso de las los condicionales
+        Devuelve: el valor de la condicion evaluada
+        Hace: a medida que va recorriendo los bloques en horizontal, convierte a los bloques en un String que es la expresion y ese String se lo manda a la funcion {EvLog}
+        dependiendo de ciertas distinciones, la expresion se cancela o se divide o se hace
     */
     public static boolean EvCondicion(Bloque inicial){
         if (!(InstBloqueValor(inicial))) return false;
@@ -110,10 +113,10 @@ public class EvaluadorExpresiones {
     
     
     /*
-     Se evaluar expresiones lógicas (booleanas)
-    compuestas por operadores lógicos & (y) y o (o), y operandos que representan valores booleanos (true o false).
-    Esta función recibe una cadena de texto ev como entrada y devuelve el resultado de la
-    evaluación de la expresión lógica en forma de una cadena que representa un valor booleano ("true" o "false").
+        Recibe: (String ev) que es un String con la expresion a evaluar
+        Devuelve: (String) con la expresion ya evaluada si se puede dividir
+        Hace: Se evaluar expresiones lógicas (booleanas) compuestas por operadores lógicos & (y) y o (o), separando el problema a evaluar en otro Metodo {EvLogMat}.
+        y evaluando su resultado con & (y) y o (o)
     */
     public static String EvLog(String ev){
         String [] Sep = ev.split("&|___o___");
@@ -153,6 +156,13 @@ public class EvaluadorExpresiones {
     }
     
     
+    
+    /*
+        Recibe: (String ev) que es un String con la expresion a evaluar
+        Devuelve: (String) con la expresion ya evaluada si se pudo dividir
+        Hace: Se evaluar expresiones lógicas matematicas (booleanas) compuestas por operadores lógicos matematicos >|<|=|!=|<=|>= , separando el problema a evaluar 
+        en dos expresiones usando otro Metodo {EvMatSum} y evaluando su resultado dependiendo del operador que separe a los dos >|<|=|!=|<=|>=.
+    */
     public static String EvLogMat(String ev){
         String [] Sep = ev.split(">|<|=|!=|<=|>=");
         String[] separadores = new String[Sep.length - 1];
@@ -223,6 +233,13 @@ public class EvaluadorExpresiones {
     }
     
     
+    
+    /*
+        Recibe: (String ev) que es un String con la expresion a evaluar
+        Devuelve: (String) con la expresion ya evaluada si se pudo dividir
+        Hace: Se evaluan las sumas o restas que existan, para ello se separan los terminos que se suman y se evaluan por separado (Metodo {EvMatMult}) 
+        y se suman o se restan sus resultados
+    */
     public static String EvMatSum(String ev){
         String [] Sep = ev.split("\\+|\\-");
         String[] separadores = new String[Sep.length - 1];
@@ -265,6 +282,11 @@ public class EvaluadorExpresiones {
     }
     
     
+    /*
+        Recibe: (String ev) que es un String con la expresion a evaluar
+        Devuelve: (String) con la expresion ya evaluada si se pudo dividir
+        Hace: Se evaluan las multiplicaciones y funciones en su nivel, para ello se separan otros terminos y se hacen, luego se realizan las operaciones respectivas x / %
+    */
     public static String EvMatMult(String ev){
         if (ev.equals("")) return"";
         String [] Sep = ev.split("x|\\/|\\%");
@@ -313,7 +335,11 @@ public class EvaluadorExpresiones {
     
     
     
-    
+    /*
+        Recibe: (String ev) que es un String con la expresion a evaluar
+        Devuelve: (String) con la expresion ya evaluada si se pudo hacer
+        Hace: Se evaluan las potencias, se separan en numeros y se realizan las potencias respectivas, luego se devuelve el resultado
+    */
     public static String EvMatPot(String ev){
         String [] Sep = ev.split("\\^");
         if (Sep.length == 1){
@@ -335,7 +361,11 @@ public class EvaluadorExpresiones {
     }
     
     
-    
+    /*
+        Recibe: (Bloque b, String tipovalor) el bloque operacion y el String que tiene el tipo de valor
+        Devuelve: (boolean) devuelve si la operacion se puede hacer dependiendo del tipo de valor que se le envia
+        Hace: Verifica que se pueda hacer la operacion con el tipo de dato
+    */
     public static boolean OpCorrecta(Bloque b, String tipovalor){
         if (b instanceof BloqueLogico) return true;
         
@@ -350,20 +380,33 @@ public class EvaluadorExpresiones {
     
     
     
+    /*
+        Recibe: (Bloque b) el bloque a verificar
+        Devuelve: (boolean) devuelve si el bloque contiene un valor
+        Hace: Verifica si "b" es un bloque que contiene algun tipo de valor
+    */
     public static boolean InstBloqueValor(Bloque b){
         return (b instanceof BloqueValor || b instanceof BloqueVariable);
     }
     
     
-    
+    /*
+        Recibe: (String s) el bloque a verificar
+        Devuelve: (boolean) devuelve el valor booleano del string
+        Hace: Verifica si "s" es true, no tiene en cuenta mayusculas y minusculas solo que diga TrUE
+    */
     public static boolean ValBool(String s){
         return s.toLowerCase().equals("true");
     }
     
     
-    
+    /*
+        Recibe: (String s) el string a verificar
+        Devuelve: (boolean) devuelve si es una operacion matematica
+        Hace: Revisa si el string está compuesto de solo caracteres de operaciones numericas
+    */
     public static boolean MatExpresion(String s){
-        char [] chars = {'1','2','3','4','5','6','7','8','9','0','+','-','x','/','%','^'};
+        char [] chars = {'1','2','3','4','5','6','7','8','9','0','+','-','x','/','%','^','.'};
         
         
         for (int i = 0; i < s.length(); i++) {
