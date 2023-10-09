@@ -43,7 +43,11 @@ public class BloqueInicio extends BloqueEjecutable{
     }
     
     
-    
+    /* Es la estrucuta del bloque inicio, se inician todos sus componentes visuales
+    se encarga de configurar y agregar al Pane del bloque un Label (etiqueta de texto), un Button (botón) y un Polyline (triángulo)
+    y de configurar sus respectivas propiedades visuales, como posición, tamaño, color y fuente.
+    Se agrega un manejador de evento al botón. Cuando se hace clic en el botón, se llama al método Undir().
+    */
     @Override
     public void IniciarComponentes(){
         super.IniciarComponentes();
@@ -84,6 +88,7 @@ public class BloqueInicio extends BloqueEjecutable{
         boton.setOpacity(0.0);
         
         getChildren().add(boton);
+        
         // creando el triangulo
         tri = new Polyline();
         
@@ -95,6 +100,7 @@ public class BloqueInicio extends BloqueEjecutable{
         tri.setFill(Color.LIME);
         //tri.points();
       
+        //Vertices del triangulo
         tri.getPoints().addAll(-18.0, 16.0, -18.0, -13.0, 6.0, 2.0, -18.0, 16.0);
         tri.setStroke(Color.valueOf("#2c2c2c") );
         tri.setStrokeType(StrokeType.INSIDE);
@@ -110,16 +116,24 @@ public class BloqueInicio extends BloqueEjecutable{
         
     }
     
+    
+    /*
+    Undir() anima visualmente el bloque BloqueInicio haciendo que se hunda.El comportamiento exacto del método dependerá
+    de la implementación específica de la clase BloqueInicio y cómo se relaciona con otros bloques en el programa.
+    */
     public void Undir(){
         
+        //Animación de hundimiento visual:
         TranslateTransition transicion = Transicion(TopPart);
         TranslateTransition transicion1 = Transicion(label);
         TranslateTransition transicion2 = Transicion(tri);
+        
+        //Se configuran estas animaciones para que duren 0.06 segundos y se repitan una vez sin auto inversión.
         transicion.setDelay(Duration.ZERO);
         transicion1.setDelay(Duration.ZERO);
         transicion2.setDelay(Duration.ZERO);
         
-        
+        //Inicio de las animaciones:
         transicion.setByY(9);
         transicion1.setByY(9);
         transicion2.setByY(9);
@@ -128,7 +142,11 @@ public class BloqueInicio extends BloqueEjecutable{
         transicion1.play();
         transicion2.play();
         
-        
+        /*
+        Se verifica si hay un bloque adyacente (SiguienteLinea()) al bloque BloqueInicio.
+        Si existe un segundo bloque adyacente, se establece el ejecutador del bloque adyacente al BloqueInicio.
+        llama al método Hacer(), lo que puede llevar a la ejecución de cierto código.
+        */
         if (SiguienteLinea() != null){
             System.out.println("Haciendo");
             if (SiguienteLinea() != null){

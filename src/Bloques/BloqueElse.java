@@ -14,6 +14,11 @@ public class BloqueElse extends BloqueCondicional{
         
     }
     
+    /*
+     Se ejecutará si está conectado a un "Elif" o un "IF" en la estructura condicional y su 
+    lógica se ejecutará como parte de esa rama condicional. 
+    Si no cumple con esa condición, el método no realiza ninguna acción.
+    */
     @Override
     public void Hacer(){
         if (conectado.conectador instanceof BloqueElif || conectado.conectador instanceof BloqueIF){

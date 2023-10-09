@@ -22,6 +22,8 @@ public class BloqueOP extends Bloque {
         signo = sign;
     }
     
+    
+    //Comentado por partes en el codigo:
     @Override
     public void IniciarComponentes(){
         super.IniciarComponentes();
@@ -48,10 +50,16 @@ public class BloqueOP extends Bloque {
         //Se muestra en el bloque
         getChildren().add(operaciones);
         
+        // para configurar el ancho del bloque Esto probablemente ajusta el tamaño del bloque para que se ajuste al contenido 
         setAncho(70);
     }
     
-    
+    /*
+    No recibe nada
+    Determina si es posible conectar dos bloques a un bloque BloqueOP de una manera que sea coherente
+    Verifica que los bloques relacionados pertenezcan a un bloqueValor o Variable
+    Devuelve un booleano 
+    */
     public boolean PosibleConex() {
         Bloque bloqueIzquierdo = conectado != null ? conectado.conectador : null;
         Bloque bloqueDerecho = chorizontal != null && chorizontal.conexion != null ? chorizontal.conexion : null;
@@ -64,7 +72,7 @@ public class BloqueOP extends Bloque {
       return false;
     }
     
-    
+    //Devuelve el valor contenido en el atributo signo.
     @Override
     public String getValor(){
         return this.signo;

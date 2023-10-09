@@ -16,6 +16,8 @@ public class BloqueLogico extends BloqueOP{
         super(x, y, sign, Color.PALEGOLDENROD);
     }
     
+    
+   // Si signo es igual a "o", se devuelve la cadena "o"; de lo contrario, se devuelve el valor actual de signo
     @Override
     public String getValor(){
         if (signo.equals("o")){

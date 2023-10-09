@@ -28,6 +28,7 @@ public abstract class BloqueTexto extends Bloque{
     }
     
     
+    //Codigo comentado dentro del Metodo
     @Override
     public void IniciarComponentes(){
         super.IniciarComponentes();
@@ -67,6 +68,7 @@ public abstract class BloqueTexto extends Bloque{
         valor.setFont(font);
         
         
+        //Estilo del TextField (valor):
         valor.setStyle("-fx-text-fill: "+toHex(ColorBorde).toLowerCase()+
                 "; -fx-prompt-text-fill: "+toHex(ColorBorde).toLowerCase()+
                 "; -fx-background-color: "+toHex(ColorBloque).toLowerCase()+
@@ -74,25 +76,35 @@ public abstract class BloqueTexto extends Bloque{
         
         valor.textProperty().addListener((ObservableValue<? extends String> observable, String valorviejo, String valornuevo) -> {
             
-            if (valornuevo.length()>this.LetrasMax ){
+            
+        /*
+        Se verifica la longitud del nuevo valor del TextField (valornuevo) en comparación con LetrasMax. 
+        Si el nuevo valor supera la longitud máxima permitida,se restaura el valor anterior (valorviejo)
+        Esto asegura que no se permitan más caracteres de los que se especifican en LetrasMax.
+        */
+       if (valornuevo.length()>this.LetrasMax ){
                 valor.setText(valorviejo);
-            }
+        }
             
-            double textWidth = computeTextWidth(valor.getFont(), valornuevo);
+       
+       //Ajuste del ancho del TextField y del bloque padre
+        double textWidth = computeTextWidth(valor.getFont(), valornuevo);
             
-            if (textWidth + 30 > Limite+77){
-            }
-            else if (textWidth + 30 > 77){
+        
+        //Si el ancho calculado más 30 unidades supera el límite (Limite más 77 unidades), no se realiza ningún ajuste.
+        if (textWidth + 30 > Limite+77){
+        }
+        else if (textWidth + 30 > 77){
                 valor.setPrefWidth(textWidth + 30);
                 setAncho(textWidth + 75);
-            } else {
+        } else {
                 valor.setPrefWidth(77);
                 setAncho(77 + 45);
             }
             TypeVariable();
         });
         
-        
+        // Agrega el componente TextField (valor) como un hijo del bloque de interfaz 
         getChildren().add(valor);
         //Se muestra en el bloque
         getChildren().add(indicador);
@@ -101,17 +113,27 @@ public abstract class BloqueTexto extends Bloque{
     }
     
     
-    
+    //Este método es abstracto y debe implementarse en las clases que heredan de BloqueTexto
     public abstract void TypeVariable();
     
     
+    //Recibe un color para convertirlo a color en formato RGB (Red, Green, Blue) en una cadena hexadecimal que representa ese color.
     public static String toHex(Color color) {
         int r = (int) (color.getRed() * 255);
         int g = (int) (color.getGreen() * 255);
         int b = (int) (color.getBlue() * 255);
 
         return String.format("#%02X%02X%02X", r, g, b);
+        
+        
     }
+    
+     /*
+    Recibe: javafx.scene.text.Text llamado textNode y se le pasa el texto como argumento en su constructor.
+     Esto crea un nodo de texto que se utiliza para calcular el ancho del texto.
+    Hace:es una función de utilidad que se utiliza para calcular el ancho de un texto
+    Devuelve: Ancho calculado como resultado de la función.
+    */
      private double computeTextWidth(javafx.scene.text.Font font, String text) {
         javafx.scene.text.Text textNode = new javafx.scene.text.Text(text);
         textNode.setFont(font);

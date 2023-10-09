@@ -20,6 +20,14 @@ public class BloqueMat extends BloqueOP {
         super.IniciarComponentes();
     }
 
+    
+    
+    
+    /*
+    Determina si es posible conectar dos bloques a un bloque BloqueMat de una manera que sea coherente
+    Si ambos bloques conectados son instancias de BloqueValor o BloqueVariable
+    la conexión se considera posible; de lo contrario, se considera inválida.
+    */
     @Override
     public boolean PosibleConex() {
         Bloque bloqueIzquierdo = conectado != null ? conectado.conectador : null;
@@ -32,8 +40,12 @@ public class BloqueMat extends BloqueOP {
         return false;
     }
 
+    
+    
+    
     @Override
     public void Debug() {
+        //Obtención de bloques conectados
         Bloque bloqueIzquierdo = conectado != null ? conectado.conectador : null;
         Bloque bloqueDerecho = chorizontal != null && chorizontal.conexion != null ? chorizontal.conexion : null;
 
@@ -45,13 +57,23 @@ public class BloqueMat extends BloqueOP {
         boolean esNumeroIzquierdo = esNumero(valorIzquierdo);
         boolean esNumeroDerecho = esNumero(valorDerecho);
 
-        // Si ambos valores son números, entonces usa GetType
+        
+        /* Si ambos valores son números, entonces usa GetType
+         Si ambos valores son números, se obtienen los tipos de datos de los números. 
+        Esto se hace utilizando la función GetType(valor)
+        */
         if (esNumeroIzquierdo && esNumeroDerecho) {
             String tipoIzquierdo = GetType(valorIzquierdo);
             String tipoDerecho = GetType(valorDerecho);
             System.out.println("Tipo Bloque Izquierdo: " + tipoIzquierdo);
             System.out.println("Tipo Bloque Derecho: " + tipoDerecho);
+       
             
+        /*
+        Si uno de los valores no es un número (por ejemplo, si esNumeroIzquierdo o esNumeroDerecho es false)
+        se establece un indicador de error en el bloque correspondiente (usando setError(true)).
+        Si ambos valores son números, se establece que no hay errores (usando setError(false)).
+        */
         } else if (!esNumeroDerecho ) {
             chorizontal.conexion.setError(true);
         }else if (!esNumeroIzquierdo) {

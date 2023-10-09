@@ -13,11 +13,15 @@ public class BloqueMostrar extends BloqueLabel {
         super(x, y, Color.AQUA, "Mostrar");
     }
     
+    /*
+    Si hay una siguiente línea conectada (Siguiente() != null), se ejecuta el siguiente código
+    Se utiliza para evaluar una expresión, mostrar su resultado en la consola.
+    */
     @Override
     public void Hacer() {
         if (Siguiente() != null) {
             System.out.println(EvaluadorExpresiones.Expresion(Siguiente()));
-//            chorizontal.conexion.setError(true);
+    // chorizontal.conexion.setError(true);
         } else {
             System.out.println("Esta vacío");
         }
