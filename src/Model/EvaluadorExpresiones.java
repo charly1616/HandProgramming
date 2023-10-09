@@ -25,8 +25,6 @@ public class EvaluadorExpresiones {
         String exA = "";
         String other = "";
         
-        
-        
         while (Actual != null){
             //Se obtiene el valor
             exA += Actual.getValor();
@@ -64,7 +62,10 @@ public class EvaluadorExpresiones {
     }
     
     
-    
+    /*
+     Recibe un Bloque inicial como argumento y evalúa si representa una expresión condicional válida
+     para poder hacer uso de las expresiones
+    */
     public static boolean EvCondicion(Bloque inicial){
         if (!(InstBloqueValor(inicial))) return false;
         
@@ -108,7 +109,12 @@ public class EvaluadorExpresiones {
     }
     
     
-    
+    /*
+     Se evaluar expresiones lógicas (booleanas)
+    compuestas por operadores lógicos & (y) y o (o), y operandos que representan valores booleanos (true o false).
+    Esta función recibe una cadena de texto ev como entrada y devuelve el resultado de la
+    evaluación de la expresión lógica en forma de una cadena que representa un valor booleano ("true" o "false").
+    */
     public static String EvLog(String ev){
         String [] Sep = ev.split("&|___o___");
         String[] separadores = new String[Sep.length - 1];
