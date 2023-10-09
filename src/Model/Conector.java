@@ -78,7 +78,10 @@ public class Conector extends Pane{
         pintar();
     }
     
-    
+    /*
+     se encarga de la configuración inicial de la apariencia y posición del conector en la interfaz gráfica
+     asegurando que esté listo para ser mostrado y conectado visualmente a otros elementos en el programa
+    */
     public void iniciarComponentes(){
         
         if (conectador != null){
@@ -100,10 +103,6 @@ public class Conector extends Pane{
             setLayoutY(multiconectador.getLayoutY()+7    );
 
         }
-        
-        
-        
-        
         ColorLinea = Color.color(0, 0, 0);
         grosorLinea = 8;
         
@@ -121,9 +120,6 @@ public class Conector extends Pane{
             SidePart = new Rectangle(7,15, 50,50);
             TopPart = new Rectangle(7,-5, 50,56);
         }
-        
-        
-        
         
         SidePart.setFill(new Color(0,0.8,0,0.05));
         TopPart.setFill(new Color(0,0.8,0,0.05));
@@ -157,10 +153,7 @@ public class Conector extends Pane{
         SidePart.setVisible(false);
         TopPart.setVisible(false);
         
-        
         this.setMouseTransparent(true);
-        
-        
         
         getChildren().add(SidePart);
         getChildren().add(TopPart);
@@ -212,33 +205,36 @@ public class Conector extends Pane{
 //        t = new Circle(d[2] - getLayoutX(), d[3] - getLayoutY(), 6);
 //        getChildren().add(t);
     }
+
     
-    
-    
-    
-    public void Desactivar(){
+    /* 
+    Cuando un conector está desactivado, su línea de conexión no es visible 
+    y no se pueden realizar nuevas conexiones con él 
+     */
+    public void Desactivar() {
         this.activado = false;
         this.ocultarLinea();
     }
-    
-    public void Activar(){
+
+    //Cuando se activa, la línea de conexión se vuelve visible y el conector está listo para aceptar nuevas conexiones
+    public void Activar() {
         this.activado = true;
         this.mostrarLinea();
     }
-    
-    
-    
-    public void setColorBorde(Color c){
+
+    //Cambia el color del borde al que se desea
+    public void setColorBorde(Color c) {
         linea.setStroke(c);
         ColorLinea = c;
     }
-    
-    
-    public void setGrosorLinea(double d){
+ 
+    //Cambia el grosor de linea al que se desea
+    public void setGrosorLinea(double d) {
         linea.setStrokeWidth(d);
         grosorLinea = d;
     }
     
+    //Permite actualizar la posicion cuando se mueve un bloque
     public void setPosicion(double x, double y){
         setLayoutX(x);
         setLayoutY(y);
@@ -250,8 +246,10 @@ public class Conector extends Pane{
         return this.conexion;
     }
     
-    
-    
+    /*
+    Hace: asegurar que el conector esté ubicado correctamente
+    en relación con los elementos a los que está conectado y que su línea de conexión esté en la posición adecuada
+     */
     public void fixPosicion(){
         if (conectador != null){
             if (modo.equals("h")){
@@ -286,6 +284,10 @@ public class Conector extends Pane{
         
     }
 
+    
+    /*Recibe: Recibe un bloque para validar
+    Hace: Valida si se puede conectar un bloque a otro de todas las formas
+     */
     public boolean puedeConectarse(Bloque b) {
         if (b.Inconectableh && modo.equals("h") && multiconectador == null) {
             return false;
@@ -297,7 +299,10 @@ public class Conector extends Pane{
     }
 
 
-    
+    /*
+     Recibe un bloque y se encarga de establecer una conexión visual entre el conector actual y un bloque b en la interfaz gráfica
+    Asegura que la conexión se realice correctamente y que se realicen los ajustes necesarios en la posición.
+    */
     public void setConexion(Bloque b) {
         if (!puedeConectarse(b)) return;
         
@@ -317,6 +322,11 @@ public class Conector extends Pane{
     }
     
     
+    /*
+    Garantiza que la línea de conexión visual entre el conector
+    actual y otros elementos se ajuste adecuadamente en longitud cuando sea necesario
+    dependiendo de cuantos hijos tenga el inner.
+    */
     public void fixLargoLineaIdentada(){
         
         //Propagar al identador
@@ -342,9 +352,8 @@ public class Conector extends Pane{
     }
     
     
-
+    //se encarga de eliminar una conexión existente entre el conector actual y un bloque.
     public void Desconectar(){
-        
         this.conexion.conectado = null;
         if (modo.equals("h")) this.conexion.ActivarVertical();
         this.conexion = null;
@@ -356,18 +365,24 @@ public class Conector extends Pane{
         mostrarLinea();
     }
     
-    
+    //Obtiene la posicion x
     public double getX(){
 //        if (conectador == null) return multiconectador.getX()+getLayoutX();
         return getLayoutX();
     }
     
+    //Obtiene la posicion y
     public double getY(){
 //        if (conectador == null) return multiconectador.getY()+getLayoutY();
         return getLayoutY();
     }
     
     
+    /*
+    Hace: Obtiene las coordenadas de los vértices de un rectángulo que representa visualmente el conector en la interfaz gráfica
+    Estas coordenadas se devuelven en forma de un arreglo de números (double array)
+    que representan las coordenadas X e Y de los cuatro vértices del rectángulo. 
+    */
     public double[] getRectVertices(){
         if (modo.equals("v")){
             double [] d = {getX()+7, getY()+7, getX()+52, getY()+Bloque.ALTO/2.0};
@@ -385,22 +400,23 @@ public class Conector extends Pane{
     }
     
     
-    
+    //Se utiliza para verificar si existe una colisión entre el conector actual y un bloque recibido(Bloque b).
     public boolean detectarColision(Bloque b){
         if (conexion != null || !activado) return false;
         if (modo.equals("h") && (b.cvertical.conexion != null && !identable)) return false;
         
         double [] p1 = b.getRecVertices();
         double[] p2 = getRectVertices();
-//        System.out.println(p1[0] + " "+p1[1] + " " + p1[2] + " "+ p1[3]);
-//        System.out.println(p2[0] + " "+p2[1] + " " + p2[2] + " "+ p2[3]);
-//        System.out.println(!(p1[0]+50 < p2[0] && p2[2] < p1[0] || p1[3] < p2[1] && p2[3] < p1[1]));
-//        System.out.println("\n\n\n\n\n");
         return (!(p1[0]+50 < p2[0] || p2[2] < p1[0] || p1[3] < p2[1] || p2[3] < p1[1]));
     }
     
     
-    
+    /*
+    Hace visible un prebloque
+     Se utiliza para mostrar una representación gráfica preliminar del bloque al que se puede conectar el conector.
+    Esto ayuda al usuario a identificar visualmente las áreas de conexión
+    válidas y a entender que es posible realizar una conexión en ese lugar
+    */
     public void mostrarPreBloque(Bloque b) {
     if (!activado || !puedeConectarse(b)) {
         return;
@@ -420,7 +436,6 @@ public class Conector extends Pane{
 }
 
     
-    
     public void ocultarLinea(){
         linea.setVisible(false);
     }
@@ -430,6 +445,10 @@ public class Conector extends Pane{
         SidePart.setVisible(false);
     }
     
+    /*
+    Este método es útil para controlar cuándo se muestra y se oculta visualmente 
+    la línea de conexión entre el conector y el elemento al que está conectado.
+    */
     public void mostrarLinea(){
         if (activado) linea.setVisible(true);
     }
