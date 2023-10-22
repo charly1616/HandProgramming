@@ -2,31 +2,42 @@ package Bloques;
 
 import Model.Bloque;
 import javafx.scene.paint.Color;
+import javax.swing.JOptionPane; // Importa la clase para mostrar el diálogo de entrada.
 
-public class BloquePedir extends BloqueCondicional {
+public class BloquePedir extends Bloque {
+    private BloqueVariable bloqueVariable;
 
-    public BloquePedir(double x, double y) {
-        super(x, y, "Pedir", Color.GREEN); // Puedes ajustar el nombre y el color según tus necesidades.
+    public BloquePedir(double x, double y, BloqueVariable bloqueVariable) {
+        super(x, y);
+        
+        // Validación para asegurarse de que se proporciona un BloqueVariable.
+        if (bloqueVariable == null) {
+            throw new IllegalArgumentException("Se requiere un BloqueVariable.");
+        }
+        
+        this.bloqueVariable = bloqueVariable;
+        IniciarComponentes();
+        Pintar();
     }
 
     @Override
-    public void Hacer() {
-        if (evaluarSiguiente()) {
-            // Si la condición es verdadera, ejecuta el bloque "if".
-            super.Hacer();
-        } else {
-            // Si la condición es falsa, verifica si hay un bloque "elseif".
-            Bloque siguiente = Siguiente();
-            if (siguiente instanceof BloqueElif) {
-                // Si hay un bloque "elseif", llámalo.
-                siguiente.Hacer();
-            } else {
-                // Si no hay un bloque "elseif", verifica si hay un bloque "else".
-                if (siguiente instanceof BloqueElse) {
-                    // Si hay un bloque "else", llámalo.
-                    siguiente.Hacer();
-                }
-            }
+    public void IniciarComponentes() {
+        super.IniciarComponentes();
+    }
+
+    @Override
+    public void Pintar() {
+        super.Pintar();
+    }
+
+    public void capturarValor() {
+        // Utiliza JOptionPane para mostrar un cuadro de diálogo de entrada y capturar un valor.
+        String valor = JOptionPane.showInputDialog("Ingrese un valor:");
+        
+        // Verifica si el usuario no canceló el diálogo.
+        if (valor != null) {
+            // Asigna el valor capturado al bloque variable.
+            bloqueVariable.setValor(valor);
         }
     }
 }

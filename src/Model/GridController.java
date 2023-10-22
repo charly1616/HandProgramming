@@ -45,7 +45,7 @@ public class GridController implements Initializable {
     @FXML
     public Pane Grid;
     
-    
+    private Bloque bloqueSeleccionado;
     public CreadorDeBloques creador;
     
     
@@ -205,25 +205,37 @@ public class GridController implements Initializable {
         
     */
     
-    public void hacerZoomeable(){
-        Grid.getParent().setOnScroll((ScrollEvent event) -> {
-            double scaleFactor = (event.getDeltaY() > 0) ? 1.1 : 0.9;
-            scale *= scaleFactor;
+ 
+    public void hacerZoomeable() {
+    Grid.getParent().setOnScroll((ScrollEvent event) -> {
+        double scaleFactor = (event.getDeltaY() > 0) ? 1.1 : 0.9;
+        double newScale = scale * scaleFactor;
+        
+        // Esto establece los límites máximos y mínimos de escala
+        double maxScale = 2.0; 
+        double minScale = 0.5; 
+        
+        if (newScale <= maxScale && newScale >= minScale) {
+            scale = newScale;
             double mouseX = event.getSceneX();
             double mouseY = event.getSceneY();
-
+            
             // Calcular el desplazamiento del punto de enfoque
             double offsetX = (mouseX) * (1 - scaleFactor);
             double offsetY = (mouseY) * (1 - scaleFactor);
-
+            
             Grid.setScaleX(scale);
             Grid.setScaleY(scale);
-
+            
             // Ajustar la posición para mantener el punto de enfoque
-            Grid.setTranslateX((Grid.getTranslateX()+offsetX+8)*scaleFactor);
-            Grid.setTranslateY((Grid.getTranslateY()+offsetY+8)*scaleFactor);
-        });
-    }
+            Grid.setTranslateX((Grid.getTranslateX() + offsetX) * scaleFactor);
+            Grid.setTranslateY((Grid.getTranslateY() + offsetY) * scaleFactor);
+        }
+        event.consume();
+    });
+}
+
+
     
     
     
@@ -281,6 +293,13 @@ public class GridController implements Initializable {
                 eliminarBloque(b);
             }
         });
+
+        b.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1) {
+                seleccionarBloque(b);
+            }
+        });
+
     }
     
     
@@ -507,4 +526,21 @@ public class GridController implements Initializable {
         // Eliminar el bloque del ArrayList
         bloques.remove(bloque);
     }
+    
+    
+    public void seleccionarBloque(Bloque bloque) {
+    if (bloqueSeleccionado != null) {
+        bloqueSeleccionado.setStyle("-fx-border-color: transparent; -fx-border-width: 1px;");
+    }
+
+    if (bloque != null) {
+        bloque.setStyle("-fx-border-color: darkblue; -fx-border-width: 2px;");
+        bloque.requestFocus();
+    }
+
+    bloqueSeleccionado = bloque;
+}
+
+
+
 }
