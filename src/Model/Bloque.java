@@ -387,8 +387,15 @@ public class Bloque extends Pane{
      Hace: establece el ejecutador de todos los bloques siguientes a el ejecutador de aquí
      */
      public void LineaEjecutador(){
-         
-     }
+       
+    Bloque bloqueActual = this;
+
+    // Recorre todos los bloques en la misma línea horizontal
+    for (; bloqueActual != null; bloqueActual = bloqueActual.Siguiente()) {
+        bloqueActual.setEjecutador(this.ejecutador);
+    }
+}
+     
      
      
     
