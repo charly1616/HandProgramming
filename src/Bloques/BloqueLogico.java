@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 public class BloqueLogico extends BloqueOP{
     
     public BloqueLogico(double x, double y, String sign) {
-        super(x, y, sign, Color.PALEGOLDENROD);
+        super(x, y, sign, Color.rgb(255, 106, 194));
     }
     
     

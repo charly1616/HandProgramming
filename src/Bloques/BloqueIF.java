@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 public class BloqueIF extends BloqueCondicional{
     
     public BloqueIF(double x, double y) {
-        super(x, y, "If", Color.SKYBLUE);
+        super(x, y, "If",Color.rgb(135, 206, 235));
     }
     
     

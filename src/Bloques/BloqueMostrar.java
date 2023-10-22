@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 public class BloqueMostrar extends BloqueLabel {
     
     public BloqueMostrar(double x, double y) {
-        super(x, y, Color.AQUA, "Mostrar");
+        super(x, y,  Color.rgb(255, 102, 128), "Mostrar");
     }
     
     /*

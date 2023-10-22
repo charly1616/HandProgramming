@@ -11,7 +11,7 @@ public class BloqueVariable extends BloqueTexto{
     public String valorVariable;
     
     public BloqueVariable(double x, double y) {
-        super(x, y, Color.ORANGE, 250, 15);
+        super(x, y, Color.rgb(255, 165, 0), 250, 15);
     }
     
     

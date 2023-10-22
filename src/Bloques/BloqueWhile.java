@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 public class BloqueWhile extends BloqueCondicional{
     
     public BloqueWhile(double x, double y) {
-        super(x, y, "While", Color.BLUEVIOLET);
+        super(x, y, "While", Color.rgb(147, 120, 201));
     }
     
       /*

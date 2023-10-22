@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 public class BloqueMat extends BloqueOP {
 
     public BloqueMat(double x, double y, String signo) {
-        super(x, y, signo, Color.PINK);
+        super(x, y, signo, Color.rgb(192, 81, 247));
     }
 
     @Override

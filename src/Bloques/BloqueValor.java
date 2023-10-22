@@ -10,7 +10,7 @@ public class BloqueValor extends BloqueTexto{
     
     
     public BloqueValor(double x, double y) {
-        super(x, y, Color.YELLOW.brighter(), 300,250);
+        super(x, y, Color.rgb(247, 218, 63), 300,250);
     }
     
     

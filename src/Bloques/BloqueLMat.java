@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 public class BloqueLMat extends BloqueOP{
     
     public BloqueLMat(double x, double y, String sign) {
-        super(x, y, sign, Color.DARKGREY);
+        super(x, y, sign, Color.rgb(123, 62, 221));
     }
     
 }
