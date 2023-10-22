@@ -96,7 +96,7 @@ public class Conector extends Pane{
                 setLayoutX(conectador.getX()+7);
                 setLayoutY(conectador.getHeight());
             }
-        } else {
+        } else { //
             setHeight(Bloque.ALTO);
             setWidth(ancho);
             setLayoutX(   multiconectador.getLayoutX()-5+ offX);
@@ -172,11 +172,11 @@ public class Conector extends Pane{
 
         if (modo.equals("h")) {
             if (conectador == null) {
-                linea = new Line(multiconectador.conectador.ancho / 2.0, Bloque.ALTO / 2 - 7, multiconectador.conectador.ancho / 2.0 + 40, Bloque.ALTO / 2 - 7);
+                linea = new Line(0, Bloque.ALTO / 2 - 7, 70, Bloque.ALTO / 2 - 7);
             } else {
                 linea = new Line(0, Bloque.ALTO / 2, 40, Bloque.ALTO / 2);
             }
-        } else {
+        } else { // linea cuando el conector es inner
             linea = new Line(47, 0, 47, 40);
 
         }
