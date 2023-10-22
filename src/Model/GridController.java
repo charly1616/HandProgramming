@@ -46,7 +46,7 @@ public class GridController implements Initializable {
     public Pane Grid;
     
     private Bloque bloqueSeleccionado;
-    public CreadorDeBloques creador;
+    public CreadorDeBloques creadorb = new CreadorDeBloques(this);
     
     
     
@@ -63,6 +63,7 @@ public class GridController implements Initializable {
     //Movimiento del fondo
     public double mouseAnchorX;
     public double mouseAnchorY;
+    
     
     
     private double lastMouseX, lastMouseY;
@@ -109,9 +110,7 @@ public class GridController implements Initializable {
         
         
         for (int i = 0; i < 10; i++) {
-            p = new BloqueWhile(-500, 800);
-            hacerBloqueMovible(p);
-            añadirBloque(p);
+            creadorb.BloqueWhile(-1500, 200);
         }
         
         for (int i = 0; i < 10; i++) {
@@ -161,9 +160,7 @@ public class GridController implements Initializable {
         
         for (int j = 0; j< signos.length; j++) {
             for (int i = 0; i < 10; i++) {
-                p = new BloqueMat(100*j, 1000,signos[j]);
-                hacerBloqueMovible(p);
-                añadirBloque(p);
+                creadorb.BloqueOPMAT(100*j, 1000,signos[j]);
             }
         }
         

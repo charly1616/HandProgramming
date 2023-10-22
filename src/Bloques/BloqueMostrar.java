@@ -20,6 +20,7 @@ public class BloqueMostrar extends BloqueLabel {
     @Override
     public void Hacer() {
         if (Siguiente() != null) {
+            LineaEjecutador();
             System.out.println(EvaluadorExpresiones.Expresion(Siguiente()));
     // chorizontal.conexion.setError(true);
         } else {

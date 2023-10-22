@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 public class CreadorDeBloques {
     
-        public GridController cuadricula;
+    public GridController cuadricula;
     
     public CreadorDeBloques(GridController panel){
         this.cuadricula = panel;
@@ -30,7 +30,16 @@ public class CreadorDeBloques {
     }
     
     
+    public void BloqueWhile(int x, int y){
+        Bloque p = new BloqueWhile(x,y);
+        cuadricula.hacerBloqueMovible(p);
+        cuadricula.añadirBloque(p);
+    }
     
-    
+    public void BloqueOPMAT(int x, int y, String signo){
+        Bloque p = new BloqueMat(x,y,signo);
+        cuadricula.hacerBloqueMovible(p);
+        cuadricula.añadirBloque(p);
+    }
     
 }

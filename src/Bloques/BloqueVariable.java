@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 public class BloqueVariable extends BloqueTexto{
     
     
-    public String valorVariable;
+    public String valorVariable = "";
     
     public BloqueVariable(double x, double y) {
         super(x, y, Color.rgb(255, 165, 0), 250, 15);
@@ -35,6 +35,13 @@ public class BloqueVariable extends BloqueTexto{
        
     //Este método devuelve el valor de la variable representada por este bloque, que está almacenado en el campo valorVariable.
     public String getValor() {
+        if (this.conectadov == null){
+            if (ejecutador == null) {
+                System.out.println("BUSCANDO EN EJECUTADOR:  "+ejecutador.getValor(this));
+                return ejecutador.getValor(this);
+            }
+        }
+        System.out.println("DEVOLVIENDO VARIABLE "+valorVariable);
         return valorVariable;
     }
 
@@ -43,6 +50,7 @@ public class BloqueVariable extends BloqueTexto{
     Este método permite establecer un nuevo valor para la variable representada por este bloque.
     */
     public void setValor(String nuevoValor) {
+        System.out.println("CAMBIANDO VALOR");
         valorVariable = nuevoValor;
     }
 
@@ -81,10 +89,5 @@ public class BloqueVariable extends BloqueTexto{
     */
     @Override
     public void TypeVariable(){
-        if (ejecutador == null) {
-            valorVariable = "";
-            return;
-        }
-        valorVariable = ejecutador.getValor(this);
     }
 }
