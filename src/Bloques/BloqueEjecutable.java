@@ -3,6 +3,7 @@ package Bloques;
 
 import Model.Bloque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javafx.scene.paint.Color;
 
 
@@ -47,15 +48,22 @@ public class BloqueEjecutable extends Bloque{
     Actualiza su valor; de lo contrario, agrega una nueva variable a la lista con el nombre y valor especificados
     */
     public void setValor(BloqueVariable b, String valor) {
+        boolean hacambiado = false;
         for (BloqueVariable variable : variables) {
             if (variable.getNombre().equals(b.getNombre())) {
                 variable.setValor(valor);
-            } else {
-                b.setValor(valor);
-                variables.add(b);
-            }
+                hacambiado = true;
+            } 
         }
+        if (!hacambiado){
+            b.setValor(valor);
+            System.out.println("El valor que se esta poniendo  " + valor);
+            variables.add(b);
+        }
+        
+        System.out.println(variables.toString());
     }
+    
     
     //Hasta ahora elimina todas las variables almacenadas en la lista variables de un objeto BloqueEjecutable
     public void vaciarVariables() {
@@ -63,7 +71,7 @@ public class BloqueEjecutable extends Bloque{
         limpiarEjecutadores();
         
         //Ejecutar la siguiente linea
-        if (SiguienteLinea()== null) ejecutador.vaciarVariables();
+        if (!(this instanceof BloqueInicio))super.Hacer();
     }
     
     public void limpiarEjecutadores(){

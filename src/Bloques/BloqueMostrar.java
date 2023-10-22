@@ -27,9 +27,6 @@ public class BloqueMostrar extends BloqueLabel {
         }
         
         //Ejecutar la siguiente linea
-        if (SiguienteLinea()!= null) Siguiente().Hacer();
-        else if (ejecutador != null){
-            ejecutador.vaciarVariables();
-        }
+        super.Hacer();
     }
 }

@@ -148,11 +148,11 @@ public class BloqueInicio extends BloqueEjecutable{
         llama al método Hacer(), lo que puede llevar a la ejecución de cierto código.
         */
         if (SiguienteLinea() != null){
-            System.out.println("Haciendo");
-            if (SiguienteLinea() != null){
-                SiguienteLinea().ejecutador = this;
-                SiguienteLinea().Hacer();
+            for (int i = 0; i < 20; i++) {
+                System.out.println("");
             }
+            SiguienteLinea().ejecutador = this;
+            SiguienteLinea().Hacer();
         }
        
        

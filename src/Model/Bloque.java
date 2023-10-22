@@ -313,6 +313,13 @@ public class Bloque extends Pane{
     
     //No se hace nada aqui porque se va a sobreescribir
     public void Hacer(){
+        Bloque b = SiguienteLinea();
+        if (b == null){
+            ejecutador.vaciarVariables();
+            return;
+        }
+        b.ejecutador = ejecutador;
+        b.Hacer();
     }
   
     
@@ -374,5 +381,15 @@ public class Bloque extends Pane{
         this.ejecutador = b;
     }
     
+     /*
+        Recibe nada
+        Devuelve nada
+     Hace: establece el ejecutador de todos los bloques siguientes a el ejecutador de aquí
+     */
+     public void LineaEjecutador(){
+         
+     }
+     
+     
     
 }

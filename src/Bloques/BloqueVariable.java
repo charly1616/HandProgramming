@@ -67,10 +67,7 @@ public class BloqueVariable extends BloqueTexto{
     @Override
     public void Hacer(){
         ejecutador.setValor(this, RevisarValor());
-        if (SiguienteLinea()!= null) Siguiente().Hacer();
-        else ejecutador.vaciarVariables();
-        
-        if (Siguiente() != null) Siguiente().ejecutador = ejecutador;
+        super.Hacer();
     }
     
     // Pasa el siguiente bloque como argumento y devuelve el resultado.
@@ -84,6 +81,10 @@ public class BloqueVariable extends BloqueTexto{
     */
     @Override
     public void TypeVariable(){
-        valorVariable = valor.getText();
+        if (ejecutador == null) {
+            valorVariable = "";
+            return;
+        }
+        valorVariable = ejecutador.getValor(this);
     }
 }

@@ -149,6 +149,13 @@ public class GridController implements Initializable {
             añadirBloque(p);
         }
         
+        for (int i = 0; i < 10; i++) {
+            p = new BloquePedir(1500, 00);
+            hacerBloqueMovible(p);
+            añadirBloque(p);
+        }
+        
+        
         
         String [] signos = {"+","-","x","^","/","%"};
         
@@ -264,7 +271,7 @@ public class GridController implements Initializable {
         
         b.setOnMouseDragged(event -> {
             b.setPosicion((event.getSceneX()) -b.mouseAnchorX,(event.getSceneY()) - b.mouseAnchorY);
-            b.setPosicion(b.getX()/scale-200/scale,b.getY()/scale-70/scale);
+            b.setPosicion(b.getX()/scale,b.getY()/scale);
             b.toFront();
             pintarPreBloque(b);
             event.consume();
@@ -278,7 +285,7 @@ public class GridController implements Initializable {
             if (c != null) {
                 c.setConexion(b);
             } else if (detectarColision(b)) {
-                b.setPosicion(b.LastX/scale-200/scale, b.LastY/scale-50/scale);
+                b.setPosicion(b.LastX*scale, b.LastY*scale);
             } else {
                 b.LastX = b.getX();
                 b.LastY = b.getY();
