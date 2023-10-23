@@ -78,112 +78,83 @@ public class GridController implements Initializable {
     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        
-        
-        
+
         Screen pantalla = Screen.getPrimary();
         javafx.geometry.Rectangle2D coordenadas = pantalla.getVisualBounds();
-        
+
         GridView.setPrefWidth((coordenadas.getMaxX()));
         GridView.setPrefHeight((coordenadas.getMaxY()));
         Grid.setPrefWidth(GridView.getWidth());
         Grid.setPrefHeight(GridView.getHeight());
-        
+
         cirs.setScaleX(Grid.getScaleX());
         cirs.setScaleY(Grid.getScaleY());
         crearPuntos();
         Grid.getChildren().add(cirs);
-        
-        
+
         Grid.setBackground(Background.EMPTY);
-        
+
         hacerNavegable();
-        
-        
-        
-        Bloque p ;
+
+        Bloque p;
         for (int i = 0; i < 10; i++) {
-            p = new BloqueMostrar(-500, 1000);
-            hacerBloqueMovible(p);
-            añadirBloque(p);
+            creadorb.BloqueMostrar(-500, 1000);
         }
-        
-        
+
         for (int i = 0; i < 10; i++) {
             creadorb.BloqueWhile(-1500, 200);
         }
-        
+
         for (int i = 0; i < 10; i++) {
-            p = new BloqueIF(-500, 1200);
-            hacerBloqueMovible(p);
-            añadirBloque(p);
+            creadorb.BloqueIF(-500, 1200);
         }
-        
-        
+
         for (int i = 0; i < 10; i++) {
-            p = new BloqueElif(-500, 1400);
-            hacerBloqueMovible(p);
-            añadirBloque(p);
+            creadorb.BloqueElif(-500, 1400);
         }
-        
-        
+
         for (int i = 0; i < 10; i++) {
-            p = new BloqueElse(-500, 1600);
-            hacerBloqueMovible(p);
-            añadirBloque(p);
+            creadorb.BloqueElse(-500, 1600);
         }
-        
-        
-        
-        
+
         for (int i = 0; i < 20; i++) {
-            p = new BloqueValor(500, 120);
-            hacerBloqueMovible(p);
-            añadirBloque(p);
+            creadorb.BloqueValor(500, 120);
         }
-        
+
         for (int i = 0; i < 10; i++) {
-            p = new BloqueVariable(1500, 120);
-            hacerBloqueMovible(p);
-            añadirBloque(p);
+            creadorb.BloqueVariable(1500, 120);
         }
-        
+
         for (int i = 0; i < 10; i++) {
-            p = new BloquePedir(1500, 00);
-            hacerBloqueMovible(p);
-            añadirBloque(p);
+            creadorb.BloquePedir(1500, 00);
         }
-        
-        
-        
-        String [] signos = {"+","-","x","^","/","%"};
-        
-        for (int j = 0; j< signos.length; j++) {
+
+        String[] signos = {"+", "-", "x", "^", "/", "%"};
+
+        for (int j = 0; j < signos.length; j++) {
             for (int i = 0; i < 10; i++) {
-                creadorb.BloqueOPMAT(100*j, 1000,signos[j]);
+                creadorb.BloqueOPMAT(100 * j, 1000, signos[j]);
             }
         }
-        
-        String [] signos2 = {"=","!=",">","<","<=",">="};
-        
-        for (int j = 0; j< signos2.length; j++) {
+
+        String[] signos2 = {"=", "!=", ">", "<", "<=", ">="};
+
+        for (int j = 0; j < signos2.length; j++) {
             for (int i = 0; i < 10; i++) {
-                p = new BloqueLMat(100*j, 1100,signos2[j]);
-                hacerBloqueMovible(p);
-                añadirBloque(p);
+                  creadorb.BloqueLMat(100 * j, 1100, signos2[j]);
+                
             }
         }
-        
-        String [] signos3 = {"&","o"};
-        
-        for (int j = 0; j< signos3.length; j++) {
+
+        String[] signos3 = {"&", "o"};
+
+        for (int j = 0; j < signos3.length; j++) {
             for (int i = 0; i < 10; i++) {
-                p = new BloqueLogico(100*j, 1200,signos3[j]);
-                hacerBloqueMovible(p);
-                añadirBloque(p);
+                 creadorb.BloqueLogico(100 * j, 1200, signos3[j]);
+                
             }
         }
-        
+
         
         
         
