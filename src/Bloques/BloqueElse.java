@@ -21,6 +21,7 @@ public class BloqueElse extends BloqueCondicional{
     */
     @Override
     public void Hacer(){
+        this.LineaEjecutador();
         if (conectado.conectador instanceof BloqueElif || conectado.conectador instanceof BloqueIF){
             super.Hacer();
         }

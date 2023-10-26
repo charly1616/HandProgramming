@@ -1,6 +1,7 @@
 
 package Bloques;
 
+import Model.Bloque;
 import javafx.scene.paint.Color;
 
 /**
@@ -21,11 +22,7 @@ public class BloqueWhile extends BloqueCondicional{
         limpiarEjecutadores();
         
         //Ejecutar la siguiente linea
-        if (Siguiente() != null && evaluarSiguiente()){
-            Hacer();
-        } else {
-            super.Hacer();
-        }
+        Hacer();
     }
     
     
@@ -37,7 +34,20 @@ public class BloqueWhile extends BloqueCondicional{
     */
     @Override
     public void Hacer(){
-        EjecutarHijos();
+        System.out.println("variables del while:    "+variables.toString());
+        this.LineaEjecutador();
+        if (evaluarSiguiente()){
+            System.out.println("Se evaLuo correctamente");
+            super.Hacer();
+        } else {
+            Bloque b = SiguienteLinea();
+            if (b == null){
+                ejecutador.vaciarVariables();
+                return;
+            }
+            b.ejecutador = ejecutador;
+            b.Hacer();
+        }
     }
     
 }

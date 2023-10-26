@@ -311,14 +311,16 @@ public class Conector extends Pane{
         fixLargoLineaIdentada();
         if (modo.equals("h") && !identable) {
             b.DesactivarVertical();
+        } else if (!modo.equals("h")){
+            b.conectadov = this;
         }
-        if (b != null) {
+        if (b != null && modo.equals("h")) {
             b.conectado = this;
-            fixPosicion();
-            ocultarPreBloque();
-            ocultarLinea();
         }
         
+        fixPosicion();
+        ocultarPreBloque();
+        ocultarLinea();
     }
     
     

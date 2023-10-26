@@ -61,7 +61,12 @@ public class BloqueEjecutable extends Bloque{
 //                hacambiado = true;
 //            } 
 //        }
-        
+        if (ejecutador != null){
+            if (ejecutador.esVariable(b.getNombre())){
+                ejecutador.setValor(b, valor);
+            }
+        }
+
     }
     
     
@@ -88,7 +93,7 @@ public class BloqueEjecutable extends Bloque{
     @Override
     public void Hacer(){
         this.LineaEjecutador();
-        if (ejecutador.variables !=  null && ejecutador.variables != null) variables.putAll(ejecutador.variables);
+        if (ejecutador.variables !=  null) variables.putAll(ejecutador.variables);
         if (this instanceof BloqueCondicional) EjecutarHijos();
         
     }

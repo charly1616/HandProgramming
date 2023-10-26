@@ -23,6 +23,7 @@ public class BloqueIF extends BloqueCondicional{
     
     @Override
     public void Hacer(){
+        this.LineaEjecutador();
         if (Siguiente() != null && evaluarSiguiente()){
             super.Hacer();
         } else if (SiguienteLinea() instanceof BloqueElse || SiguienteLinea() instanceof BloqueElif){

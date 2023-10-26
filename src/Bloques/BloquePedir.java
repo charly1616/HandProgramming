@@ -31,6 +31,7 @@ public class BloquePedir extends BloqueLabel {
             this.ponerRojo(this);
             return;
         }
+        this.LineaEjecutador();
         capturarValor((BloqueVariable) bloqueVariable);
         super.Hacer();
     }
@@ -42,7 +43,6 @@ public class BloquePedir extends BloqueLabel {
         
         // Verifica si el usuario no canceló el diálogo.
         if (valor != null) {
-            // Asigna el valor capturado al bloque variable.
             bloqueVariable.setValor(valor);
         }
     }

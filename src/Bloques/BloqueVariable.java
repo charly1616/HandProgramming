@@ -50,6 +50,7 @@ public class BloqueVariable extends BloqueTexto{
     */
     public void setValor(String nuevoValor) {
         valorVariable = nuevoValor;
+        ejecutador.setValor(this, nuevoValor);
     }
 
     
