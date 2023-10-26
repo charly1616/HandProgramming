@@ -311,7 +311,8 @@ public class Conector extends Pane{
         fixLargoLineaIdentada();
         if (modo.equals("h") && !identable) {
             b.DesactivarVertical();
-        } else if (!modo.equals("h")){
+        }
+        if (!modo.equals("h")){
             b.conectadov = this;
         }
         if (b != null && modo.equals("h")) {
@@ -357,6 +358,7 @@ public class Conector extends Pane{
     //se encarga de eliminar una conexión existente entre el conector actual y un bloque.
     public void Desconectar(){
         this.conexion.conectado = null;
+        this.conexion.conectadov = null;
         if (modo.equals("h")) this.conexion.ActivarVertical();
         this.conexion = null;
         if (conectador == null){
