@@ -300,15 +300,17 @@ public class Conector extends Pane{
 
 
     /*
-     Recibe un bloque y se encarga de establecer una conexión visual entre el conector actual y un bloque b en la interfaz gráfica
+    Recibe un bloque y se encarga de establecer una conexión visual entre el conector actual y un bloque b en la interfaz gráfica
     Asegura que la conexión se realice correctamente y que se realicen los ajustes necesarios en la posición.
     */
-    public void setConexion(Bloque b) {
+    public void setConexion(Bloque b){
         if (!puedeConectarse(b)) return;
         
         
         this.conexion = b;
         fixLargoLineaIdentada();
+        
+        
         if (modo.equals("h") && !identable) {
             b.DesactivarVertical();
         }
