@@ -386,17 +386,17 @@ public class Bloque extends Pane{
         Devuelve nada
      Hace: establece el ejecutador de todos los bloques siguientes a el ejecutador de aquí
      */
-     public void LineaEjecutador(){
-       
-    Bloque bloqueActual = this;
+    public void LineaEjecutador() {
 
-    // Recorre todos los bloques en la misma línea horizontal
-    for (; bloqueActual != null; bloqueActual = bloqueActual.Siguiente()) {
-        bloqueActual.setEjecutador(this.ejecutador);
+        Bloque bloqueActual = Siguiente();
+
+        // Recorre todos los bloques en la misma línea horizontal
+        for (; bloqueActual != null; bloqueActual = bloqueActual.Siguiente()) {
+            bloqueActual.setEjecutador(this.ejecutador);
+        }
     }
-}
-     
-     
+
+
      
     
 }

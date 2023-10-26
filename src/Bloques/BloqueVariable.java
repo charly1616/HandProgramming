@@ -34,14 +34,13 @@ public class BloqueVariable extends BloqueTexto{
 
        
     //Este método devuelve el valor de la variable representada por este bloque, que está almacenado en el campo valorVariable.
+    @Override
     public String getValor() {
-        if (this.conectadov == null){
-            if (ejecutador == null) {
-                System.out.println("BUSCANDO EN EJECUTADOR:  "+ejecutador.getValor(this));
+        if (this.conectado != null && this.valorVariable.isEmpty()){
+            if (ejecutador != null) {
                 return ejecutador.getValor(this);
             }
         }
-        System.out.println("DEVOLVIENDO VARIABLE "+valorVariable);
         return valorVariable;
     }
 
@@ -50,7 +49,6 @@ public class BloqueVariable extends BloqueTexto{
     Este método permite establecer un nuevo valor para la variable representada por este bloque.
     */
     public void setValor(String nuevoValor) {
-        System.out.println("CAMBIANDO VALOR");
         valorVariable = nuevoValor;
     }
 
@@ -74,6 +72,7 @@ public class BloqueVariable extends BloqueTexto{
     */
     @Override
     public void Hacer(){
+        this.LineaEjecutador();
         ejecutador.setValor(this, RevisarValor());
         super.Hacer();
     }

@@ -163,10 +163,6 @@ public class GridController implements Initializable {
         añadirBloque(p);
         
         
-        for (int i = 0; i < 8; i++) {
-            crearBloque(Color.rgb((int)(Math.random()*250),(int)(Math.random()*250),(int)(Math.random()*250)));
-        }
-        
         hacerZoomeable();
        
     }
@@ -447,19 +443,6 @@ public class GridController implements Initializable {
     
     
     
-    /* Funcion de prueba (Existe para crear bloques mientras no haya una funcion especifica)
-        Recibe: (Color c) que es el color que uno le quiere poner al bloque
-        Devuelve: (Void)(Nada)
-        Hace: crea un bloque "p" con el color especificado en la posicion tal 
-        ,hace que "p" sea movible -(otra funcion "hacerBloqueMovible") 
-        y añade -(otra funcion "añadirBloque") a "p"
-    */
-    public void crearBloque(Color c) {
-        Bloque p = new BloqueCondicional(1000, 120,"if",Color.CORNFLOWERBLUE);
-        hacerBloqueMovible(p);
-        añadirBloque(p);
-    }
-
     
     
     

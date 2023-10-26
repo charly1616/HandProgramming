@@ -4,11 +4,12 @@ package Bloques;
 import Model.Bloque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import javafx.scene.paint.Color;
 
 
 public class BloqueEjecutable extends Bloque{
-    public ArrayList<BloqueVariable> variables = new ArrayList<BloqueVariable>();
+    public HashMap<String,String> variables = new HashMap<>();
     
     
     public BloqueEjecutable(double x, double y) {
@@ -22,8 +23,8 @@ public class BloqueEjecutable extends Bloque{
     del objeto BloqueEjecutable y devuelve true si existe y false si no existe. 
     */
     public boolean esVariable(String nombre) {
-        for (BloqueVariable variable : variables) {
-            if (variable.getNombre().equals(nombre)) {
+        for (String variable : variables.keySet()) {
+            if (variable.equals(nombre)) {
                 return true;
             }
         }
@@ -33,12 +34,16 @@ public class BloqueEjecutable extends Bloque{
  
     //permite obtener el valor de una variable específica buscándola por nombre en la lista de variables del objeto BloqueEjecutable
     public String getValor(BloqueVariable b) {
-        for (BloqueVariable variable : variables) {
-            if (variable.getNombre().equals(b.getNombre())) {
-                return variable.getValor();
-            }
+        if (esVariable(b.getNombre())){
+            return variables.get(b.getNombre());
         }
-        return null;
+//        for (BloqueVariable variable : variables) {
+//            if (variable.getNombre().equals(b.getNombre())) {
+//                return variable.getValor();
+//            }
+//        }
+        
+        return "Non";
     }
     
     
@@ -48,20 +53,15 @@ public class BloqueEjecutable extends Bloque{
     Actualiza su valor; de lo contrario, agrega una nueva variable a la lista con el nombre y valor especificados
     */
     public void setValor(BloqueVariable b, String valor) {
-        boolean hacambiado = false;
-        for (BloqueVariable variable : variables) {
-            if (variable.getNombre().equals(b.getNombre())) {
-                variable.setValor(valor);
-                hacambiado = true;
-            } 
-        }
-        if (!hacambiado){
-            b.setValor(valor);
-            System.out.println("El valor que se esta poniendo  " + valor);
-            variables.add(b);
-        }
-        
+        variables.put(b.getNombre(), valor);
         System.out.println(variables.toString());
+//        for (BloqueVariable variable : variables) {
+//            if (variable.getNombre().equals(b.getNombre())) {
+//                variable.setValor(valor);
+//                hacambiado = true;
+//            } 
+//        }
+        
     }
     
     
@@ -87,7 +87,8 @@ public class BloqueEjecutable extends Bloque{
     */
     @Override
     public void Hacer(){
-        if (ejecutador.variables !=  null && ejecutador.variables != null) variables.addAll(ejecutador.variables);
+        this.LineaEjecutador();
+        if (ejecutador.variables !=  null && ejecutador.variables != null) variables.putAll(ejecutador.variables);
         if (this instanceof BloqueCondicional) EjecutarHijos();
         
     }

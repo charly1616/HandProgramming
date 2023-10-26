@@ -28,37 +28,38 @@ public class EvaluadorExpresiones {
         while (Actual != null){
             //Se obtiene el valor
             exA += Actual.getValor();
+            if (Actual instanceof BloqueVariable) {System.out.println("Valor es: " + exA);}
             lvalue = BloqueValor.GetType(Actual.getValor());
             
             //Si no hay mas bloques o el siguiente bloque es otro valor, termina ahí
-            if (Actual.chorizontal.conexion == null) break;
+            if (Actual.Siguiente() == null) break;
             
-            if ((BloqueValor.GetType(Actual.getValor()).equals("Str"))){
-                exA =  exA;
-                other += Expresion(Actual.chorizontal.conexion);
+            if ((lvalue.equals("Str"))){
+                other += Expresion(Actual.Siguiente());
                 break;
             }
             
-            if (InstBloqueValor(Actual.chorizontal.conexion) && (BloqueValor.GetType(Actual.chorizontal.conexion.getValor()).equals("Str"))){
-                other += Expresion(Actual.chorizontal.conexion);
+            if (InstBloqueValor(Actual.Siguiente()) && (BloqueValor.GetType(Actual.Siguiente().getValor()).equals("Str"))){
+                other += Expresion(Actual.Siguiente());
                 break;
             }
             
             //Si el bloque que está conectado al anterior no es Operacion concatena
-            if (!(Actual.chorizontal.conexion instanceof BloqueOP) && InstBloqueValor(Actual.chorizontal.conexion)){
-                other += Expresion(Actual.chorizontal.conexion);
+            if (!(Actual.Siguiente() instanceof BloqueOP) && InstBloqueValor(Actual.Siguiente())){
+                other += Expresion(Actual.Siguiente());
                 break;
-            } else if (!(Actual.chorizontal.conexion instanceof BloqueOP)){
+            } else if (!(Actual.Siguiente() instanceof BloqueOP)){
                 break;
             }
             
-            exA += Actual.chorizontal.conexion.getValor();
-            Actual = Actual.chorizontal.conexion.chorizontal.conexion;
+            exA += Actual.Siguiente().getValor();
+            Actual = Actual.Siguiente().Siguiente();
             //Si el bloque actual, osea el que se acaba de conectar no tiene valor, error
             if (!(InstBloqueValor(Actual))) return "";
         }
         
-        return EvLog(exA) +" "+ other;
+        other = (other.isBlank())? "" : " " + other;
+        return EvLog(exA) + other;
     }
     
     
@@ -119,6 +120,7 @@ public class EvaluadorExpresiones {
         y evaluando su resultado con & (y) y o (o)
     */
     public static String EvLog(String ev){
+        ev.replaceAll(" ", "");
         String [] Sep = ev.split("&|___o___");
         String[] separadores = new String[Sep.length - 1];
         
@@ -244,6 +246,8 @@ public class EvaluadorExpresiones {
         String [] Sep = ev.split("\\+|\\-");
         String[] separadores = new String[Sep.length - 1];
         
+        if ( separadores.length == 0) return ev;
+        
         int u = 0;
         for (int i = 0; i < ev.length(); i++) {
             if (ev.charAt(i) == '+'||ev.charAt(i) == '-'){
@@ -292,6 +296,9 @@ public class EvaluadorExpresiones {
         String [] Sep = ev.split("x|\\/|\\%");
         String[] separadores = new String[Sep.length - 1];
         
+        if (separadores.length == 0) return ev;
+        
+        System.out.println(ev);
         int u = 0;
         for (int i = 0; i < ev.length(); i++) {
             if (ev.charAt(i) == 'x'||ev.charAt(i) == '/'||ev.charAt(i) == '%'){
@@ -406,7 +413,7 @@ public class EvaluadorExpresiones {
         Hace: Revisa si el string está compuesto de solo caracteres de operaciones numericas
     */
     public static boolean MatExpresion(String s){
-        char [] chars = {'1','2','3','4','5','6','7','8','9','0','+','-','x','/','%','^','.'};
+        char [] chars = {'1','2','3','4','5','6','7','8','9','0','+','-','x','/','%','^','.',' '};
         
         
         for (int i = 0; i < s.length(); i++) {

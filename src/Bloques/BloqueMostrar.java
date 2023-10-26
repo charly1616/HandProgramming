@@ -2,6 +2,7 @@ package Bloques;
 
 import Model.EvaluadorExpresiones;
 import javafx.scene.paint.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,7 +22,7 @@ public class BloqueMostrar extends BloqueLabel {
     public void Hacer() {
         if (Siguiente() != null) {
             LineaEjecutador();
-            System.out.println(EvaluadorExpresiones.Expresion(Siguiente()));
+            JOptionPane.showMessageDialog(null,EvaluadorExpresiones.Expresion(Siguiente()));
     // chorizontal.conexion.setError(true);
         } else {
             System.out.println("Esta vacío");
