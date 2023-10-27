@@ -469,6 +469,19 @@ public class GridController implements Initializable {
     }
     
     
+    public void seleccionarBloque(Bloque bloque) {
+    if (bloqueSeleccionado != null) {
+        bloqueSeleccionado.setStyle("-fx-border-color: transparent; -fx-border-width: 1px;");
+    }
+
+    if (bloque != null) {
+        bloque.setStyle("-fx-border-color: darkblue; -fx-border-width: 2px;");
+        bloque.requestFocus();
+    }
+
+    bloqueSeleccionado =bloque;
+}
+    
     
     /* 
         Recibe: (Bloque) que es el bloque que se va a eliminar
@@ -486,18 +499,7 @@ public class GridController implements Initializable {
     }
     
     
-    public void seleccionarBloque(Bloque bloque) {
-    if (bloqueSeleccionado != null) {
-        bloqueSeleccionado.setStyle("-fx-border-color: transparent; -fx-border-width: 1px;");
-    }
-
-    if (bloque != null) {
-        bloque.setStyle("-fx-border-color: darkblue; -fx-border-width: 2px;");
-        bloque.requestFocus();
-    }
-
-    bloqueSeleccionado = bloque;
-}
+    
 
 
 
