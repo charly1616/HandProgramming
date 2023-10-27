@@ -134,6 +134,10 @@ public class Bloque extends Pane{
         if (conectado != null){
             conectado.Desconectar();
             conectado = null;
+        }
+        if (conectadov != null){
+            conectadov.Desconectar();
+            conectadov = null;
         } 
     }
     
