@@ -71,6 +71,12 @@ public void BloqueValor(int x, int y) {
     cuadricula.añadirBloque(p);
 }
 
+public void BloqueFor(int x, int y) {
+    Bloque p = new BloqueFor(x, y);
+    cuadricula.hacerBloqueMovible(p);
+    cuadricula.añadirBloque(p);
+}
+
 public void BloqueVariable(int x, int y) {
     Bloque p = new BloqueVariable(x, y);
     cuadricula.hacerBloqueMovible(p);

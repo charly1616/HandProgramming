@@ -94,7 +94,7 @@ public class BloqueEjecutable extends Bloque{
     public void Hacer(){
         this.LineaEjecutador();
         if (ejecutador.variables !=  null) variables.putAll(ejecutador.variables);
-        if (this instanceof BloqueCondicional) EjecutarHijos();
+        if (this instanceof BloqueCondicional && !(this instanceof BloqueFor)) EjecutarHijos();
         
     }
     

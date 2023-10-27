@@ -104,6 +104,10 @@ public class GridController implements Initializable {
         for (int i = 0; i < 10; i++) {
             creadorb.BloqueWhile(-1500, 200);
         }
+        
+        for (int i = 0; i < 10; i++) {
+            creadorb.BloqueFor(-1500, 300);
+        }
 
         for (int i = 0; i < 10; i++) {
             creadorb.BloqueIF(-500, 1200);
