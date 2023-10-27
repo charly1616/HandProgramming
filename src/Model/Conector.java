@@ -312,20 +312,16 @@ public class Conector extends Pane{
         if (modo.equals("h") && !identable) {
             b.DesactivarVertical();
         }
-        if (b != null && !modo.equals("h")){
+        if (!modo.equals("h")){
             b.conectadov = this;
-            fixPosicion();
-            ocultarPreBloque();
-            ocultarLinea();
         }
         if (b != null && modo.equals("h")) {
             b.conectado = this;
-            fixPosicion();
-            ocultarPreBloque();
-            ocultarLinea();
         }
         
-        
+        fixPosicion();
+        ocultarPreBloque();
+        ocultarLinea();
     }
     
     
@@ -363,7 +359,6 @@ public class Conector extends Pane{
     public void Desconectar(){
         this.conexion.conectado = null;
         this.conexion.conectadov = null;
-        
         if (modo.equals("h")) this.conexion.ActivarVertical();
         this.conexion = null;
         if (conectador == null){
