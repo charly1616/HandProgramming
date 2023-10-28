@@ -70,6 +70,12 @@ public class BloqueEjecutable extends Bloque{
     }
     
     
+    public void deleteValor(BloqueVariable b){
+        variables.remove(b.getNombre());
+    }
+    
+    
+    
     //Hasta ahora elimina todas las variables almacenadas en la lista variables de un objeto BloqueEjecutable
     public void vaciarVariables() {
         variables.clear();
@@ -95,7 +101,6 @@ public class BloqueEjecutable extends Bloque{
         this.LineaEjecutador();
         if (ejecutador.variables !=  null) variables.putAll(ejecutador.variables);
         if (this instanceof BloqueCondicional && !(this instanceof BloqueFor)) EjecutarHijos();
-        
     }
     
     /*

@@ -526,23 +526,18 @@ public class GridController implements Initializable {
      */
     public void eliminarBloque(Bloque bloque) {
         // Limpia cualquier conexión que involucre a este bloque
-        for (Bloque otroBloque : bloques) {
-            if (otroBloque.chorizontal != null && otroBloque.chorizontal.getConexion() == bloque) {
-                // Elimina el conector horizontal y lo quita de la lista
-                Grid.getChildren().remove(otroBloque.chorizontal);
-                bloques.remove(otroBloque.chorizontal);
-                
-            }
-            if (otroBloque.cvertical != null && otroBloque.cvertical.getConexion() == bloque) {
-                // Elimina el conector vertical y lo quita de la lista
-                Grid.getChildren().remove(otroBloque.cvertical);
-                bloques.remove(otroBloque.cvertical);
-            }
-            if (otroBloque.cvertical.inner != null && otroBloque.cvertical.inner.getConexion() == bloque) {
-                // Elimina el conector interno y lo quita de la lista
-                Grid.getChildren().remove(otroBloque.cvertical.inner);
-                bloques.remove(otroBloque.cvertical.inner);
-            }
+        if (bloque.chorizontal != null) {
+            // Elimina el conector horizontal y lo quita de la lista
+            Grid.getChildren().remove(bloque.chorizontal);
+
+        }
+        if (bloque.cvertical != null) {
+            // Elimina el conector vertical y lo quita de la lista
+            Grid.getChildren().remove(bloque.cvertical);
+        }
+        if (bloque.cvertical.inner != null) {
+            // Elimina el conector interno y lo quita de la lista
+            Grid.getChildren().remove(bloque.cvertical.inner);
         }
 
         // Elimina el bloque
