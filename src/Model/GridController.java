@@ -18,6 +18,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -174,7 +176,17 @@ public class GridController implements Initializable {
 
             }
         }
-
+        Grid.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.DELETE) {
+                // Verificar si hay bloques seleccionados para eliminar
+                if (!bloquesSeleccionados.isEmpty()) {
+                    for (Bloque bloque : bloquesSeleccionados) {
+                        eliminarBloque(bloque);
+                    }
+                    bloquesSeleccionados.clear();
+                }
+            }
+        });
         p = new BloqueInicio(0, 0);
         hacerBloqueMovible(p);
         añadirBloque(p);
@@ -274,12 +286,6 @@ public class GridController implements Initializable {
 
             organizarBloques();
             event.consume();
-        });
-
-        b.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-                eliminarBloque(b);
-            }
         });
 
         b.setOnMouseClicked(event -> {
@@ -519,12 +525,28 @@ public class GridController implements Initializable {
         Hace: Elimina el bloque y sus conexiones del panel y del arrayList
      */
     public void eliminarBloque(Bloque bloque) {
-        // Eliminar el bloque del contenedor
-        Grid.getChildren().removeAll(bloque, bloque.chorizontal, bloque.cvertical);
-        if (bloque.cvertical.inner != null) {
-            Grid.getChildren().remove(bloque.cvertical.inner);
+        // Limpia cualquier conexión que involucre a este bloque
+        for (Bloque otroBloque : bloques) {
+            if (otroBloque.chorizontal != null && otroBloque.chorizontal.getConexion() == bloque) {
+                // Elimina el conector horizontal y lo quita de la lista
+                Grid.getChildren().remove(otroBloque.chorizontal);
+                bloques.remove(otroBloque.chorizontal);
+                
+            }
+            if (otroBloque.cvertical != null && otroBloque.cvertical.getConexion() == bloque) {
+                // Elimina el conector vertical y lo quita de la lista
+                Grid.getChildren().remove(otroBloque.cvertical);
+                bloques.remove(otroBloque.cvertical);
+            }
+            if (otroBloque.cvertical.inner != null && otroBloque.cvertical.inner.getConexion() == bloque) {
+                // Elimina el conector interno y lo quita de la lista
+                Grid.getChildren().remove(otroBloque.cvertical.inner);
+                bloques.remove(otroBloque.cvertical.inner);
+            }
         }
-        // Eliminar el bloque del ArrayList
+
+        // Elimina el bloque
+        Grid.getChildren().remove(bloque);
         bloques.remove(bloque);
     }
 
