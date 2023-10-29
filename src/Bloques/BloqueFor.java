@@ -3,6 +3,8 @@ package Bloques;
 
 import Model.Bloque;
 import Model.EvaluadorExpresiones;
+import java.util.Timer;
+import java.util.TimerTask;
 import javafx.scene.paint.Color;
 
 
@@ -27,11 +29,24 @@ public class BloqueFor extends BloqueCondicional{
         //Primer caso solo un numero
         if (EvaluadorExpresiones.InstBloqueValor(sig(1)) && BloqueValor.GetType(sig(1).getValor()).equals("Num") && sig(2) == null){
             for (int i = 0; i < entero(sig(1)); i++) {
-                System.out.println(entero(sig(1)));
-                this.EjecutarHijos();
+//                System.out.println(entero(sig(1)));
+                this.setColorBorde(Color.GREENYELLOW);
+                this.setTamBorde(8);
+
+                final Bloque u = this;
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        u.setColorBorde(Color.BLACK);
+                        u.setTamBorde(4);
+
+                        EjecutarHijos();
+
+                    }
+                }, 600);
             }
         }
-        
         
         //Segundo caso
         else if (sig(1) instanceof BloqueVariable && EvaluadorExpresiones.InstBloqueValor(sig(2)) 

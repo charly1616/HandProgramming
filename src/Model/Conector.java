@@ -2,6 +2,8 @@
 package Model;
 
 import Bloques.BloqueInicio;
+import Bloques.BloqueOP;
+import Bloques.BloqueValor;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -322,6 +324,11 @@ public class Conector extends Pane{
         if (b.Inconectableh && modo.equals("h") && multiconectador == null) {
             return false;
         }
+        
+        if (b.Inconectablev && multiconectador != null){
+            return false;
+        }
+        
         if (b.Inconectablev && modo.equals("v")) {
             return false;
         }
@@ -489,7 +496,7 @@ public class Conector extends Pane{
     la línea de conexión entre el conector y el elemento al que está conectado.
     */
     public void mostrarLinea(){
-        if (activado) linea.setVisible(true);
+        if (activado && !((conectador instanceof BloqueOP || conectador instanceof BloqueValor) && modo.equals("v"))) linea.setVisible(true);
     }
 
 }

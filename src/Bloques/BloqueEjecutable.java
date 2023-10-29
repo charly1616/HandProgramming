@@ -82,7 +82,16 @@ public class BloqueEjecutable extends Bloque{
         limpiarEjecutadores();
         
         //Ejecutar la siguiente linea
-        if (!(this instanceof BloqueInicio))super.Hacer();
+        if (!(this instanceof BloqueInicio)){
+            Bloque sig = SiguienteLinea();
+            while (sig != null || sig instanceof BloqueElif || sig instanceof BloqueElse){
+                sig = sig.SiguienteLinea();
+            }
+            if (sig != null) {
+                sig.ejecutador = this.ejecutador;
+                sig.Hacer();
+            }
+        }
     }
     
     public void limpiarEjecutadores(){

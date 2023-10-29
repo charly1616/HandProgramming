@@ -11,7 +11,7 @@ public class BloqueElse extends BloqueCondicional{
     
     public BloqueElse(double x, double y) {
         super(x, y, "Else", Color.rgb(50, 229, 205));
-        
+        this.DesactivarHorizontal();
     }
     
     /*
@@ -24,7 +24,12 @@ public class BloqueElse extends BloqueCondicional{
         this.LineaEjecutador();
         if (conectadov.conectador instanceof BloqueElif || conectadov.conectador instanceof BloqueIF){
             super.Hacer();
+        } else {
+            this.ponerRojo(this);
+            SiguienteLinea().ejecutador = ejecutador;
+            SiguienteLinea().Hacer();
         }
+        
     }
     
 }

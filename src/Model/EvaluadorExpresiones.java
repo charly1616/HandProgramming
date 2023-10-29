@@ -124,7 +124,10 @@ public class EvaluadorExpresiones {
         dependiendo de ciertas distinciones, la expresion se cancela o se divide o se hace
     */
     public static boolean EvCondicion(Bloque inicial){
-        if (!(InstBloqueValor(inicial))) return false;
+        if (!(InstBloqueValor(inicial))) {
+            inicial.ponerRojo(inicial);
+            return false;
+        }
         
         Bloque Actual = inicial;
         String lconexion = "";

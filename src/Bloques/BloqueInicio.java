@@ -67,7 +67,9 @@ public class BloqueInicio extends BloqueEjecutable{
         
         //Se coloca la fuente
         Font font = new Font("Berlin Sans FB",35);
+        
         label.setFont(font);
+        
         
         //Se muestra en el bloque
         getChildren().add(label);

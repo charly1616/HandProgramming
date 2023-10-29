@@ -18,6 +18,8 @@ public class BloqueOP extends Bloque {
     
     public BloqueOP(double x, double y, String sign, Color c) {
         super(x, y, c);
+        this.Inconectablev = true;
+        this.DesactivarVertical();
         operaciones.setText(sign);
         signo = sign;
     }

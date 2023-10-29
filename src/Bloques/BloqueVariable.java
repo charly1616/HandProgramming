@@ -38,10 +38,26 @@ public class BloqueVariable extends BloqueTexto{
     public String getValor() {
         if (this.conectado != null && this.valorVariable.isEmpty()){
             if (ejecutador != null) {
-                return ejecutador.getValor(this);
+                
+                return rounded(ejecutador.getValor(this));
+                
             }
         }
-        return valorVariable;
+        return rounded(valorVariable);
+    }
+    
+    
+    public String rounded(String i){
+        try {
+            double numero = Double.parseDouble(i);
+            if (numero == (int)numero) {
+                return String.valueOf((int)numero);
+            } else {
+                return String.valueOf(numero);
+            }
+        } catch (NumberFormatException e) {
+            return i;
+        }
     }
 
     /*

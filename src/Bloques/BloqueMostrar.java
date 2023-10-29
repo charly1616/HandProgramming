@@ -12,6 +12,7 @@ public class BloqueMostrar extends BloqueLabel {
     
     public BloqueMostrar(double x, double y) {
         super(x, y,  Color.rgb(255, 102, 128), "Mostrar");
+        this.Inconectableh = true;
     }
     
     /*

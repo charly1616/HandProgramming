@@ -1,6 +1,7 @@
 
 package Bloques;
 
+import Model.Bloque;
 import Model.EvaluadorExpresiones;
 import javafx.scene.paint.Color;
 
@@ -26,13 +27,15 @@ public class BloqueIF extends BloqueCondicional{
         this.LineaEjecutador();
         if (Siguiente() == null) {
             this.chorizontal.NecesitaSiguiente();
-        }
-        
-        if (Siguiente() != null && evaluarSiguiente()){
+            if (SiguienteLinea() != null ){
+                SiguienteLinea().ejecutador = ejecutador;
+                SiguienteLinea().Hacer();
+            }
+        }else if (evaluarSiguiente()){
             super.Hacer();
+            
         } else if (SiguienteLinea() != null){
-            SiguienteLinea().ejecutador = ejecutador;
-            SiguienteLinea().Hacer();
+            this.hacerSiguiente();
         }
         
     }

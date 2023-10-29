@@ -1,6 +1,7 @@
 
 package Bloques;
 
+import Model.EvaluadorExpresiones;
 import javafx.scene.paint.Color;
 
 
@@ -11,6 +12,8 @@ public class BloqueValor extends BloqueTexto{
     
     public BloqueValor(double x, double y) {
         super(x, y, Color.rgb(247, 218, 63), 300,250);
+        this.DesactivarVertical();
+        this.Inconectablev = true;
     }
     
     
@@ -24,6 +27,23 @@ public class BloqueValor extends BloqueTexto{
     //Retorna el texto contenido en el componente valor.
     @Override
     public String getValor(){
+        if (valor.getText().equals("\\n")){
+            return "\n";
+        }
+        
+        
+        try {
+            double numero = Double.parseDouble(valor.getText());
+
+            if (numero == (int)numero) {
+                return String.valueOf((int)numero);
+            } else {
+                return String.valueOf(numero);
+            }
+        } catch (NumberFormatException e) {
+
+        }
+        
         return valor.getText();
     }
     

@@ -214,8 +214,8 @@ public class GridController implements Initializable {
             double newScale = scale * scaleFactor;
 
             // Esto establece los límites máximos y mínimos de escala
-            double maxScale = 2.0;
-            double minScale = 0.5;
+            double maxScale = 3.0;
+            double minScale = 0.3;
 
             if (newScale <= maxScale && newScale >= minScale) {
                 scale = newScale;

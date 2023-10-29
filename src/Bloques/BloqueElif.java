@@ -1,6 +1,7 @@
 
 package Bloques;
 
+import Model.Bloque;
 import javafx.scene.paint.Color;
 
 
@@ -25,16 +26,34 @@ public class BloqueElif extends BloqueCondicional{
         if (this.conectadov.conectador instanceof BloqueIF || this.conectadov.conectador instanceof BloqueElif);
         else {
             if (SiguienteLinea() != null && SiguienteLinea().SiguienteLinea()!= null) SiguienteLinea().SiguienteLinea().Hacer();
+            this.ponerRojo(this);
             return;
         }
         
-        if (Siguiente() != null && evaluarSiguiente()){
+        if (Siguiente() == null){
+            this.chorizontal.NecesitaSiguiente();
+            if (SiguienteLinea() != null ){
+                SiguienteLinea().ejecutador = ejecutador;
+                SiguienteLinea().Hacer();
+            }
+            
+        }else if (evaluarSiguiente()){
             super.Hacer();
-        } else if (SiguienteLinea() instanceof BloqueElse || SiguienteLinea() instanceof BloqueElif){
-            SiguienteLinea().ejecutador = ejecutador;
-            SiguienteLinea().Hacer();
-        } else {
-            if (SiguienteLinea() != null && SiguienteLinea().SiguienteLinea()!= null) SiguienteLinea().SiguienteLinea().Hacer();
+            
+            Bloque sig = SiguienteLinea();
+            while (sig instanceof BloqueElif || sig instanceof BloqueElse){
+                sig = sig.SiguienteLinea();
+            }
+            if (sig != null) {
+                sig.ejecutador = this.ejecutador;
+                sig.Hacer();
+            }
+            
+        }else {
+            if (SiguienteLinea() != null ){
+                SiguienteLinea().ejecutador = ejecutador;
+                SiguienteLinea().Hacer();
+            }
         }
         
     }

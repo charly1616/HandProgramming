@@ -3,12 +3,21 @@ package Model;
 
 import Bloques.BloqueEjecutable;
 import Bloques.BloqueInicio;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import javafx.animation.FillTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 
 public class Bloque extends Pane{
@@ -121,8 +130,9 @@ public class Bloque extends Pane{
     
     public void DesactivarVertical() {if (cvertical != null) cvertical.Desactivar();}
     public void ActivarVertical() {if (cvertical != null) cvertical.Activar();}
+    public void DesactivarHorizontal() {if (chorizontal != null) chorizontal.Desactivar();}
+    public void ActivarHorizontal() {if (chorizontal != null) chorizontal.Activar();}
     
-
     /*Hace: Permite arrastrar el bloque con el maus
       Se pone el borde un poco mas grande y el color cambia a azul
     */
@@ -321,15 +331,37 @@ public class Bloque extends Pane{
     
     //No se hace nada aqui porque se va a sobreescribir
     public void Hacer(){
-        Bloque b = SiguienteLinea();
-        if (b == null){
-            ejecutador.vaciarVariables();
-            return;
-        }
-        b.ejecutador = ejecutador;
-        b.Hacer();
+        hacerSiguiente();
     }
-  
+    
+    
+    public void hacerSiguiente(){
+        this.setColorBorde(Color.GREENYELLOW);
+        this.setTamBorde(8);
+        
+        final Bloque u = this;
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                u.setColorBorde(Color.BLACK);
+                u.setTamBorde(4);
+                
+                
+                Bloque b = SiguienteLinea();
+                if (b == null){
+                    ejecutador.vaciarVariables();
+                    return;
+                }
+                b.ejecutador = ejecutador;
+                b.Hacer();
+                
+            }
+        }, 600);
+    }
+    
+    
+    
     
     //Hace: Pasa al siguiente bloque de la misma linea de manera horizontal
     public Bloque Siguiente(){
