@@ -127,9 +127,14 @@ public class Bloque extends Pane{
       Se pone el borde un poco mas grande y el color cambia a azul
     */
     public void Agarrado(){
-        setColorBorde(Color.DODGERBLUE);
-        setTamBorde(6);
         AlFrente();
+        
+        this.AgarrarBien(this);
+        
+        this.chorizontal.ocultarPreBloque();
+        this.cvertical.ocultarPreBloque();
+        if (this.cvertical.multiconectador != null) this.cvertical.multiconectador.ocultarPreBloque();
+        
         
         if (conectado != null){
             conectado.Desconectar();
@@ -156,8 +161,7 @@ public class Bloque extends Pane{
     
     //Cuando se suelta se pone el bloque normal (tamaño y color de borde(negro))
     public void Soltado(){
-        setColorBorde(Color.color(0, 0, 0));
-        setTamBorde(4);
+        this.SoltarBien(this);
     }
     
     
@@ -357,9 +361,11 @@ public class Bloque extends Pane{
     Comienza desde el bloque actual y luego explora todos los bloques 
     conectados horizontalmente y verticalmente
     */
-    public void Debug() {
-        if (chorizontal.conexion!=null) this.chorizontal.conexion.Debug();
-        if (cvertical.conexion!=null) this.cvertical.conexion.Debug();
+    public boolean Debug() {
+        boolean deb = true;
+        if (cvertical.conexion!=null) deb = deb && this.cvertical.conexion.Debug();
+        if (cvertical.multiconectador != null && cvertical.multiconectador.getConexion() != null) deb = deb && cvertical.multiconectador.getConexion().Debug();
+        return deb;
     }
 
     
@@ -370,12 +376,50 @@ public class Bloque extends Pane{
             return;
         }
         bloque.setColorBorde(Color.RED);
-        bloque.setTamBorde(6);
+        bloque.setTamBorde(8);
 
         if (bloque.chorizontal.conexion != null) {
             ponerRojo(bloque.chorizontal.conexion);
         }
     }
+    
+    
+    public void AgarrarBien(Bloque bloque){
+        if (bloque == null) {
+            return;
+        }
+        bloque.setColorBorde(Color.DODGERBLUE);
+        bloque.setTamBorde(6);
+        
+        
+        
+        if (bloque.chorizontal.conexion != null) {
+            AgarrarBien(bloque.chorizontal.conexion);
+        }
+        if (bloque.cvertical.conexion != null) {
+            AgarrarBien(bloque.cvertical.conexion);
+        }
+    }
+    
+    
+    public void SoltarBien(Bloque bloque){
+        if (bloque == null) {
+            return;
+        }
+        bloque.setColorBorde(Color.color(0, 0, 0));
+        bloque.setTamBorde(4);
+        
+        bloque.chorizontal.ocultarPreBloque();
+        
+        
+        if (bloque.chorizontal.conexion != null) {
+            SoltarBien(bloque.chorizontal.conexion);
+        }
+        if (bloque.cvertical.conexion != null) {
+            SoltarBien(bloque.cvertical.conexion);
+        }
+    }
+    
     
     public String getValor(){
         return "";

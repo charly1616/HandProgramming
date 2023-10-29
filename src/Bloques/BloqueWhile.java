@@ -34,10 +34,10 @@ public class BloqueWhile extends BloqueCondicional{
     */
     @Override
     public void Hacer(){
-        System.out.println("variables del while:    "+variables.toString());
         this.LineaEjecutador();
+        if (Siguiente() == null) this.chorizontal.NecesitaSiguiente();
+        
         if (evaluarSiguiente()){
-            System.out.println("Se evaLuo correctamente");
             super.Hacer();
         } else {
             Bloque b = SiguienteLinea();

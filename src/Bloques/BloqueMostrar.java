@@ -20,12 +20,13 @@ public class BloqueMostrar extends BloqueLabel {
     */
     @Override
     public void Hacer() {
-        if (Siguiente() != null) {
+        EvaluadorExpresiones.Debug(Siguiente());
+        if (Siguiente() == null){
+            this.chorizontal.NecesitaSiguiente();
+        }else {
             LineaEjecutador();
             JOptionPane.showMessageDialog(null,EvaluadorExpresiones.Expresion(Siguiente()));
     // chorizontal.conexion.setError(true);
-        } else {
-            System.out.println("Esta vacío");
         }
         
         //Ejecutar la siguiente linea

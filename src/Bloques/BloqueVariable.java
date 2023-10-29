@@ -74,6 +74,7 @@ public class BloqueVariable extends BloqueTexto{
     @Override
     public void Hacer(){
         this.LineaEjecutador();
+        EvaluadorExpresiones.Debug(Siguiente());
         ejecutador.setValor(this, RevisarValor());
         super.Hacer();
     }

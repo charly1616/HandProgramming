@@ -16,7 +16,12 @@ public class BloqueFor extends BloqueCondicional{
     @Override
     public void Hacer(){
         this.LineaEjecutador();
-        if (sig(1) == null) super.Hacer();
+        if (sig(1) == null) {
+            chorizontal.NecesitaSiguiente();
+            super.Hacer();
+            super.vaciarVariables();
+            return;
+        }
         
         
         //Primer caso solo un numero
@@ -29,7 +34,7 @@ public class BloqueFor extends BloqueCondicional{
         
         
         //Segundo caso
-        if (sig(1) instanceof BloqueVariable && EvaluadorExpresiones.InstBloqueValor(sig(2)) 
+        else if (sig(1) instanceof BloqueVariable && EvaluadorExpresiones.InstBloqueValor(sig(2)) 
                 && BloqueValor.GetType(sig(2).getValor()).equals("Num") 
                 && sig(3) == null){
             
@@ -45,7 +50,7 @@ public class BloqueFor extends BloqueCondicional{
         
         
         //Tercer caso
-        if (sig(1) instanceof BloqueVariable && EvaluadorExpresiones.InstBloqueValor(sig(2)) && EvaluadorExpresiones.InstBloqueValor(sig(3)) 
+        else if (sig(1) instanceof BloqueVariable && EvaluadorExpresiones.InstBloqueValor(sig(2)) && EvaluadorExpresiones.InstBloqueValor(sig(3)) 
                 && BloqueValor.GetType(sig(2).getValor()).equals("Num") && BloqueValor.GetType(sig(3).getValor()).equals("Num") 
                 && sig(4) == null){
             
@@ -61,7 +66,7 @@ public class BloqueFor extends BloqueCondicional{
         
         
         //cuarto caso
-        if (sig(1) instanceof BloqueVariable && EvaluadorExpresiones.InstBloqueValor(sig(2)) && EvaluadorExpresiones.InstBloqueValor(sig(3)) && EvaluadorExpresiones.InstBloqueValor(sig(4))
+        else if (sig(1) instanceof BloqueVariable && EvaluadorExpresiones.InstBloqueValor(sig(2)) && EvaluadorExpresiones.InstBloqueValor(sig(3)) && EvaluadorExpresiones.InstBloqueValor(sig(4))
                 && BloqueValor.GetType(sig(2).getValor()).equals("Num") && BloqueValor.GetType(sig(3).getValor()).equals("Num") && BloqueValor.GetType(sig(4).getValor()).equals("Num")){
             
             int cambio = (int)(entero(sig(3)) - entero(sig(2)));
@@ -76,6 +81,9 @@ public class BloqueFor extends BloqueCondicional{
             ejecutador.deleteValor((BloqueVariable)sig(1));
         }
         
+        else{
+            this.ponerRojo(sig(1));
+        }
         
         super.vaciarVariables();
     }

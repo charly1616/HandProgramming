@@ -11,6 +11,8 @@ import javafx.scene.shape.Rectangle;
 import Model.Bloque;
 import Model.EvaluadorExpresiones;
 import java.util.ArrayList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -125,7 +127,7 @@ public class BloqueInicio extends BloqueEjecutable{
         
         //Animación de hundimiento visual:
         TranslateTransition transicion = Transicion(TopPart);
-        TranslateTransition transicion1 = Transicion(label);
+        final TranslateTransition transicion1 = Transicion(label);
         TranslateTransition transicion2 = Transicion(tri);
         
         //Se configuran estas animaciones para que duren 0.06 segundos y se repitan una vez sin auto inversión.
@@ -143,17 +145,22 @@ public class BloqueInicio extends BloqueEjecutable{
         transicion2.play();
         
         /*
-        Se verifica si hay un bloque adyacente (SiguienteLinea()) al bloque BloqueInicio.
-        Si existe un segundo bloque adyacente, se establece el ejecutador del bloque adyacente al BloqueInicio.
-        llama al método Hacer(), lo que puede llevar a la ejecución de cierto código.
-        */
-        if (SiguienteLinea() != null){
+            Se verifica si hay un bloque adyacente (SiguienteLinea()) al bloque BloqueInicio.
+            Si existe un segundo bloque adyacente, se establece el ejecutador del bloque adyacente al BloqueInicio.
+            llama al método Hacer(), lo que puede llevar a la ejecución de cierto código.
+         */
+        if (SiguienteLinea() != null) {
             for (int i = 0; i < 20; i++) {
                 System.out.println("");
             }
             SiguienteLinea().ejecutador = this;
+            SiguienteLinea().Debug();
             SiguienteLinea().Hacer();
         }
+        transicion1.play();
+
+
+        
        
        
     }

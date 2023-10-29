@@ -12,6 +12,59 @@ import javax.script.ScriptException;
 public class EvaluadorExpresiones {
     
     
+    public static boolean Debug(Bloque inicial){
+        if (inicial == null) return false;
+        
+        boolean deb = true;
+        if (!(InstBloqueValor(inicial))) {
+            inicial.ponerRojo(inicial);
+            return false;
+        }
+        
+        String lvalue = "";
+        
+        Bloque Actual = inicial;
+        while (Actual != null){
+            //Se obtiene el valor
+            lvalue = BloqueValor.GetType(Actual.getValor());
+            
+            //Si no hay mas bloques o el siguiente bloque es otro valor, termina ahí
+            if (Actual.Siguiente() == null) break;
+            
+            if ((lvalue.equals("Str"))){
+                deb = deb && Debug(Actual.Siguiente());
+                break;
+            }
+            
+            if (InstBloqueValor(Actual.Siguiente()) && (BloqueValor.GetType(Actual.Siguiente().getValor()).equals("Str"))){
+                deb = deb && Debug(Actual.Siguiente());
+                break;
+            }
+            
+            //Si el bloque que está conectado al anterior no es Operacion concatena
+            if (!(Actual.Siguiente() instanceof BloqueOP) && InstBloqueValor(Actual.Siguiente())){
+                deb = deb && Debug(Actual.Siguiente());
+                break;
+            } else if (!(Actual.Siguiente() instanceof BloqueOP)){
+                break;
+            }
+            
+            
+            Actual = Actual.Siguiente().Siguiente();
+            //Si el bloque actual, osea el que se acaba de conectar no tiene valor, error
+            if (!(InstBloqueValor(Actual))) {
+                inicial.ponerRojo(inicial);
+                return false;
+            }
+        }
+        
+        if (!deb) inicial.ponerRojo(inicial);
+        return deb;
+    }
+    
+    
+    
+    
     
     //Concatenar
     public static String Expresion(Bloque inicial){
@@ -88,26 +141,38 @@ public class EvaluadorExpresiones {
             
             //Si no hay mas bloques o el siguiente bloque es otro valor, termina ahí
             if (Actual.chorizontal.conexion == null ) {break;}
-            if (!(Actual.chorizontal.conexion instanceof BloqueOP)){ break;}
+            if (!(Actual.chorizontal.conexion instanceof BloqueOP)){ 
+                inicial.ponerRojo(Actual);
+                break;
+            }
             
             
             //Si el bloque es string, debe haber un bloque == al lado y lo mismo alreves
-            if ((BloqueValor.GetType(Actual.getValor()).equals("Str")) && !Actual.chorizontal.conexion.getValor().equals("=")) {break;}
-            if (Actual.chorizontal.conexion.chorizontal.conexion != null && (BloqueValor.GetType(Actual.chorizontal.conexion.chorizontal.conexion.getValor()).equals("Str")) && !Actual.getValor().equals("=")) {break;}
+            if ((BloqueValor.GetType(Actual.getValor()).equals("Str")) && !Actual.Siguiente().getValor().equals("=")) {break;}
+            if (Actual.Siguiente().Siguiente() != null && (BloqueValor.GetType(Actual.Siguiente().Siguiente().getValor()).equals("Str")) && !Actual.getValor().equals("=")) {break;}
             
             
             if (Actual instanceof BloqueLogico) l++;
             if (Actual instanceof BloqueLMat) lm++;
             
-            if (lm > l+1) return false;
+            if (lm > l+1) {
+                inicial.ponerRojo(inicial);
+                return false;
+            }
             
             
             
             exA += Actual.chorizontal.conexion.getValor();
-            if (Actual.chorizontal.conexion == null) {break;}
+            if (Actual.chorizontal.conexion == null) {
+                inicial.ponerRojo(inicial);
+                break;
+            }
             Actual = Actual.chorizontal.conexion.chorizontal.conexion;
             //Si el bloque actual, osea el que se acaba de conectar no es valor, error
-            if (!(InstBloqueValor(Actual))) {break;}
+            if (!(InstBloqueValor(Actual))) {
+                inicial.ponerRojo(inicial);
+                break;
+            }
         }
         return ValBool(EvLog(exA));
     }

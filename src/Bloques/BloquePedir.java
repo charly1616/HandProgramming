@@ -25,13 +25,24 @@ public class BloquePedir extends BloqueLabel {
     
     @Override
     public void Hacer(){
+        this.LineaEjecutador();
         Bloque bloqueVariable =  Siguiente();
         // Validación para asegurarse de que se proporciona un BloqueVariable.
-        if (bloqueVariable == null && !(bloqueVariable instanceof BloqueVariable)){
-            this.ponerRojo(this);
+        if (bloqueVariable == null) {
+            this.chorizontal.NecesitaSiguiente();
+            super.Hacer();
             return;
         }
-        this.LineaEjecutador();
+        if (!(bloqueVariable instanceof BloqueVariable)){
+            this.ponerRojo(bloqueVariable);
+            super.Hacer();
+            return;
+        }
+        
+        //Si hay mas bloques innecesarios se colocan en rojo
+        if (bloqueVariable.Siguiente() != null) this.ponerRojo(bloqueVariable.Siguiente());
+        
+        
         capturarValor((BloqueVariable) bloqueVariable);
         super.Hacer();
     }

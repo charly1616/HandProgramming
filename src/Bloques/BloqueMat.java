@@ -44,7 +44,7 @@ public class BloqueMat extends BloqueOP {
     
     
     @Override
-    public void Debug() {
+    public boolean Debug() {
         //Obtención de bloques conectados
         Bloque bloqueIzquierdo = conectado != null ? conectado.conectador : null;
         Bloque bloqueDerecho = chorizontal != null && chorizontal.conexion != null ? chorizontal.conexion : null;
@@ -82,6 +82,7 @@ public class BloqueMat extends BloqueOP {
             chorizontal.conexion.setError(false);
             conectado.conectador.setError(false);
         }
+        return true;
     }
 
 }

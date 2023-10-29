@@ -255,11 +255,15 @@ public class Conector extends Pane{
             if (modo.equals("h")){
                 setLayoutX(conectador.getX() + conectador.ancho+offX   );
                 setLayoutY(conectador.getY());
-                if (conexion != null) conexion.setPosicion(this.getLayoutX(), this.getLayoutY());
+                if (conexion != null) {
+                    conexion.setPosicion(this.getLayoutX(), this.getLayoutY());
+                }
             } else {
                 setLayoutX(conectador.getX() + offX   );
                 setLayoutY(conectador.getY()+Bloque.ALTO);
-                if (conexion != null) conexion.setPosicion(this.getLayoutX(), this.getLayoutY()-20);
+                if (conexion != null) {
+                    conexion.setPosicion(this.getLayoutX(), this.getLayoutY()-20);
+                }
             }
 
 
@@ -274,7 +278,9 @@ public class Conector extends Pane{
             
             setLayoutX( multiconectador.getLayoutX()-5+ offX   );
             setLayoutY(   multiconectador.getLayoutY()+15);
-            if (conexion != null) conexion.setPosicion(this.getLayoutX()+ offX + 55, this.getLayoutY()-15);
+            if (conexion != null) {
+                conexion.setPosicion(this.getLayoutX()+ offX + 55, this.getLayoutY()-15);
+            }
 
 
             linea.setLayoutX(0);
@@ -282,8 +288,32 @@ public class Conector extends Pane{
             
         }
         
+        
     }
 
+    
+    
+    public void NecesitaSiguiente(){
+        
+        TopPart.setStrokeWidth(8);
+        SidePart.setStrokeWidth(8);
+        
+        TopPart.setWidth(100);
+        SidePart.setWidth(100);
+        
+        this.SidePart.setStroke(Color.RED);
+        this.TopPart.setStroke(Color.RED);
+        
+        this.SidePart.setFill(Color.color(1, 1, 1, 0));
+        this.TopPart.setFill(Color.color(1, 1, 1, 0));
+        
+        this.SidePart.setVisible(true);
+        this.TopPart.setVisible(true);
+    }
+    
+    
+    
+    
     
     /*Recibe: Recibe un bloque para validar
     Hace: Valida si se puede conectar un bloque a otro de todas las formas
@@ -423,21 +453,26 @@ public class Conector extends Pane{
     */
     public void mostrarPreBloque(Bloque b) {
     if (!activado || !puedeConectarse(b)) {
-        return;
+            return;
+        }
+    
+        TopPart.setStrokeWidth(4);
+        SidePart.setStrokeWidth(4);
+        
+        TopPart.setWidth(b.ancho);
+        SidePart.setWidth(b.ancho);
+        this.SidePart.setStroke(Color.BLACK);
+        this.TopPart.setStroke(Color.BLACK);
+
+        Color c = b.ColorBloque;
+        c = new Color(c.getRed(), c.getGreen(), c.getBlue(), 0.2);
+
+        TopPart.setFill(c);
+        SidePart.setFill(c);
+
+        TopPart.setVisible(true);
+        SidePart.setVisible(true);
     }
-
-    TopPart.setWidth(b.ancho);
-    SidePart.setWidth(b.ancho);
-
-    Color c = b.ColorBloque;
-    c = new Color(c.getRed(), c.getGreen(), c.getBlue(), 0.2);
-
-    TopPart.setFill(c);
-    SidePart.setFill(c);
-
-    TopPart.setVisible(true);
-    SidePart.setVisible(true);
-}
 
     
     public void ocultarLinea(){

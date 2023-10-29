@@ -24,15 +24,16 @@ public class BloqueIF extends BloqueCondicional{
     @Override
     public void Hacer(){
         this.LineaEjecutador();
-        if (Siguiente() != null && evaluarSiguiente()){
-            super.Hacer();
-        } else if (SiguienteLinea() instanceof BloqueElse || SiguienteLinea() instanceof BloqueElif){
-            SiguienteLinea().ejecutador = ejecutador;
-            SiguienteLinea().Hacer();
-        } else {
-            if (SiguienteLinea() != null && SiguienteLinea().SiguienteLinea()!= null) SiguienteLinea().SiguienteLinea().Hacer();
+        if (Siguiente() == null) {
+            this.chorizontal.NecesitaSiguiente();
         }
         
+        if (Siguiente() != null && evaluarSiguiente()){
+            super.Hacer();
+        } else if (SiguienteLinea() != null){
+            SiguienteLinea().ejecutador = ejecutador;
+            SiguienteLinea().Hacer();
+        }
         
     }
     
