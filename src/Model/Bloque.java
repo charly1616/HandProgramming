@@ -45,6 +45,9 @@ public class Bloque extends Pane{
     public double x;
     public double y;
     
+    
+    public static final Color ColorBordeGlobal = new Color(1,1,1,1);
+    
     public Color ColorBloque;
     public Color ColorBorde;
     
@@ -67,7 +70,7 @@ public class Bloque extends Pane{
         LastY = y;
         this.ColorBloque = ColorBloque;
         
-        this.ColorBorde = Color.color(0, 0, 0);
+        this.ColorBorde = Bloque.ColorBordeGlobal;
         this.TamBorde = 4;
         this.ancho = 50+ Math.random()*120;
         
@@ -84,7 +87,7 @@ public class Bloque extends Pane{
         this.y = y;
         LastY = y;
         
-        this.ColorBorde = Color.color(0, 0, 0);
+        this.ColorBorde = Bloque.ColorBordeGlobal;
         this.TamBorde = 4;
     }
     
@@ -344,7 +347,7 @@ public class Bloque extends Pane{
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                u.setColorBorde(Color.BLACK);
+                u.setColorBorde(Bloque.ColorBordeGlobal);
                 u.setTamBorde(4);
                 
                 
@@ -383,7 +386,7 @@ public class Bloque extends Pane{
             setColorBorde(Color.RED); // Cambiar el color del borde a rojo
             setTamBorde(6); // Cambiar el grosor del borde a 6
         } else {
-            setColorBorde(Color.color(0, 0, 0));
+            setColorBorde(Bloque.ColorBordeGlobal);
             setTamBorde(4);
         }
     }
@@ -438,7 +441,7 @@ public class Bloque extends Pane{
         if (bloque == null) {
             return;
         }
-        bloque.setColorBorde(Color.color(0, 0, 0));
+        bloque.setColorBorde(Bloque.ColorBordeGlobal);
         bloque.setTamBorde(4);
         
         bloque.chorizontal.ocultarPreBloque();

@@ -69,8 +69,8 @@ public abstract class BloqueTexto extends Bloque{
         
         
         //Estilo del TextField (valor):
-        valor.setStyle("-fx-text-fill: "+toHex(ColorBorde).toLowerCase()+
-                "; -fx-prompt-text-fill: "+toHex(ColorBorde).toLowerCase()+
+        valor.setStyle("-fx-text-fill: "+toHex(Color.BLACK).toLowerCase()+
+                "; -fx-prompt-text-fill: "+toHex(Color.BLACK).toLowerCase()+
                 "; -fx-background-color: "+toHex(ColorBloque).toLowerCase()+
                 "; -fx-alignment: BOTTOM_CENTER;");
         

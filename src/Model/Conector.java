@@ -28,6 +28,11 @@ public class Conector extends Pane{
     public double ancho = 50;
     
     
+    
+    public static final Color ColorLineaGlobal = Color.color(1,1,1,1);
+    public static final Color ColorLineaPre = new Color(1,0.2,1,0.05);
+    
+    
     public double grosorLinea;
     public Color ColorLinea;
     
@@ -105,7 +110,7 @@ public class Conector extends Pane{
             setLayoutY(multiconectador.getLayoutY()+7    );
 
         }
-        ColorLinea = Color.color(0, 0, 0);
+        ColorLinea = Conector.ColorLineaGlobal;
         grosorLinea = 8;
         
         
@@ -123,11 +128,11 @@ public class Conector extends Pane{
             TopPart = new Rectangle(7,-5, 50,56);
         }
         
-        SidePart.setFill(new Color(0,0.8,0,0.05));
-        TopPart.setFill(new Color(0,0.8,0,0.05));
+        SidePart.setFill(Conector.ColorLineaPre);
+        TopPart.setFill(Conector.ColorLineaPre);
         
-        TopPart.setStroke(Color.BLACK);
-        SidePart.setStroke(Color.BLACK);
+        TopPart.setStroke(Conector.ColorLineaGlobal);
+        SidePart.setStroke(Conector.ColorLineaGlobal);
         TopPart.setStrokeLineCap(StrokeLineCap.ROUND);
         SidePart.setStrokeLineCap(StrokeLineCap.ROUND);
         
@@ -306,8 +311,8 @@ public class Conector extends Pane{
         this.SidePart.setStroke(Color.RED);
         this.TopPart.setStroke(Color.RED);
         
-        this.SidePart.setFill(Color.color(1, 1, 1, 0));
-        this.TopPart.setFill(Color.color(1, 1, 1, 0));
+        this.SidePart.setFill(Conector.ColorLineaGlobal);
+        this.TopPart.setFill(Conector.ColorLineaGlobal);
         
         this.SidePart.setVisible(true);
         this.TopPart.setVisible(true);
@@ -468,8 +473,8 @@ public class Conector extends Pane{
         
         TopPart.setWidth(b.ancho);
         SidePart.setWidth(b.ancho);
-        this.SidePart.setStroke(Color.BLACK);
-        this.TopPart.setStroke(Color.BLACK);
+        this.SidePart.setStroke(Conector.ColorLineaGlobal);
+        this.TopPart.setStroke(Conector.ColorLineaGlobal);
 
         Color c = b.ColorBloque;
         c = new Color(c.getRed(), c.getGreen(), c.getBlue(), 0.2);

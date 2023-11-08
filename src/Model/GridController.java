@@ -17,7 +17,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.CustomMenuItem;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -87,7 +97,63 @@ public class GridController implements Initializable {
         Grid.getChildren().add(cirs);
 
         Grid.setBackground(Background.EMPTY);
+        GridView.setBackground(Background.fill(Color.BLACK));
+        
+        
+        
+        
+        
+        
+        
+        BorderPane layout = new BorderPane();
+        layout.setLayoutX(100);
+        layout.setLayoutY(100);
+        MenuBar menuBar = new MenuBar();
+        
+        GridView.getChildren().add(layout);
+        Menu file = new Menu("File");
+        Menu about = new Menu("About");
+        layout.setTop(menuBar);
 
+        menuBar.setUseSystemMenuBar(true);
+
+        menuBar.getMenus().addAll(file,about);
+
+        MenuItem item1 = new MenuItem("Open");
+        MenuItem item2 = new MenuItem("Save");
+        MenuItem item3 = new MenuItem("Exit");
+
+        // this RadioMenuItem
+        RadioMenuItem r1 = new RadioMenuItem("True");
+        RadioMenuItem r2 = new RadioMenuItem("False");
+        ToggleGroup rGroup = new ToggleGroup();
+        rGroup.getToggles().addAll(r1, r2);
+
+        
+        // This one is CheckMenuItem
+        CheckMenuItem c1 = new CheckMenuItem("Stroke for Circle");
+        CheckMenuItem c2 = new CheckMenuItem("Stroke for Rectangle");
+        
+        // This one submenu item
+        Menu submenu = new Menu("Save As");
+        submenu.getItems().addAll(r1, r2);
+
+        // Custom Menu Item
+        CustomMenuItem customItem = new CustomMenuItem();
+        Button btn = new Button("Kensoft PH");
+        TextField text = new TextField();
+        customItem.setHideOnClick(false);
+        customItem.setContent(text);
+
+        // Separator Menuitem
+        SeparatorMenuItem separatorMenuItem = new SeparatorMenuItem();
+        SeparatorMenuItem separatorMenuItem2 = new SeparatorMenuItem();
+        
+        
+        
+        
+        
+        
         hacerNavegable();
         GridView.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
@@ -194,7 +260,18 @@ public class GridController implements Initializable {
         hacerZoomeable();
 
     }
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     private void deseleccionarBloques() {
         for (Bloque bloque : bloques) {
             bloque.setStyle("-fx-border-color: transparent; -fx-border-width: 1px;");
@@ -422,12 +499,12 @@ public class GridController implements Initializable {
         Hace: crea puntos "cir" en una cuadricula y los añade al panel y a una lista de puntos llamada "puntos"
      */
     public void crearPuntos() {
-        for (int i = 0; i < 30; i++) {
-            for (int j = 0; j < 30; j++) {
+        for (int i = 0; i < 200; i++) {
+            for (int j = 0; j < 200; j++) {
                 Circle cir = new Circle();
 
-                cir.setCenterX((i - 10) * 50);
-                cir.setCenterY((j - 10) * 50);
+                cir.setCenterX((i - 100) * 60);
+                cir.setCenterY((j - 100) * 60);
 
                 cir.setRadius(1);
                 cir.setStrokeWidth(0);
