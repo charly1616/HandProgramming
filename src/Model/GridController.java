@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -83,21 +84,32 @@ public class GridController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // Obtener el tamaño de la pantalla
         Screen pantalla = Screen.getPrimary();
         javafx.geometry.Rectangle2D coordenadas = pantalla.getVisualBounds();
 
-        GridView.setPrefWidth((coordenadas.getMaxX()));
-        GridView.setPrefHeight((coordenadas.getMaxY()));
+        // Establecer el tamaño del Grid
+        Grid.setPrefWidth(coordenadas.getWidth());
+        Grid.setPrefHeight(coordenadas.getHeight());
+        
+        
         Grid.setPrefWidth(GridView.getWidth());
         Grid.setPrefHeight(GridView.getHeight());
 
-        cirs.setScaleX(Grid.getScaleX());
-        cirs.setScaleY(Grid.getScaleY());
+        // Escalar el Grid y los bloques según el tamaño de la pantalla
+        double scaleX = coordenadas.getWidth() / 1280;
+        double scaleY = coordenadas.getHeight() / 720;
+        Grid.setScaleX(scaleX);
+        Grid.setScaleY(scaleY);
+        
         crearPuntos();
         Grid.getChildren().add(cirs);
 
         Grid.setBackground(Background.EMPTY);
         GridView.setBackground(Background.fill(Color.BLACK));
+        
+
+        
         
         
         
@@ -109,7 +121,7 @@ public class GridController implements Initializable {
         layout.setLayoutX(100);
         layout.setLayoutY(100);
         MenuBar menuBar = new MenuBar();
-        
+
         GridView.getChildren().add(layout);
         Menu file = new Menu("File");
         Menu about = new Menu("About");
@@ -117,7 +129,7 @@ public class GridController implements Initializable {
 
         menuBar.setUseSystemMenuBar(true);
 
-        menuBar.getMenus().addAll(file,about);
+        menuBar.getMenus().addAll(file, about);
 
         MenuItem item1 = new MenuItem("Open");
         MenuItem item2 = new MenuItem("Save");
@@ -129,11 +141,10 @@ public class GridController implements Initializable {
         ToggleGroup rGroup = new ToggleGroup();
         rGroup.getToggles().addAll(r1, r2);
 
-        
         // This one is CheckMenuItem
         CheckMenuItem c1 = new CheckMenuItem("Stroke for Circle");
         CheckMenuItem c2 = new CheckMenuItem("Stroke for Rectangle");
-        
+
         // This one submenu item
         Menu submenu = new Menu("Save As");
         submenu.getItems().addAll(r1, r2);
@@ -148,12 +159,7 @@ public class GridController implements Initializable {
         // Separator Menuitem
         SeparatorMenuItem separatorMenuItem = new SeparatorMenuItem();
         SeparatorMenuItem separatorMenuItem2 = new SeparatorMenuItem();
-        
-        
-        
-        
-        
-        
+
         hacerNavegable();
         GridView.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
@@ -260,18 +266,7 @@ public class GridController implements Initializable {
         hacerZoomeable();
 
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     private void deseleccionarBloques() {
         for (Bloque bloque : bloques) {
             bloque.setStyle("-fx-border-color: transparent; -fx-border-width: 1px;");
@@ -326,8 +321,9 @@ public class GridController implements Initializable {
      */
     public void hacerBloqueMovible(Bloque b) {
         b.setOnMousePressed(event -> {
-            b.mouseAnchorX = event.getX() * scale + Grid.getTranslateX();
-            b.mouseAnchorY = event.getY() * scale + Grid.getTranslateY();
+            Point2D mouseInBlock = b.sceneToLocal(event.getSceneX(), event.getSceneY());
+            b.mouseAnchorX = mouseInBlock.getX();
+            b.mouseAnchorY = mouseInBlock.getY();
             event.consume();
         });
 
@@ -340,8 +336,11 @@ public class GridController implements Initializable {
         });
 
         b.setOnMouseDragged(event -> {
-            b.setPosicion((event.getSceneX()) - b.mouseAnchorX, (event.getSceneY()) - b.mouseAnchorY);
-            b.setPosicion(b.getX() / scale, b.getY() / scale);
+            Point2D mouseInGrid = Grid.sceneToLocal(event.getSceneX(), event.getSceneY());
+            double newBlockX = mouseInGrid.getX() - b.mouseAnchorX;
+            double newBlockY = mouseInGrid.getY() - b.mouseAnchorY;
+
+            b.setPosicion(newBlockX, newBlockY);
             b.toFront();
             pintarPreBloque(b);
             event.consume();
