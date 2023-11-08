@@ -37,7 +37,7 @@ public class BloqueIF extends BloqueCondicional{
         } else if (SiguienteLinea() != null){
             this.hacerSiguiente();
         }
-        
+        SiguienteLinea().Hacer();
     }
     
     

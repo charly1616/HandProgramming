@@ -26,7 +26,7 @@ public class BloqueMostrar extends BloqueLabel {
             this.chorizontal.NecesitaSiguiente();
         }else {
             LineaEjecutador();
-            JOptionPane.showMessageDialog(null,EvaluadorExpresiones.Expresion(Siguiente()));
+            JOptionPane.showMessageDialog(null, EvaluadorExpresiones.Expresion(Siguiente()), "BLOQUE MOSTRAR", JOptionPane.PLAIN_MESSAGE);
     // chorizontal.conexion.setError(true);
         }
         

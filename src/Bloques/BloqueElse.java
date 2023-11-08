@@ -27,9 +27,8 @@ public class BloqueElse extends BloqueCondicional{
         } else {
             this.ponerRojo(this);
             SiguienteLinea().ejecutador = ejecutador;
-            SiguienteLinea().Hacer();
         }
-        
+            SiguienteLinea().Hacer();
     }
     
 }
