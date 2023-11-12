@@ -1,6 +1,10 @@
 package Main;
 
 import Model.EvaluadorExpresiones;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -70,6 +74,43 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        try {
+            // Ruta al script de Python
+            String scriptPath = "src/Main/PythonCode.py";
+
+            // Comando para ejecutar el script de Python
+            String[] command = {"python3", scriptPath};
+
+            // Crear el proceso
+            ProcessBuilder processBuilder = new ProcessBuilder(command);
+            Process process = processBuilder.start();
+
+            // Leer la salida estándar del proceso
+            InputStream inputStream = process.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            // Leer la salida de error del proceso
+            InputStream errorStream = process.getErrorStream();
+            BufferedReader errorReader = new BufferedReader(new InputStreamReader(errorStream));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            // Imprimir la salida de error
+            while ((line = errorReader.readLine()) != null) {
+                System.err.println(line);
+            }
+
+            // Esperar a que el proceso termine
+            int exitCode = process.waitFor();
+            System.out.println("El script de Python ha terminado con código de salida: " + exitCode);
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        
         launch(args);
     }
 }

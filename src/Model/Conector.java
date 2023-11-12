@@ -128,8 +128,8 @@ public class Conector extends Pane{
             TopPart = new Rectangle(7,-5, 50,56);
         }
         
-        SidePart.setFill(Conector.ColorLineaPre);
-        TopPart.setFill(Conector.ColorLineaPre);
+        SidePart.setFill(Color.color(0, 0, 0, 0));
+        TopPart.setFill(Color.color(0, 0, 0, 0));
         
         TopPart.setStroke(Conector.ColorLineaGlobal);
         SidePart.setStroke(Conector.ColorLineaGlobal);
@@ -311,8 +311,8 @@ public class Conector extends Pane{
         this.SidePart.setStroke(Color.RED);
         this.TopPart.setStroke(Color.RED);
         
-        this.SidePart.setFill(Conector.ColorLineaGlobal);
-        this.TopPart.setFill(Conector.ColorLineaGlobal);
+        this.SidePart.setFill(Color.color(0, 0, 0, 0));
+        this.TopPart.setFill(Color.color(0, 0, 0, 0));
         
         this.SidePart.setVisible(true);
         this.TopPart.setVisible(true);
