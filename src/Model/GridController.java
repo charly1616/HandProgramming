@@ -91,8 +91,7 @@ public class GridController implements Initializable {
         // Establecer el tamaño del Grid
         Grid.setPrefWidth(coordenadas.getWidth());
         Grid.setPrefHeight(coordenadas.getHeight());
-        
-        
+
         Grid.setPrefWidth(GridView.getWidth());
         Grid.setPrefHeight(GridView.getHeight());
 
@@ -101,22 +100,13 @@ public class GridController implements Initializable {
         double scaleY = coordenadas.getHeight() / 720;
         Grid.setScaleX(scaleX);
         Grid.setScaleY(scaleY);
-        
+
         crearPuntos();
         Grid.getChildren().add(cirs);
 
         Grid.setBackground(Background.EMPTY);
         GridView.setBackground(Background.fill(Color.BLACK));
-        
 
-        
-        
-        
-        
-        
-        
-        
-        
         BorderPane layout = new BorderPane();
         layout.setLayoutX(100);
         layout.setLayoutY(100);
@@ -249,7 +239,7 @@ public class GridController implements Initializable {
             }
         }
         Grid.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.DELETE) {
+            if (event.getCode() == KeyCode.DELETE) { // Cambiado de KeyCode.BACK_SPACE a KeyCode.DELETE
                 // Verificar si hay bloques seleccionados para eliminar
                 if (!bloquesSeleccionados.isEmpty()) {
                     for (Bloque bloque : bloquesSeleccionados) {
