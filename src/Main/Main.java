@@ -84,30 +84,31 @@ public class Main extends Application {
             // Crear el proceso
             ProcessBuilder processBuilder = new ProcessBuilder(command);
             Process process = processBuilder.start();
+            
 
-            // Leer la salida estándar del proceso
-            InputStream inputStream = process.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+//            // Leer la salida estándar del proceso
+//            InputStream inputStream = process.getInputStream();
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+//
+//            // Leer la salida de error del proceso
+//            InputStream errorStream = process.getErrorStream();
+//            BufferedReader errorReader = new BufferedReader(new InputStreamReader(errorStream));
 
-            // Leer la salida de error del proceso
-            InputStream errorStream = process.getErrorStream();
-            BufferedReader errorReader = new BufferedReader(new InputStreamReader(errorStream));
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-
-            // Imprimir la salida de error
-            while ((line = errorReader.readLine()) != null) {
-                System.err.println(line);
-            }
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                System.out.println(line);
+//            }
+//
+//            // Imprimir la salida de error
+//            while ((line = errorReader.readLine()) != null) {
+//                System.err.println(line);
+//            }
 
             // Esperar a que el proceso termine
-            int exitCode = process.waitFor();
-            System.out.println("El script de Python ha terminado con código de salida: " + exitCode);
+//            int exitCode = process.waitFor();
+//            System.out.println("El script de Python ha terminado con código de salida: " + exitCode);
 
-        } catch (IOException | InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         
