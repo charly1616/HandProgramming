@@ -3,6 +3,7 @@ package Bloques;
 
 import Model.Bloque;
 import java.util.HashSet;
+import javafx.animation.ScaleTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -140,4 +141,19 @@ public abstract class BloqueTexto extends Bloque{
         return textNode.getBoundsInLocal().getWidth();
     }
     
+     
+     
+    @Override
+    public void aparecer(){
+        super.aparecer();
+        ScaleTransition s1 = createScaleTransition(indicador);
+        ScaleTransition s2 = createScaleTransition(valor);
+        
+        s1.play();
+        s2.play();
+        
+    }
+     
+     
+     
 }

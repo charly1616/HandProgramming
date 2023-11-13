@@ -10,7 +10,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javafx.animation.FillTransition;
 import javafx.animation.KeyFrame;
+import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
@@ -479,7 +481,31 @@ public class Bloque extends Pane{
         }
     }
 
+    
+    
+    public void aparecer(){
+        ScaleTransition scaleTransitionSide = createScaleTransition(SidePart);
+        ScaleTransition scaleTransitionTop = createScaleTransition(TopPart);
+        ScaleTransition s1 = createScaleTransition(chorizontal.linea);
+        ScaleTransition s2 = createScaleTransition(cvertical.linea);
+        
+        
+        s1.play();
+        s2.play();
+        scaleTransitionSide.play();
+        scaleTransitionTop.play();
+    }
 
+    public ScaleTransition createScaleTransition(Node rectangle) {
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(250), rectangle);
+        scaleTransition.setFromX(0.1);
+        scaleTransition.setFromY(0.1);
+        scaleTransition.setToX(1.0);    
+        scaleTransition.setToY(1.0);    
+
+        return scaleTransition;
+    }
+    
      
     
 }

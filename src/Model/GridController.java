@@ -53,7 +53,11 @@ import javafx.stage.Stage;
  * @author User
  */
 public class GridController implements Initializable {
-
+    
+    
+    public Process camara;
+    
+    
     @FXML
     public Pane GridView;
     public double scale = 1;
@@ -251,48 +255,20 @@ public class GridController implements Initializable {
                 }
             }
         });
-        
-        
+
         p = new BloqueInicio(0, 0);
         hacerBloqueMovible(p);
         añadirBloque(p);
 
-        try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BloquesMenu.fxml"));
-        Parent root = fxmlLoader.load();
-        // Añadir el contenido del archivo FXML al Grid o a cualquier otro contenedor que desees
-        double verticalOffset = 280.0;
-        root.setLayoutY(verticalOffset);
+        MenuBloques u = new MenuBloques(creadorb);
+        GridView.getChildren().add(u);
         
-        
-        GridView.getChildren().add(root);
-        
-    } catch (IOException ex) {
-        Logger.getLogger(GridController.class.getName()).log(Level.SEVERE, null, ex);
-    }
         
         hacerZoomeable();
 
     }
 
-    private void abrirVariableMenu() {
-    try {
-        FXMLLoader variableMenuLoader = new FXMLLoader(getClass().getResource("variablemenu.fxml"));
-        Parent variableMenuRoot = variableMenuLoader.load();
-
-        // Puedes realizar acciones adicionales aquí si es necesario antes de mostrar la nueva ventana
-
-        // Crear una nueva ventana y establecer el contenido
-        Stage variableMenuStage = new Stage();
-        variableMenuStage.setTitle("Variable Menu");
-        variableMenuStage.setScene(new Scene(variableMenuRoot));
-
-        // Mostrar la nueva ventana
-        variableMenuStage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}
+    
     private void deseleccionarBloques() {
         for (Bloque bloque : bloques) {
             bloque.setStyle("-fx-border-color: transparent; -fx-border-width: 1px;");
@@ -642,5 +618,35 @@ public class GridController implements Initializable {
         Grid.getChildren().remove(bloque);
         bloques.remove(bloque);
     }
+    
+    
+    
+    
+    private void ActivarCamara(){
+        try {
+            String scriptPath = "src/Main/PythonCode.py";
+
+            //String[] command = {"C:/Users/juand/AppData/Local/Microsoft/WindowsApps/python.exe", scriptPath};   //Juanda
+            String[] command = {"C:/Users/User/AppData/Local/Programs/Python/Python311/python.exe", scriptPath};   //Charly
+            
+            
+            ProcessBuilder processBuilder = new ProcessBuilder(command);
+            camara = processBuilder.start();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    private void DesactivarCamara(){
+        try {
+            camara.destroy();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 
 }
