@@ -17,6 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.CustomMenuItem;
@@ -37,11 +39,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Scale;
 import javafx.stage.Screen;
+import javafx.geometry.Pos;
+import javafx.stage.Stage;
 
 /**
  *
@@ -98,18 +103,17 @@ public class GridController implements Initializable {
 
         Grid.setBackground(Background.EMPTY);
         GridView.setBackground(Background.fill(Color.BLACK));
-        
-        
-        
-        
-        
-        
-        
+
+       
+
+       
+
+
         BorderPane layout = new BorderPane();
-        layout.setLayoutX(100);
-        layout.setLayoutY(100);
+        layout.setLayoutX(00);
+        layout.setLayoutY(15);
         MenuBar menuBar = new MenuBar();
-        
+
         GridView.getChildren().add(layout);
         Menu file = new Menu("File");
         Menu about = new Menu("About");
@@ -117,7 +121,7 @@ public class GridController implements Initializable {
 
         menuBar.setUseSystemMenuBar(true);
 
-        menuBar.getMenus().addAll(file,about);
+        menuBar.getMenus().addAll(file, about);
 
         MenuItem item1 = new MenuItem("Open");
         MenuItem item2 = new MenuItem("Save");
@@ -129,11 +133,10 @@ public class GridController implements Initializable {
         ToggleGroup rGroup = new ToggleGroup();
         rGroup.getToggles().addAll(r1, r2);
 
-        
         // This one is CheckMenuItem
         CheckMenuItem c1 = new CheckMenuItem("Stroke for Circle");
         CheckMenuItem c2 = new CheckMenuItem("Stroke for Rectangle");
-        
+
         // This one submenu item
         Menu submenu = new Menu("Save As");
         submenu.getItems().addAll(r1, r2);
@@ -148,12 +151,7 @@ public class GridController implements Initializable {
         // Separator Menuitem
         SeparatorMenuItem separatorMenuItem = new SeparatorMenuItem();
         SeparatorMenuItem separatorMenuItem2 = new SeparatorMenuItem();
-        
-        
-        
-        
-        
-        
+
         hacerNavegable();
         GridView.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
@@ -182,31 +180,31 @@ public class GridController implements Initializable {
         });
         Bloque p;
         for (int i = 0; i < 10; i++) {
-            creadorb.BloqueMostrar(-500, 1000);
+            creadorb.BloqueMostrar(1500, 360);
         }
 
         for (int i = 0; i < 10; i++) {
-            creadorb.BloqueWhile(-1500, 200);
+            creadorb.BloqueWhile(1720, 720);
         }
 
         for (int i = 0; i < 10; i++) {
-            creadorb.BloqueFor(-1500, 300);
+            creadorb.BloqueFor(1500, 720);
         }
 
         for (int i = 0; i < 10; i++) {
-            creadorb.BloqueIF(-500, 1200);
+            creadorb.BloqueIF(1500, 580);
         }
 
         for (int i = 0; i < 10; i++) {
-            creadorb.BloqueElif(-500, 1400);
+            creadorb.BloqueElif(1720, 580);
         }
 
         for (int i = 0; i < 10; i++) {
-            creadorb.BloqueElse(-500, 1600);
+            creadorb.BloqueElse(1720, 220);
         }
 
         for (int i = 0; i < 20; i++) {
-            creadorb.BloqueValor(500, 120);
+            creadorb.BloqueValor(1500, 240);
         }
 
         for (int i = 0; i < 10; i++) {
@@ -214,7 +212,7 @@ public class GridController implements Initializable {
         }
 
         for (int i = 0; i < 10; i++) {
-            creadorb.BloquePedir(1500, 00);
+            creadorb.BloquePedir(1720, 360);
         }
 
         String[] signos = {"+", "-", "x", "^", "/", "%"};
@@ -253,25 +251,48 @@ public class GridController implements Initializable {
                 }
             }
         });
+        
+        
         p = new BloqueInicio(0, 0);
         hacerBloqueMovible(p);
         añadirBloque(p);
 
+        try {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BloquesMenu.fxml"));
+        Parent root = fxmlLoader.load();
+        // Añadir el contenido del archivo FXML al Grid o a cualquier otro contenedor que desees
+        double verticalOffset = 280.0;
+        root.setLayoutY(verticalOffset);
+        
+        
+        GridView.getChildren().add(root);
+        
+    } catch (IOException ex) {
+        Logger.getLogger(GridController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+        
         hacerZoomeable();
 
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+    private void abrirVariableMenu() {
+    try {
+        FXMLLoader variableMenuLoader = new FXMLLoader(getClass().getResource("variablemenu.fxml"));
+        Parent variableMenuRoot = variableMenuLoader.load();
+
+        // Puedes realizar acciones adicionales aquí si es necesario antes de mostrar la nueva ventana
+
+        // Crear una nueva ventana y establecer el contenido
+        Stage variableMenuStage = new Stage();
+        variableMenuStage.setTitle("Variable Menu");
+        variableMenuStage.setScene(new Scene(variableMenuRoot));
+
+        // Mostrar la nueva ventana
+        variableMenuStage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
     private void deseleccionarBloques() {
         for (Bloque bloque : bloques) {
             bloque.setStyle("-fx-border-color: transparent; -fx-border-width: 1px;");

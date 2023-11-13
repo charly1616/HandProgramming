@@ -1,4 +1,3 @@
-
 import cv2
 import mediapipe as mp 
 import pyautogui
@@ -38,10 +37,21 @@ while True:
 
             cv2.putText(image, f"Dedos Levantados: {fingers_raised}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
-            if fingers_raised == 2:
-                mouse_control = False
+            if fingers_raised == 1:
+                mouse_control = True
+                # Obtén las coordenadas del centro entre los dedos índice y medio
+                index_x, index_y = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].x, hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y
+                middle_x, middle_y = hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP].x, hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP].y
+
+                # Mapea las coordenadas normalizadas a las coordenadas de la pantalla
+                screen_width, screen_height = pyautogui.size()
+                center_x = int((index_x + middle_x) * screen_width / 2)
+                center_y = int((index_y + middle_y) * screen_height / 2)
+
+                # Mueve el cursor del ratón al centro calculado
+                pyautogui.moveTo(center_x, center_y)
                 
-            elif fingers_raised == 1:
+            elif fingers_raised == 2:
                 mouse_control = True
                 # Simular un clic izquierdo del mouse
                 pyautogui.click()
@@ -66,4 +76,3 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
-#Sin camara y detecta toda la pantalla

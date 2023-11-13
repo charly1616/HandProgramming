@@ -1,17 +1,15 @@
-
 package Bloques;
 
 import Model.Bloque;
 import Model.EvaluadorExpresiones;
 import javafx.scene.paint.Color;
 
-public class BloqueIF extends BloqueCondicional{
-    
+public class BloqueIF extends BloqueCondicional {
+
     public BloqueIF(double x, double y) {
-        super(x, y, "If",Color.rgb(135, 206, 235));
+        super(x, y, "If", Color.rgb(135, 206, 235));
     }
-    
-    
+
     /*
     Verifica si el bloque actual (BloqueIF) tiene un bloque siguiente (Siguiente()) y si la condición asociada a ese bloque 
     siguiente (evaluarSiguiente()) es verdadera. Si la condición se cumple se llama al método super.Hacer(). Esto implica que
@@ -20,25 +18,24 @@ public class BloqueIF extends BloqueCondicional{
     Si es alguno de estos dos casos, se establece el ejecutador de la siguiente línea (SiguienteLinea().ejecutador) para que sea
     el mismo que el ejecutador del bloque actual (ejecutador). Luego, se llama al método Hacer() de la siguiente línea. Esto corresponde
     al comportamiento de un bloque "IF" cuando la condición es falsa y hay una rama "Else" o "Elif" que debe ejecutarse en su lugar.
-    */
-    
+     */
     @Override
-    public void Hacer(){
+    public void Hacer() {
         this.LineaEjecutador();
         if (Siguiente() == null) {
             this.chorizontal.NecesitaSiguiente();
-            if (SiguienteLinea() != null ){
+            if (SiguienteLinea() != null) {
                 SiguienteLinea().ejecutador = ejecutador;
                 SiguienteLinea().Hacer();
+                
             }
-        }else if (evaluarSiguiente()){
+        } else if (evaluarSiguiente()) {
             super.Hacer();
-            
-        } else if (SiguienteLinea() != null){
+
+        } else if (SiguienteLinea() != null) {
             this.hacerSiguiente();
         }
-        SiguienteLinea().Hacer();
+       SiguienteLinea().Hacer();
     }
-    
-    
+
 }

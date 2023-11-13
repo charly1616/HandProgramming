@@ -79,7 +79,7 @@ public class Main extends Application {
             String scriptPath = "src/Main/PythonCode.py";
 
             // Comando para ejecutar el script de Python
-            String[] command = {"C:/Users/User/AppData/Local/Programs/Python/Python311/python.exe", scriptPath};
+            String[] command = {"C:/Users/juand/AppData/Local/Microsoft/WindowsApps/python.exe", scriptPath};
 
             // Crear el proceso
             ProcessBuilder processBuilder = new ProcessBuilder(command);
