@@ -1,5 +1,6 @@
 package Main;
 
+import java.io.IOException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -16,6 +17,7 @@ import javafx.util.Duration;
 public class Main extends Application {
 
     private static Process pythonProcess;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -68,6 +70,7 @@ public class Main extends Application {
 
         timeline.setCycleCount(1); // Ejecutar una vez
         timeline.play();
+        
     }
 
     @Override
@@ -83,7 +86,8 @@ public class Main extends Application {
             String scriptPath = "src/Main/PythonCode.py";
 
             // Comando para ejecutar el script de Python
-            String[] command = {"C:/Users/juand/AppData/Local/Microsoft/WindowsApps/python.exe", scriptPath};   //Juanda
+             String[] command = {"C:/Users/usuario/AppData/Local/Microsoft/WindowsApps/python.exe", scriptPath};
+//            String[] command = {"C:/Users/juand/AppData/Local/Microsoft/WindowsApps/python.exe", scriptPath};   //Juanda
 //          String[] command = {"C:/Users/User/AppData/Local/Programs/Python/Python311/python.exe", scriptPath};   //Charly
 
             // Crear el proceso
