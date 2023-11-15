@@ -6,13 +6,13 @@ import time
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 
-mouse_control = False  # Agrega esta línea
-
 cap = cv2.VideoCapture(0)
 hands = mp_hands.Hands()
 
+mouse_control = False  # Cambia a False para permitir el movimiento sin clic sostenido
 move_interval = 0.1  # Intervalo de tiempo entre movimientos del mouse (segundos)
 last_move_time = time.time()
+left_click_pressed = False
 
 while True:
     ret, image = cap.read()
@@ -56,10 +56,13 @@ while True:
                     pyautogui.moveTo(smooth_x, smooth_y)
                     last_move_time = time.time()
 
-             if fingers_raised == 3:
-                if mouse_control:
-                    if not pyautogui.mouseInfo().left:
-                        pyautogui.mouseDown()
+            elif fingers_raised == 3:
+                if not mouse_control:
+                    pyautogui.mouseDown()
+                    left_click_pressed = True
+                    mouse_control = True
+                else:
+                    # Mover el mouse con el clic izquierdo presionado
                     index_x, index_y = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].x, hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y
                     middle_x, middle_y = hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP].x, hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP].y
 
@@ -72,20 +75,20 @@ while True:
                     smooth_y = current_y + 0.3 * (center_y - current_y)
 
                     pyautogui.moveTo(smooth_x, smooth_y)
-                    last_move_time = time.time()
-                else:
-                    pyautogui.mouseUp()
+
             elif fingers_raised != 3 and mouse_control:
                 pyautogui.mouseUp()
+                left_click_pressed = False
                 mouse_control = False
-
 
             elif fingers_raised == 2:
                 mouse_control = True
                 pyautogui.click()
+
             elif fingers_raised == 4:
                 mouse_control = True
                 pyautogui.scroll(-250)
+
             elif fingers_raised == 0:
                 mouse_control = True
                 pyautogui.scroll(250)
