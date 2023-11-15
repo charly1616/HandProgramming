@@ -30,12 +30,12 @@
                <graphic>
                   <ImageView fitHeight="34.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Downloads/HandProgramming/HandProgramming/src/Principal/compu.png" />
+                        <Image url="@../../../../../../AppData/Local/Temp/icons8_Interactive_Whiteboard_40px.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="buttontutoriales" mnemonicParsing="false" onAction="#OnActionButtontablero" prefHeight="63.0" prefWidth="220.0" styleClass="iota-button" stylesheets="@EstiloButton" text="Tutoriales">
+            <Button fx:id="buttontutoriales" mnemonicParsing="false" onAction="#OnActionButtontutorial" prefHeight="63.0" prefWidth="220.0" styleClass="iota-button" stylesheets="@EstiloButton" text="Tutoriales">
                <font>
                   <Font name="Bodoni MT" size="24.0" />
                </font>
@@ -47,7 +47,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="buttonautores" mnemonicParsing="false" onAction="#OnActionButtontablero" prefHeight="63.0" prefWidth="220.0" styleClass="iota-button" stylesheets="@EstiloButton" text="Autores">
+            <Button fx:id="buttonautores" mnemonicParsing="false" onAction="#OnActionButtonautores" prefHeight="63.0" prefWidth="220.0" styleClass="iota-button" stylesheets="@EstiloButton" text="Autores">
                <font>
                   <Font name="Bodoni MT" size="24.0" />
                </font>
