@@ -42,6 +42,7 @@ public class PrincipalController implements Initializable {
         // TODO
     }
 
+   
     @FXML
     private void OnActionButtontablero(ActionEvent event) {
         try {
@@ -72,6 +73,7 @@ public class PrincipalController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Autores.fxml"));
             Parent root = loader.load();
 
+          
         } catch (IOException e) {
             e.printStackTrace();
         }

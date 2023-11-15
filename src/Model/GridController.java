@@ -53,11 +53,9 @@ import javafx.stage.Stage;
  * @author User
  */
 public class GridController implements Initializable {
-    
-    
+
     public Process camara;
-    
-    
+
     @FXML
     public Pane GridView;
     public double scale = 1;
@@ -108,54 +106,48 @@ public class GridController implements Initializable {
         Grid.setBackground(Background.EMPTY);
         GridView.setBackground(Background.fill(Color.BLACK));
 
-       
-
-       
-
-
-        BorderPane layout = new BorderPane();
-        layout.setLayoutX(00);
-        layout.setLayoutY(15);
-        MenuBar menuBar = new MenuBar();
-
-        GridView.getChildren().add(layout);
-        Menu file = new Menu("File");
-        Menu about = new Menu("About");
-        layout.setTop(menuBar);
-
-        menuBar.setUseSystemMenuBar(true);
-
-        menuBar.getMenus().addAll(file, about);
-
-        MenuItem item1 = new MenuItem("Open");
-        MenuItem item2 = new MenuItem("Save");
-        MenuItem item3 = new MenuItem("Exit");
-
-        // this RadioMenuItem
-        RadioMenuItem r1 = new RadioMenuItem("True");
-        RadioMenuItem r2 = new RadioMenuItem("False");
-        ToggleGroup rGroup = new ToggleGroup();
-        rGroup.getToggles().addAll(r1, r2);
-
-        // This one is CheckMenuItem
-        CheckMenuItem c1 = new CheckMenuItem("Stroke for Circle");
-        CheckMenuItem c2 = new CheckMenuItem("Stroke for Rectangle");
-
-        // This one submenu item
-        Menu submenu = new Menu("Save As");
-        submenu.getItems().addAll(r1, r2);
-
-        // Custom Menu Item
-        CustomMenuItem customItem = new CustomMenuItem();
-        Button btn = new Button("Kensoft PH");
-        TextField text = new TextField();
-        customItem.setHideOnClick(false);
-        customItem.setContent(text);
-
-        // Separator Menuitem
-        SeparatorMenuItem separatorMenuItem = new SeparatorMenuItem();
-        SeparatorMenuItem separatorMenuItem2 = new SeparatorMenuItem();
-
+//        BorderPane layout = new BorderPane();
+//        layout.setLayoutX(00);
+//        layout.setLayoutY(15);
+//        MenuBar menuBar = new MenuBar();
+//
+//        GridView.getChildren().add(layout);
+//        Menu file = new Menu("File");
+//        Menu about = new Menu("About");
+//        layout.setTop(menuBar);
+//
+//        menuBar.setUseSystemMenuBar(true);
+//
+//        menuBar.getMenus().addAll(file, about);
+//
+//        MenuItem item1 = new MenuItem("Open");
+//        MenuItem item2 = new MenuItem("Save");
+//        MenuItem item3 = new MenuItem("Exit");
+//
+//        // this RadioMenuItem
+//        RadioMenuItem r1 = new RadioMenuItem("True");
+//        RadioMenuItem r2 = new RadioMenuItem("False");
+//        ToggleGroup rGroup = new ToggleGroup();
+//        rGroup.getToggles().addAll(r1, r2);
+//
+//        // This one is CheckMenuItem
+//        CheckMenuItem c1 = new CheckMenuItem("Stroke for Circle");
+//        CheckMenuItem c2 = new CheckMenuItem("Stroke for Rectangle");
+//
+//        // This one submenu item
+//        Menu submenu = new Menu("Save As");
+//        submenu.getItems().addAll(r1, r2);
+//
+//        // Custom Menu Item
+//        CustomMenuItem customItem = new CustomMenuItem();
+//        Button btn = new Button("Kensoft PH");
+//        TextField text = new TextField();
+//        customItem.setHideOnClick(false);
+//        customItem.setContent(text);
+//
+//        // Separator Menuitem
+//        SeparatorMenuItem separatorMenuItem = new SeparatorMenuItem();
+//        SeparatorMenuItem separatorMenuItem2 = new SeparatorMenuItem();
         hacerNavegable();
         GridView.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
@@ -244,6 +236,7 @@ public class GridController implements Initializable {
 
             }
         }
+
         Grid.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.DELETE) { // Cambiado de KeyCode.BACK_SPACE a KeyCode.DELETE
                 // Verificar si hay bloques seleccionados para eliminar
@@ -262,13 +255,43 @@ public class GridController implements Initializable {
 
         MenuBloques u = new MenuBloques(creadorb);
         GridView.getChildren().add(u);
-        
-        
+
         hacerZoomeable();
 
+        // Crear un botón
+        Button cambiarEscenaButton = new Button("Cambiar a Principal");
+        cambiarEscenaButton.setOnAction(event -> cambiarEscenaPrincipal());
+
+        // Configurar el botón en la esquina superior derecha
+        AnchorPane.setTopAnchor(cambiarEscenaButton, 10.0);
+        AnchorPane.setRightAnchor(cambiarEscenaButton, 10.0);
+
+        // Agregar el botón al AnchorPane
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getChildren().add(cambiarEscenaButton);
+
+        // Establecer el AnchorPane como el contenido de la ventana
+        GridView.getChildren().add(anchorPane);
     }
 
-    
+    private void cambiarEscenaPrincipal() {
+        try {
+            // Cargar el archivo FXML de Principal.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Main/Principal.fxml"));
+            Parent root = loader.load();
+
+            // Crear una nueva escena
+            Scene scene = new Scene(root);
+
+            // Obtener la ventana actual y establecer la nueva escena
+            Stage stage = (Stage) GridView.getScene().getWindow();
+            stage.setScene(scene);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void deseleccionarBloques() {
         for (Bloque bloque : bloques) {
             bloque.setStyle("-fx-border-color: transparent; -fx-border-width: 1px;");
@@ -618,18 +641,14 @@ public class GridController implements Initializable {
         Grid.getChildren().remove(bloque);
         bloques.remove(bloque);
     }
-    
-    
-    
-    
-    private void ActivarCamara(){
+
+    private void ActivarCamara() {
         try {
             String scriptPath = "src/Main/PythonCode.py";
 
             String[] command = {"C:/Users/juand/AppData/Local/Microsoft/WindowsApps/python.exe", scriptPath};   //Juanda
 //            String[] command = {"C:/Users/User/AppData/Local/Programs/Python/Python311/python.exe", scriptPath};   //Charly
-            
-            
+
             ProcessBuilder processBuilder = new ProcessBuilder(command);
             camara = processBuilder.start();
 
@@ -637,9 +656,8 @@ public class GridController implements Initializable {
             e.printStackTrace();
         }
     }
-    
-    
-    private void DesactivarCamara(){
+
+    private void DesactivarCamara() {
         try {
             camara.destroy();
 
@@ -647,6 +665,5 @@ public class GridController implements Initializable {
             e.printStackTrace();
         }
     }
-    
 
 }
