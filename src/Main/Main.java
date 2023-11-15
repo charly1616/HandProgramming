@@ -46,7 +46,14 @@ public class Main extends Application {
                 }),
                 new KeyFrame(Duration.seconds(3), event -> {
                     try {
-                        Parent mainRoot = FXMLLoader.load(getClass().getResource("ventana.fxml"));
+                        // Cargar el archivo Principal.fxml
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("Principal.fxml"));
+                        Parent mainRoot = loader.load();
+
+                        // Configurar el controlador si es necesario
+                        // PrincipalController controller = loader.getController();
+                        // controller.initialize(); // Ajusta según tus necesidades
+
                         Scene mainScene = new Scene(mainRoot);
                         primaryStage.setScene(mainScene);
                         primaryStage.setTitle("PROYECTO SISTEMAS");
