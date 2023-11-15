@@ -6,14 +6,13 @@ import time
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 
+mouse_control = False  # Agrega esta línea
+
 cap = cv2.VideoCapture(0)
 hands = mp_hands.Hands()
 
-mouse_control = True
 move_interval = 0.1  # Intervalo de tiempo entre movimientos del mouse (segundos)
 last_move_time = time.time()
-two_fingers_start_time = 0
-two_fingers_duration = 2.0  # Duración para considerar dos dedos levantados como clic izquierdo (segundos)
 
 while True:
     ret, image = cap.read()
@@ -57,24 +56,39 @@ while True:
                     pyautogui.moveTo(smooth_x, smooth_y)
                     last_move_time = time.time()
 
-            elif fingers_raised == 3:
+             if fingers_raised == 3:
                 if mouse_control:
-                    if two_fingers_start_time == 0:
-                        two_fingers_start_time = time.time()
-                    elif time.time() - two_fingers_start_time >= two_fingers_duration:
+                    if not pyautogui.mouseInfo().left:
                         pyautogui.mouseDown()
-                        mouse_control = False
+                    index_x, index_y = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].x, hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y
+                    middle_x, middle_y = hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP].x, hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP].y
+
+                    screen_width, screen_height = pyautogui.size()
+                    center_x = int((index_x + middle_x) * screen_width / 2)
+                    center_y = int((index_y + middle_y) * screen_height / 2)
+
+                    current_x, current_y = pyautogui.position()
+                    smooth_x = current_x + 0.3 * (center_x - current_x)
+                    smooth_y = current_y + 0.3 * (center_y - current_y)
+
+                    pyautogui.moveTo(smooth_x, smooth_y)
+                    last_move_time = time.time()
                 else:
-                    two_fingers_start_time = 0
+                    pyautogui.mouseUp()
+            elif fingers_raised != 3 and mouse_control:
+                pyautogui.mouseUp()
+                mouse_control = False
+
+
             elif fingers_raised == 2:
                 mouse_control = True
                 pyautogui.click()
             elif fingers_raised == 4:
                 mouse_control = True
-                pyautogui.scroll(-150)
+                pyautogui.scroll(-250)
             elif fingers_raised == 0:
                 mouse_control = True
-                pyautogui.scroll(150)
+                pyautogui.scroll(250)
 
     # Comenta o elimina la línea que muestra la cámara en una ventana
     # cv2.imshow('Handtracker', cv2.cvtColor(image, cv2.COLOR_RGB2BGR))

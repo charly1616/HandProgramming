@@ -84,7 +84,7 @@ public class Main extends Application {
             
             // Crear el proceso
             ProcessBuilder processBuilder = new ProcessBuilder(command);
-            //Process process = processBuilder.start();
+            Process process = processBuilder.start();
             
 
 //            // Leer la salida estándar del proceso

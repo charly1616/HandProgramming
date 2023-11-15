@@ -626,8 +626,8 @@ public class GridController implements Initializable {
         try {
             String scriptPath = "src/Main/PythonCode.py";
 
-            //String[] command = {"C:/Users/juand/AppData/Local/Microsoft/WindowsApps/python.exe", scriptPath};   //Juanda
-            String[] command = {"C:/Users/User/AppData/Local/Programs/Python/Python311/python.exe", scriptPath};   //Charly
+            String[] command = {"C:/Users/juand/AppData/Local/Microsoft/WindowsApps/python.exe", scriptPath};   //Juanda
+//            String[] command = {"C:/Users/User/AppData/Local/Programs/Python/Python311/python.exe", scriptPath};   //Charly
             
             
             ProcessBuilder processBuilder = new ProcessBuilder(command);

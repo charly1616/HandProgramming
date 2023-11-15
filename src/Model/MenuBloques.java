@@ -34,13 +34,27 @@ public class MenuBloques extends VBox{
         
         setStyle("-fx-background-color: #E7E7E7;");
 
+        
+          // Botón 9
+        Button button9 = createButton("/src/Images/Open 0Box.png", "#EA4E00");
+        getChildren().add(button9);
+        button9.setOnAction(e -> {
+            crearFor();
+        });
+        
         // Botón 1
         Button button1 = createButton("/src/Images/Open 0Box.png", "#FFA917");
         getChildren().add(button1);
+        button1.setOnAction(e -> {
+            crearVar();
+        });
 
         // Botón 2
-        Button button2 = createButton("@../../AppData/Local/Temp/Icons8/Pichon/Multiply.png", "#817590");
+        Button button2 = createButton("@../../AppData/Local/Temp/Icons8/Pichon/Multiply.png", "#FFE333");
         getChildren().add(button2);
+        button2.setOnAction(e -> {
+            crearDat();
+        });
 
         // Separador
         Separator separator1 = new Separator();
@@ -51,10 +65,30 @@ public class MenuBloques extends VBox{
         // Botón 3
         Button button3 = createButton("@../../AppData/Local/Temp/Icons8/Pichon/Repeat_2.png", "#A77CE0");
         getChildren().add(button3);
+        button3.setOnAction(e -> {
+            crearWhile();
+        });
 
         // Botón 4
         Button button4 = createButton("@../../AppData/Local/Temp/Icons8/Pichon/Share_1.png", "#88DBFF");
         getChildren().add(button4);
+        button4.setOnAction(e -> {
+            crearIf();
+        });
+        
+        // Botón 0
+        Button button0 = createButton("@../../AppData/Local/Temp/Icons8/Pichon/Share_1.png", "#0DF7A9");
+        getChildren().add(button0);
+        button0.setOnAction(e -> {
+            crearElse();
+        });
+        
+        // Botón 01
+        Button button01 = createButton("@../../AppData/Local/Temp/Icons8/Pichon/Share_1.png", "#01D527");
+        getChildren().add(button01);
+        button01.setOnAction(e -> {
+            crearElif();
+        });
 
         // Separador
         Separator separator3 = new Separator();
@@ -87,15 +121,40 @@ public class MenuBloques extends VBox{
     
     
     private void crearMostrar(){
-        creadorb.BloqueMostrar(400 - (int)creadorb.cuadricula.Grid.getTranslateX(), 400 - (int)creadorb.cuadricula.Grid.getTranslateY());
+        creadorb.BloqueMostrar(400 - (int)creadorb.cuadricula.Grid.getTranslateX(), 300 - (int)creadorb.cuadricula.Grid.getTranslateY());
+    }
+    
+     private void crearElif(){
+        creadorb.BloqueElif(400 - (int)creadorb.cuadricula.Grid.getTranslateX(), 300 - (int)creadorb.cuadricula.Grid.getTranslateY());
+    }
+    private void crearFor(){
+        creadorb.BloqueFor(400 - (int)creadorb.cuadricula.Grid.getTranslateX(), 300 - (int)creadorb.cuadricula.Grid.getTranslateY());
+    }
+    
+        private void crearElse(){
+        creadorb.BloqueElse(400 - (int)creadorb.cuadricula.Grid.getTranslateX(), 300 - (int)creadorb.cuadricula.Grid.getTranslateY());
+    }
+    private void crearWhile(){
+        creadorb.BloqueWhile(400 - (int)creadorb.cuadricula.Grid.getTranslateX(), 300 - (int)creadorb.cuadricula.Grid.getTranslateY());
+    }
+    
+    private void crearDat(){
+        creadorb.BloqueValor(400 - (int)creadorb.cuadricula.Grid.getTranslateX(), 300 - (int)creadorb.cuadricula.Grid.getTranslateY());
     }
     
     
+    private void crearVar(){
+        creadorb.BloqueVariable(400 - (int)creadorb.cuadricula.Grid.getTranslateX(), 300 - (int)creadorb.cuadricula.Grid.getTranslateY());
+    }
     
     private void crearPedir(){
-        creadorb.BloquePedir(400 - (int)creadorb.cuadricula.Grid.getTranslateX(), 400 - (int)creadorb.cuadricula.Grid.getTranslateY());
+        creadorb.BloquePedir(400 - (int)creadorb.cuadricula.Grid.getTranslateX(), 300 - (int)creadorb.cuadricula.Grid.getTranslateY());
     }
     
+    
+    private void crearIf(){
+        creadorb.BloqueIF(400 - (int)creadorb.cuadricula.Grid.getTranslateX(), 300 - (int)creadorb.cuadricula.Grid.getTranslateY());
+    }
     
     
     private Button createButton(String imageUrl, String backgroundColor) {
